@@ -22,6 +22,7 @@
     CGFloat previousW;
 }
 
+
 @property long currentYear;
 @property long currentMonth;
 @property bool firstRst;
