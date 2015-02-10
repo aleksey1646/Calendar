@@ -1,0 +1,202 @@
+//
+//  SelectDatesAndTimeController.m
+//  emptyProject
+//
+//  Created by A.O. on 11.01.15.
+//  Copyright (c) 2015 A.O. All rights reserved.
+//
+
+#import "SelectDatesAndTimeController.h"
+#import "GLang.h"
+
+@interface SelectDatesAndTimeController ()
+@property (weak) UIGCalendarMonthTmp *previousSelectedMonth;
+@end
+
+@implementation SelectDatesAndTimeController
+@synthesize cw,segmentControl;
+-(void)updateSizes{
+    CGRect cg=CGRectMake(0, 0, cw.frame.size.width,cw.frame.size.height);
+    [gcalendar setFrame: cg ];
+    //clock
+    CGFloat clocksize=(cw.frame.size.width>cw.frame.size.height)?cw.frame.size.height:cw.frame.size.width;
+    CGFloat width95p= clocksize/100*90;
+    CGFloat wleft=(cw.frame.size.width/2)-(width95p/2);
+    CGRect cg_clock=CGRectMake( wleft , 0, width95p, width95p);
+    [gclock setFrame: cg_clock ];
+    [uitableview setFrame:cg];
+}
+-(void) GCalendarDelegate:(UIGCalendar*)cal onOnceTap:(UIGCalendarMonthTmp*)mf{
+    
+    if (self.previousSelectedMonth) {
+        [self.previousSelectedMonth unselectAllDaysInMonth];
+    }
+    [mf selectAllDaysInMonth];
+    self.previousSelectedMonth = mf;
+
+}
+
+-(void) GCalendarDelegate:(UIGCalendar*)cal onDoubleTap:(UIGCalendarMonthTmp*)mf{
+    int month=[mf getCurrentMonth];
+    int year=[mf getCurrentYear];
+    
+    UIViewController* ctrl=[ self.storyboard instantiateViewControllerWithIdentifier:@"oneMonthInEdit" ];
+    UIGCalendarMonthTmp* new_mf=(UIGCalendarMonthTmp*)ctrl.view;
+    [new_mf setMonth:month withYear:year];
+    /*
+    ctrl.view.transform = CGAffineTransformMakeScale(0.01, 0.01);
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                         [self.view addSubview:ctrl.view];
+                         ctrl.view.transform=CGAffineTransformMakeScale(1, 1);
+                     }
+                     completion:^(BOOL finished){
+                         [ctrl.view removeFromSuperview];
+                         [self.navigationController pushViewController: ctrl animated:NO];
+                     }];
+    
+    */
+    [self.navigationController pushViewController: ctrl animated:YES];
+//    NSLog(@"UIGCalendarYearFast! %@",mf);
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    [self updateSizes];
+}
+
+-(void)viewDidLayoutSubviews{
+    [super viewDidLayoutSubviews];
+    [self updateSizes];
+}
+
+-(IBAction)onSegmentClick:(id)sender{
+    [gcalendar removeFromSuperview];
+    [gclock removeFromSuperview];
+    [uitableview removeFromSuperview];
+    switch([segmentControl selectedSegmentIndex]){
+        case 0:[cw addSubview:gcalendar];break;
+        case 1:[cw addSubview:gclock];break;
+        case 2:[cw addSubview:uitableview];break;
+    }
+    
+}
+
+- (void)updateFooterText{
+    NSMutableDictionary* firstSection= [extds objectAtIndex: 0 ];
+    NSArray* cells=[firstSection objectForKey:@"cells"];
+    NSMutableString* ms=[[NSMutableString alloc]init];
+    for(int i=0;i<7;i++){
+        NSDictionary* o=[cells objectAtIndex:i];
+        bool isSelected=[[o objectForKey:@"type"] isEqualToString:@"checkbox"];
+        if(isSelected){
+            if(![ms isEqualToString:@""]){[ms appendString:@", "];}
+            [ms appendString:[GLang getString: [NSString stringWithFormat:@"DayNames.full.d%d",i+1] ]];
+        }
+    }
+    
+    if( [ms isEqualToString:[NSString stringWithFormat:@"%@, %@, %@, %@, %@",
+                             [GLang getString:@"DayNames.full.d1"],
+                             [GLang getString:@"DayNames.full.d2"],
+                             [GLang getString:@"DayNames.full.d3"],
+                             [GLang getString:@"DayNames.full.d4"],
+                             [GLang getString:@"DayNames.full.d5"]
+                             ]]  ){
+        [ms setString: [GLang getString:@"DayNames.full.weekday_days"] ];
+    }else     if( [ms isEqualToString:[NSString stringWithFormat:@"%@, %@",
+                                       [GLang getString:@"DayNames.full.d6"],
+                                       [GLang getString:@"DayNames.full.d7"]
+                                       ]]  ){
+        [ms setString: [GLang getString:@"DayNames.full.weekend_days"] ];
+    }
+  
+    if([ms length]){
+        NSRange r={0,1};
+        [daysFooterLabel setText: [NSString stringWithFormat:@"%@%@",[[ms substringWithRange:r] uppercaseString],[[ms substringFromIndex:1] lowercaseString]]  ];
+    }else{
+        [daysFooterLabel setText:@""];
+    }
+//    NSMutableString * a=[firstSection objectForKey:@"footer_title"];
+//    [a setString: ms ];
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(tableView!=uitableview){return nil;}
+    NSMutableDictionary* firstSection= [extds objectAtIndex: [indexPath section] ];
+    NSMutableDictionary* d=[[firstSection objectForKey:@"cells"] objectAtIndex:[indexPath row]];
+    [d setObject:([[d objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
+    [self updateFooterText];
+    [uitableview setExtendedDataSource:extds];
+    return nil;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    if(tableView!=uitableview){return nil;}
+    return daysFooterLabel;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if(tableView!=uitableview){return 0;}
+    return [@"A\nA\nA\nA" sizeWithAttributes:@{NSFontAttributeName: [daysFooterLabel font] }].height;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    daysFooterLabel=[[UILabel alloc]initWithFrame:CGRectZero];
+    [daysFooterLabel setTextColor:[UIColor grayColor]];
+    [daysFooterLabel setFont:[UIFont systemFontOfSize:13]];
+    [daysFooterLabel setNumberOfLines:7];
+    [daysFooterLabel setLineBreakMode:NSLineBreakByWordWrapping];
+    [daysFooterLabel setTextAlignment:NSTextAlignmentCenter];
+    gcalendar=[[UIGCalendar alloc]initWithFrame:CGRectZero];
+    gclock=[[ClockView alloc]initWithFrame:CGRectZero];
+    [gcalendar setGCalendarDelegate:self];
+    uitableview=[[UIExtendedTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    extds=
+    [NSArray arrayWithObjects:
+     @{@"cells":
+                [NSArray arrayWithObjects:
+    [NSMutableDictionary dictionaryWithObjectsAndKeys:[GLang getString:@"SelectDates.day.d1"],@"title",@"UITableViewCellStyleDefault",@"style",@"",@"description",@"default",@"type", nil],
+    [NSMutableDictionary dictionaryWithObjectsAndKeys:[GLang getString:@"SelectDates.day.d2"],@"title",@"UITableViewCellStyleDefault",@"style",@"",@"description",@"default",@"type", nil],
+    [NSMutableDictionary dictionaryWithObjectsAndKeys:[GLang getString:@"SelectDates.day.d3"],@"title",@"UITableViewCellStyleDefault",@"style",@"",@"description",@"default",@"type", nil],
+    [NSMutableDictionary dictionaryWithObjectsAndKeys:[GLang getString:@"SelectDates.day.d4"],@"title",@"UITableViewCellStyleDefault",@"style",@"",@"description",@"default",@"type", nil],
+    [NSMutableDictionary dictionaryWithObjectsAndKeys:[GLang getString:@"SelectDates.day.d5"],@"title",@"UITableViewCellStyleDefault",@"style",@"",@"description",@"default",@"type", nil],
+    [NSMutableDictionary dictionaryWithObjectsAndKeys:[GLang getString:@"SelectDates.day.d6"],@"title",@"UITableViewCellStyleDefault",@"style",@"",@"description",@"default",@"type", nil],
+    [NSMutableDictionary dictionaryWithObjectsAndKeys:[GLang getString:@"SelectDates.day.d7"],@"title",@"UITableViewCellStyleDefault",@"style",@"",@"description",@"default",@"type", nil],
+                                           nil],
+       @"header_title":@"",
+       @"footer_title":[[NSMutableString alloc]init],
+       @"footer_align":@"center"
+       }
+       ,nil];
+    [uitableview setDelegate:self];
+    
+    [uitableview setExtendedDataSource:extds];
+    
+    [[self cw] addSubview:gcalendar];
+    
+    [self.segmentControl setTitle:[GLang getString:@"SelectDates.calendar"] forSegmentAtIndex:0];
+    [self.segmentControl setTitle:[GLang getString:@"SelectDates.clock"] forSegmentAtIndex:1];
+    [self.segmentControl setTitle:[GLang getString:@"SelectDates.days"] forSegmentAtIndex:2];
+    
+    [self setTitle:[GLang getString:@"SelectDates.title"]];
+    
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end
