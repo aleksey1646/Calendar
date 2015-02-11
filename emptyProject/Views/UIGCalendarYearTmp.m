@@ -7,16 +7,17 @@
 //
 
 #import "UIGCalendarYearTmp.h"
+#import "CustomTapGestureRecognizer.h"
 
 @implementation UIGCalendarYearTmp
 @synthesize yearLabel,GCalendarYearTmpDelegate, currentYearLabel;
 
-double previousClickTime=0;
-
-- (void)monthDoubleClick:(UITapGestureRecognizer*)sender
+- (void)clickOnMonth:(CustomTapGestureRecognizer*)sender
 {
-    double ct=CACurrentMediaTime();
-      if(previousClickTime && ct-previousClickTime<0.25){
+    
+    NSLog(@"gesture recognizer tap count: %i", [sender tapCount]);
+    
+      if([sender tapCount] > 1){
         
         if(GCalendarYearTmpDelegate ){
       
@@ -29,11 +30,7 @@ double previousClickTime=0;
             [GCalendarYearTmpDelegate GCalendarYearFastDelegate:self onOnceTap:(UIGCalendarMonthTmp*)[sender view]];
        
         }
-       
-        
     }
-    
-    previousClickTime=ct;
    
 }
 
@@ -84,8 +81,9 @@ double previousClickTime=0;
             [self addSubview:cf];
             [calendars addObject:cf];
             
-            UITapGestureRecognizer *double_tap_recognizer;
-            double_tap_recognizer = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector (monthDoubleClick:)];
+            CustomTapGestureRecognizer *double_tap_recognizer;
+            double_tap_recognizer = [[CustomTapGestureRecognizer alloc] initWithTarget: self action: @selector (clickOnMonth:)];
+            double_tap_recognizer.delaysTouchesEnded = YES;
             [double_tap_recognizer setNumberOfTouchesRequired : 1];
             
             [cf addGestureRecognizer:double_tap_recognizer];
