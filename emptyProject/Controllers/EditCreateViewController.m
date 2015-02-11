@@ -33,31 +33,9 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    
-        NSLog(@"scrollViewDidEndDecelerating");
-        scrollView = self.tableView;
-        
-        
-        NSLog(@"%f",scrollView.contentOffset.y);
-        
-        CGRect aRect = scrollView.frame;
-        NoteTableViewCell *cell = [[NoteTableViewCell alloc]init];
-    
-        aRect.size.height -= self.keyboardSize.height;
-    
-        CGRect cellFrameWithoutContentOffSet =  cell.frame;
-    
-        cellFrameWithoutContentOffSet.origin.y -= scrollView.contentOffset.y;
-    
-    if (!CGRectContainsRect(aRect, cellFrameWithoutContentOffSet))
-    {
-        float pointToScrollY = scrollView.contentOffset.y + _keyboardSize.height;
-        [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x,
-                                                           pointToScrollY) animated:YES];
-    }
-    
-    }
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+}
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
@@ -70,12 +48,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [tableView setDelegate:self];
+   
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
                                                object:nil];
-    
     
     
     NSMutableArray* mainTab=[[NSMutableArray alloc]init];
