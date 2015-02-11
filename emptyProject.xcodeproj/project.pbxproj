@@ -35,6 +35,7 @@
 		C1E7AB081A5EF62E00AA7665 /* UIGCalendarYearTmp.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E7AB071A5EF62E00AA7665 /* UIGCalendarYearTmp.m */; };
 		C1F720A41A583CDB00320D33 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F720A31A583CDB00320D33 /* UIKit.framework */; };
 		C1FBD4E61A62F638003A6A9A /* SelectDatesAndTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBD4E51A62F638003A6A9A /* SelectDatesAndTimeController.m */; };
+		C8D9613E1A8B426000C81AEF /* CustomTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */; };
 		E1B83C591A8634B50080892A /* NoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B83C581A8634B50080892A /* NoteTableViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -100,6 +101,8 @@
 		C1F720A31A583CDB00320D33 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C1FBD4E41A62F638003A6A9A /* SelectDatesAndTimeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectDatesAndTimeController.h; path = Controllers/SelectDatesAndTimeController.h; sourceTree = "<group>"; };
 		C1FBD4E51A62F638003A6A9A /* SelectDatesAndTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectDatesAndTimeController.m; path = Controllers/SelectDatesAndTimeController.m; sourceTree = "<group>"; };
+		C8D9613C1A8B426000C81AEF /* CustomTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTapGestureRecognizer.h; sourceTree = "<group>"; };
+		C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTapGestureRecognizer.m; sourceTree = "<group>"; };
 		E1B83C571A8634B50080892A /* NoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteTableViewCell.h; sourceTree = "<group>"; };
 		E1B83C581A8634B50080892A /* NoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,6 +208,7 @@
 		C1D871B91A5769A300B61429 /* emptyProject */ = {
 			isa = PBXGroup;
 			children = (
+				C8D9613B1A8B422200C81AEF /* Utils */,
 				E1B83C531A86333B0080892A /* cells */,
 				C1E7AAFF1A5C899E00AA7665 /* Views */,
 				C131A03C1A5AF85500AE323E /* Classess */,
@@ -262,6 +266,15 @@
 				C1AA2D6D1A5F382F005DCC23 /* ClockView.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		C8D9613B1A8B422200C81AEF /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C8D9613C1A8B426000C81AEF /* CustomTapGestureRecognizer.h */,
+				C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		E1B83C531A86333B0080892A /* cells */ = {
@@ -392,6 +405,7 @@
 				C199B2931A6D6D6B00B77253 /* AccountViewController.m in Sources */,
 				C199B2901A6D680500B77253 /* SelectSoundViewController.m in Sources */,
 				C1AA2D6E1A5F382F005DCC23 /* ClockView.m in Sources */,
+				C8D9613E1A8B426000C81AEF /* CustomTapGestureRecognizer.m in Sources */,
 				C131A03B1A5AF83C00AE323E /* GLocationProvider.m in Sources */,
 				C131A0271A59BB6E00AE323E /* EditCreateViewController.m in Sources */,
 				C1D871BD1A5769A300B61429 /* main.m in Sources */,
