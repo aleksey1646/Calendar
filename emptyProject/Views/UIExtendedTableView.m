@@ -177,6 +177,7 @@
 
 
 @implementation UIExtendedTableView
+
 @synthesize privateDataSource;
 
 -(NSDictionary*)extendedDictionaryForIndexPath:(NSIndexPath*)indx{
@@ -216,6 +217,7 @@
     
 }
 
+
 -(void)setExtendedDataSource:(UIExtendedDataSource)arrayWithDictionarys{
     [privateDataSource setDataSource:arrayWithDictionarys];
     [self reloadData];
@@ -223,6 +225,7 @@
 
 -(void)layoutSubviews{
     [super layoutSubviews];
+      
 }
 
 

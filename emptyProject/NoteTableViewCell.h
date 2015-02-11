@@ -13,6 +13,7 @@
 
 @property (weak,nonatomic) UIExtendedTableView *tableView;
 @property (weak,nonatomic) UITextView *textView;
+@property (assign) CGSize keyboardSize;
 
 
 @end

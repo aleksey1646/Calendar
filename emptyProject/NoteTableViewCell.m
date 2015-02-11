@@ -10,7 +10,7 @@
 
 @interface NoteTableViewCell()
 
-@property (assign) CGSize keyboardSize;
+
 @property (weak) UITableView *parentTableView;
 
 @end
@@ -31,6 +31,7 @@
         textView.returnKeyType = UIReturnKeyDone;
         self.textView = textView;
         self.textView.delegate = self;
+       
         
         
         [self.contentView addSubview:self.textView];
@@ -48,17 +49,17 @@
 - (void)keyboardWillShow:(NSNotification *)notification
 {
     
-    
+   
     CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     
     _keyboardSize = keyboardSize;
+    
 }
 
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
     
     
     CGRect rect = self.contentView.bounds;
@@ -128,7 +129,13 @@
     }
     
     
+    
+    
 }
+
+
+
+
 
 /*
 - (void)textViewDidEndEditing:(UITextView *)textView

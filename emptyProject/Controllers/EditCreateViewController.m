@@ -8,7 +8,9 @@
 
 #import "EditCreateViewController.h"
 #import "GLang.h"
+#import "NoteTableViewCell.h"
 @implementation EditCreateViewController
+
 @synthesize tableView;
 
 - (void)tableView:(UIExtendedTableView *)tableView_local didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -27,12 +29,52 @@
     NSLog(@"doneButtonClicked");
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+        NSLog(@"scrollViewDidEndDecelerating");
+        scrollView = self.tableView;
+        
+        
+        NSLog(@"%f",scrollView.contentOffset.y);
+        
+        CGRect aRect = scrollView.frame;
+        NoteTableViewCell *cell = [[NoteTableViewCell alloc]init];
+    
+        aRect.size.height -= self.keyboardSize.height;
+    
+        CGRect cellFrameWithoutContentOffSet =  cell.frame;
+    
+        cellFrameWithoutContentOffSet.origin.y -= scrollView.contentOffset.y;
+    
+    if (!CGRectContainsRect(aRect, cellFrameWithoutContentOffSet))
+    {
+        float pointToScrollY = scrollView.contentOffset.y + _keyboardSize.height;
+        [scrollView setContentOffset:CGPointMake(scrollView.contentOffset.x,
+                                                           pointToScrollY) animated:YES];
+    }
+    
+    }
 
-
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    
+    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    _keyboardSize = keyboardSize;
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     [tableView setDelegate:self];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
     
     
     
@@ -42,7 +84,7 @@
   [NSArray arrayWithObjects:
    @{@"title": [GLang getString:@"EditCreate.place"], @"style":@"UITableViewCellStyleDefault",@"description":@"Auto",@"type":@"arrow"},
    @{@"title": [GLang getString:@"EditCreate.date"], @"ident":@"date", @"style":@"UITableViewCellStyleDefault",@"description":@"Fixed",@"type":@"arrow"},
-   //@{@"title": [GLang getString:@"EditCreate.note"], @"style":@"UITableViewCellStyleDefault",@"description":@"Insert value",@"type":@"arrow"},
+   
    nil]}];
     
     [mainTab addObject:@{ @"header_title": [GLang getString:@"EditCreate.category.alerts" ],@"cells":

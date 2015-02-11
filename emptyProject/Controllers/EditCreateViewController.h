@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "SubTabBarViewController.h"
 #import "UIExtendedTableView.h"
-@interface EditCreateViewController : SubTabBarViewController<UITableViewDelegate>{
+@interface EditCreateViewController : SubTabBarViewController<UITableViewDelegate,UIScrollViewDelegate>{
     //IBOutlet UIExtendedTableView* tableView;
 }
 @property (retain,nonatomic) IBOutlet UIExtendedTableView* tableView;
+@property (assign) CGSize keyboardSize;
 
 @end
