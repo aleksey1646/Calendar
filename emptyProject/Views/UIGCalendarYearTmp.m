@@ -34,8 +34,6 @@
    
 }
 
-
-
 -(void)restructIfNeeded{
     long elementsInRow;
     long elementRowsInPage;
@@ -61,17 +59,33 @@
     int i;
     int tmp_m=(int)1;
     
-    UILabel *cYearLabel = [[UILabel alloc]initWithFrame:CGRectZero];
-    [cYearLabel setFont:[UIFont systemFontOfSize:16]];
-    [cYearLabel setText:[NSString stringWithFormat:@"%d",currentYear]];
-    
-    [cYearLabel setFrame:CGRectMake(ira_x+border/2, ira_y, widthOverWidth, oneElementSize/5)];
-    [cYearLabel setTextColor:[UIColor colorWithRed:1.0 green:0.2 blue:0.2 alpha:1]];
-    
-    [self addSubview:cYearLabel];
     
     
+    if (currentYearLabel.superview) {
+        [currentYearLabel removeFromSuperview];
+    }
+        
+        currentYearLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+        [currentYearLabel setFont:[UIFont systemFontOfSize:24]];
+        [currentYearLabel setText:[NSString stringWithFormat:@"%d",currentYear]];
+        
+        [currentYearLabel setFrame:CGRectMake(ira_x+border/2, ira_y, widthOverWidth, oneElementSize/5)];
+        [currentYearLabel setTextColor:[UIColor grayColor]];
+        
+        [self addSubview:currentYearLabel];
     
+    
+    if (_viewUnderline.superview) {
+        [_viewUnderline removeFromSuperview];
+    }
+   
+    _viewUnderline=[[UIView alloc] init];
+    
+    _viewUnderline.frame=CGRectMake(currentYearLabel.frame.origin.x,currentYearLabel.frame.origin.y+currentYearLabel.frame.size.height+border/2,widthOverWidth,0.5);
+                                   
+    _viewUnderline.backgroundColor=[UIColor grayColor];
+    [self addSubview:_viewUnderline];
+
     for(i=0;i<12;i++){
         UIGCalendarMonthTmp* cf;
         if([calendars count]<=i){
@@ -113,6 +127,8 @@
         [calendars removeObjectAtIndex:i];
     }
     
+   
+    
 }
 
 -(void)layoutSubviews{
@@ -124,6 +140,8 @@
     self=[super initWithFrame:frame];
     if(!self){return nil;}
     calendars=[[NSMutableArray alloc]init];
+    countYear = [[NSMutableArray alloc]init];
+    
     [self setYearLabel:[[UILabel alloc]initWithFrame:CGRectZero]];
     [self setYear:2099];
     return self;
