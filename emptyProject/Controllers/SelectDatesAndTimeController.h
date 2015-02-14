@@ -11,6 +11,10 @@
 #import "UIGCalendar.h"
 #import "ClockView.h"
 #import "UIExtendedTableView.h"
+#import "EditCreateViewController.h"
+#import "AppDelegate.h"//???
+#import "Note.h"
+
 
 @interface SelectDatesAndTimeController : UIViewController<UITableViewDelegate,UIGCalendarDelegate>{
     UIGCalendar* gcalendar;
@@ -22,6 +26,10 @@
 
 @property IBOutlet UISegmentedControl* segmentControl;
 @property IBOutlet UIView* cw;
+
+@property (weak) Note *note;
+@property (nonatomic, strong) NSString *dayWeeks;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 -(IBAction)onSegmentClick:(id)sender;
 

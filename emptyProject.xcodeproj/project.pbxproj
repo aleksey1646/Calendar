@@ -37,6 +37,10 @@
 		C1FBD4E61A62F638003A6A9A /* SelectDatesAndTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBD4E51A62F638003A6A9A /* SelectDatesAndTimeController.m */; };
 		C8D9613E1A8B426000C81AEF /* CustomTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */; };
 		E1B83C591A8634B50080892A /* NoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B83C581A8634B50080892A /* NoteTableViewCell.m */; };
+		E1BD20B71A8F3CE100AD7DDE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1BD20B61A8F3CE100AD7DDE /* CoreData.framework */; };
+		E1BD20BA1A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1BD20B81A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld */; };
+		E1BD20BE1A8F6CB900AD7DDE /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BD20BD1A8F6CB900AD7DDE /* DataManager.m */; };
+		E1BD20C91A8FCF2100AD7DDE /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BD20C81A8FCF2100AD7DDE /* Note.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +109,12 @@
 		C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTapGestureRecognizer.m; sourceTree = "<group>"; };
 		E1B83C571A8634B50080892A /* NoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteTableViewCell.h; sourceTree = "<group>"; };
 		E1B83C581A8634B50080892A /* NoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteTableViewCell.m; sourceTree = "<group>"; };
+		E1BD20B61A8F3CE100AD7DDE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		E1BD20B91A8F3D9E00AD7DDE /* emptyProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = emptyProject.xcdatamodel; sourceTree = "<group>"; };
+		E1BD20BC1A8F6CB900AD7DDE /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		E1BD20BD1A8F6CB900AD7DDE /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		E1BD20C71A8FCF2100AD7DDE /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		E1BD20C81A8FCF2100AD7DDE /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1BD20B71A8F3CE100AD7DDE /* CoreData.framework in Frameworks */,
 				C131A0351A5AC67200AE323E /* WebKit.framework in Frameworks */,
 				C1F720A41A583CDB00320D33 /* UIKit.framework in Frameworks */,
 				C1AA0CBC1A582D23003CC513 /* CoreLocation.framework in Frameworks */,
@@ -167,6 +178,7 @@
 		C131A0301A5AA88500AE323E /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				E1BD20B61A8F3CE100AD7DDE /* CoreData.framework */,
 				C131A0341A5AC67200AE323E /* WebKit.framework */,
 				C1F720A31A583CDB00320D33 /* UIKit.framework */,
 				C1AA0CBB1A582D23003CC513 /* CoreLocation.framework */,
@@ -178,6 +190,8 @@
 		C131A03C1A5AF85500AE323E /* Classess */ = {
 			isa = PBXGroup;
 			children = (
+				E1BD20BC1A8F6CB900AD7DDE /* DataManager.h */,
+				E1BD20BD1A8F6CB900AD7DDE /* DataManager.m */,
 				C131A0391A5AF83C00AE323E /* GLocationProvider.h */,
 				C131A03A1A5AF83C00AE323E /* GLocationProvider.m */,
 				C135BDB61A6BF83000A2559E /* GLang.h */,
@@ -189,6 +203,7 @@
 		C1D871AE1A5769A300B61429 = {
 			isa = PBXGroup;
 			children = (
+				E1BD20BB1A8F3DA600AD7DDE /* model */,
 				C131A0301A5AA88500AE323E /* Libs */,
 				C1D871B91A5769A300B61429 /* emptyProject */,
 				C1D871D31A5769A300B61429 /* emptyProjectTests */,
@@ -284,6 +299,16 @@
 				E1B83C581A8634B50080892A /* NoteTableViewCell.m */,
 			);
 			name = cells;
+			sourceTree = "<group>";
+		};
+		E1BD20BB1A8F3DA600AD7DDE /* model */ = {
+			isa = PBXGroup;
+			children = (
+				E1BD20B81A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld */,
+				E1BD20C71A8FCF2100AD7DDE /* Note.h */,
+				E1BD20C81A8FCF2100AD7DDE /* Note.m */,
+			);
+			name = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,9 +412,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1BD20C91A8FCF2100AD7DDE /* Note.m in Sources */,
 				C1E7AB081A5EF62E00AA7665 /* UIGCalendarYearTmp.m in Sources */,
 				C131A0171A596A2500AE323E /* NotesPageViewController.m in Sources */,
 				C131A0241A59B2AF00AE323E /* SubTabBarViewController.m in Sources */,
+				E1BD20BA1A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld in Sources */,
 				C131A02A1A5A103500AE323E /* UIExtendedTableView.m in Sources */,
 				C1E7AB021A5C89F600AA7665 /* UIGCalendar.m in Sources */,
 				C1E7AB051A5EBF8600AA7665 /* UIGCalendarMonthTmp.m in Sources */,
@@ -399,6 +426,7 @@
 				E1B83C591A8634B50080892A /* NoteTableViewCell.m in Sources */,
 				C199B28D1A6D5A1B00B77253 /* HTMLViewController.m in Sources */,
 				C1D871C01A5769A300B61429 /* AppDelegate.m in Sources */,
+				E1BD20BE1A8F6CB900AD7DDE /* DataManager.m in Sources */,
 				C135BDBB1A6C165400A2559E /* MainTabBarController.m in Sources */,
 				C131A02D1A5AA17C00AE323E /* MainNaviationController.m in Sources */,
 				C135BDB81A6BF83000A2559E /* GLang.m in Sources */,
@@ -621,6 +649,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E1BD20B81A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E1BD20B91A8F3D9E00AD7DDE /* emptyProject.xcdatamodel */,
+			);
+			currentVersion = E1BD20B91A8F3D9E00AD7DDE /* emptyProject.xcdatamodel */;
+			path = emptyProject.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = C1D871AF1A5769A300B61429 /* Project object */;
 }

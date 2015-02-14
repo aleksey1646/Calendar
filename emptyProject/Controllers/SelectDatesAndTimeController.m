@@ -8,13 +8,26 @@
 
 #import "SelectDatesAndTimeController.h"
 #import "GLang.h"
+#import "Note.h"
 
 @interface SelectDatesAndTimeController ()
 @property (weak) UIGCalendarMonthTmp *previousSelectedMonth;
+
 @end
 
 @implementation SelectDatesAndTimeController
+
+@synthesize managedObjectContext = _managedObjectContext;
 @synthesize cw,segmentControl;
+
+#pragma mark - Add the note
+- (void) insertDayWeekInNote {
+    
+    Note *someNote = self.note;
+    someNote.dayWeek = self.dayWeeks;
+    
+}
+
 -(void)updateSizes{
     CGRect cg=CGRectMake(0, 0, cw.frame.size.width,cw.frame.size.height);
     [gcalendar setFrame: cg ];
@@ -90,6 +103,8 @@
         NSDictionary* o=[cells objectAtIndex:i];
         bool isSelected=[[o objectForKey:@"type"] isEqualToString:@"checkbox"];
         if(isSelected){
+           
+            
             if(![ms isEqualToString:@""]){[ms appendString:@", "];}
             [ms appendString:[GLang getString: [NSString stringWithFormat:@"DayNames.full.d%d",i+1] ]];
         }
@@ -116,6 +131,10 @@
     }else{
         [daysFooterLabel setText:@""];
     }
+
+    self.dayWeeks = [daysFooterLabel text];
+    [self insertDayWeekInNote];
+    
 //    NSMutableString * a=[firstSection objectForKey:@"footer_title"];
 //    [a setString: ms ];
 }
@@ -139,9 +158,14 @@
     if(tableView!=uitableview){return 0;}
     return [@"A\nA\nA\nA" sizeWithAttributes:@{NSFontAttributeName: [daysFooterLabel font] }].height;
 }
-
+- (void)dealloc {
+    self.dayWeeks = nil;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.dayWeeks = [[NSString alloc]init];
+  
+    
     daysFooterLabel=[[UILabel alloc]initWithFrame:CGRectZero];
     [daysFooterLabel setTextColor:[UIColor grayColor]];
     [daysFooterLabel setFont:[UIFont systemFontOfSize:13]];

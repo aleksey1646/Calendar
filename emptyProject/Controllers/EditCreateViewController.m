@@ -9,9 +9,28 @@
 #import "EditCreateViewController.h"
 #import "GLang.h"
 #import "NoteTableViewCell.h"
+#import "Note.h"
+#import "SelectDatesAndTimeController.h"
+
+@interface EditCreateViewController ()
+
+@property (strong) Note *note;
+
+@end
+
+//#import "DataManager.h"
+
 @implementation EditCreateViewController
 
-@synthesize tableView;
+@synthesize managedObjectContext = _managedObjectContext; 
+@synthesize tableView,fetchedResultsController;
+
+//#pragma mark - ManagedObjectContext
+//
+//- (NSManagedObjectContext*) managedObjectContext  {
+//    
+//    return [[DataManager sharedManager] managedObjectContext];
+//}
 
 - (void)tableView:(UIExtendedTableView *)tableView_local didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSDictionary* d=[tableView_local extendedDictionaryForIndexPath:indexPath];
@@ -19,14 +38,44 @@
     NSDictionary* drow_ident=[d objectForKey:@"ident"];
     if(d && drow_ident){//date
         if([drow_ident isEqual:@"date"]){
-            [self.navigationController pushViewController: [self.storyboard instantiateViewControllerWithIdentifier:@"SeletedDatesVIewStoryboardID"]  animated:YES];
+            SelectDatesAndTimeController *selectDatesAndTimeController = [self.storyboard instantiateViewControllerWithIdentifier:@"SeletedDatesVIewStoryboardID"];
+            
+            
+            selectDatesAndTimeController.note = self.note;
+            
+            
+            [self.navigationController pushViewController:selectDatesAndTimeController animated:YES];
         }
     }
     
 }
+#pragma mark - Add the note
+
+- (Note *) addNote {
+    
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Note" inManagedObjectContext:self.managedObjectContext];
+    
+    Note *object = [[Note alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
+    return object;
+}
 
 -(void)doneButtonClicked:(id)sender{
+    
+    
+    NSError* error = nil;
+    
+    [self.managedObjectContext insertObject:self.note];
+    
+    if (![self.managedObjectContext save:&error]) {
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error:" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        NSLog(@"%@",[error localizedDescription]);
+    } else
+    [self.navigationController popViewControllerAnimated:YES];
+
     NSLog(@"doneButtonClicked");
+     
 }
 
 - (void)dealloc
@@ -47,6 +96,13 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //managedObjectContext same AppDelegate
+    
+    AppDelegate *appDelegate =  [[UIApplication sharedApplication]delegate];
+    self.managedObjectContext=[appDelegate managedObjectContext];
+    
+    self.note = [self addNote];
+    
     [tableView setDelegate:self];
    
     
