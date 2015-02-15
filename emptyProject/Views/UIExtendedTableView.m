@@ -25,7 +25,12 @@
     }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    return [[dataSource objectAtIndex:section] objectForKey:@"header_title"];
+    
+   // if ([[dataSource objectAtIndex:section] objectForKey:@"cells"]) {
+         return [[dataSource objectAtIndex:section] objectForKey:@"header_title"];
+   // } else {
+      //  return [NSString stringWithFormat:@"Активные"];
+    //}
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
@@ -50,8 +55,31 @@
             return nil;}
         UITableViewCellStyle style=UITableViewCellStyleDefault;
         NSDictionary* sectionDictionary=[dataSource objectAtIndex:[indexPath section]];
-        NSDictionary* rowDictionary=[[sectionDictionary objectForKey:@"cells"] objectAtIndex:rid];
+    
+    Note *note = [[sectionDictionary objectForKey:@"cells"] objectAtIndex:rid];
+    
+    if ([note isKindOfClass:[Note class]]) {
         
+        UITableViewCell *c = [tableView dequeueReusableCellWithIdentifier:nil];
+        
+        if(!c){
+            NSString *title = [NSString stringWithFormat:@"Place #%li",rid];
+            
+            c=[[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+             [[c textLabel]setText:title];
+            
+            [[c detailTextLabel]setNumberOfLines: 4];
+            NSLineBreakMode lb=NSLineBreakByWordWrapping;
+            [[c detailTextLabel] setLineBreakMode:(lb)];
+            [[c detailTextLabel]setText:note.textNote];
+           
+        }
+         return c;
+    }
+    
+     NSDictionary *rowDictionary = [[sectionDictionary objectForKey:@"cells"] objectAtIndex:rid];
+    
+    
         NSString *tcstyle=[rowDictionary objectForKey:@"style"];
         if(tcstyle){
             if([tcstyle isEqualToString:@"UITableViewCellStyleDefault"]){
@@ -105,7 +133,6 @@
         if(title){
             [[c textLabel]setText:title];
         }
-        
         NSString *description_lines=[rowDictionary objectForKey:@"description_lines"];
         if(description_lines){
             [[c detailTextLabel]setNumberOfLines: [description_lines intValue] ];
@@ -198,15 +225,6 @@
 
 @synthesize privateDataSource;
 
-//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-//    if (indexPath.section == 3) {
-//        NoteTableViewCell *noteCell = (NoteTableViewCell *)cell;
-//       // self.cell = noteCell;
-//        return noteCell;
-//    }
-//    return cell;
-//}
 
 -(NSDictionary*)extendedDictionaryForIndexPath:(NSIndexPath*)indx{
     UIExtendedDataSource ds=[privateDataSource dataSource];

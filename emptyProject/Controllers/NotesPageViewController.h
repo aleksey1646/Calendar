@@ -8,8 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "SubTabBarViewController.h"
-#import "UIExtendedTableView.h"
 #import "GLang.h"
+#import "AppDelegate.h"
+#import "Note.h"
+#import "UIExtendedTableView.h"
 
 @interface NotesDataSource : NSObject <UITableViewDelegate>
 
@@ -20,10 +22,18 @@
 @interface NotesPageViewController : SubTabBarViewController
 {
 }
+
+
 @property IBOutlet UIExtendedTableView* notesTableView;
 @property IBOutlet UISegmentedControl* segmentControl;
+
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSMutableArray *arrayNotes;
+
+
 -(IBAction) segmentChanged:(UISegmentedControl*)sender;
 -(IBAction) editClicked;
 
 @property (retain) NotesDataSource * notesDataSource;
 @end
+//@property IBOutlet UIExtendedTableView* notesTableView;

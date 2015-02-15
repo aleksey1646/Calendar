@@ -15,12 +15,9 @@
 
 @interface EditCreateViewController ()
 
-//@property (strong) Note *note;
 @property (weak) UITextView *textView;
 @property (weak) NoteTableViewCell *cell;
 @end
-
-//#import "DataManager.h"
 
 @implementation EditCreateViewController
 
@@ -73,22 +70,22 @@
     if ([ds.swithNotifPlace isOn]) {
         self.note.notificationPlace = [NSNumber numberWithBool:YES];
     } else {
-        self.note.notificationPlace = [NSNumber numberWithBool:NO];
+        self.note.notificationPlace = nil;
     }
     if ([ds.swithNotifTime isOn]) {
         self.note.notificationTime = [NSNumber numberWithBool:YES];
     } else {
-        self.note.notificationTime = [NSNumber numberWithBool:NO];
+        self.note.notificationTime = nil;
     }
     if ([ds.swithStatusComplete isOn]) {
         self.note.statusComplete = [NSNumber numberWithBool:YES];
     } else {
-        self.note.statusComplete = [NSNumber numberWithBool:NO];
+        self.note.statusComplete = nil;
     }
     if ([ds.swithStatusPause isOn]) {
         self.note.statusPause = [NSNumber numberWithBool:YES];
     } else {
-        self.note.statusComplete = [NSNumber numberWithBool:NO];
+        self.note.statusPause = nil;
     }
  
     

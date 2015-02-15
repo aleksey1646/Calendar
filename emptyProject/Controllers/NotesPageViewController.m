@@ -63,7 +63,64 @@ CGFloat NotesDataSourceHeightForRow;
 
 @implementation NotesPageViewController
 
+@synthesize managedObjectContext = _managedObjectContext;
 @synthesize notesTableView,notesDataSource,segmentControl;
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [notesTableView setExtendedDataSource:[self getAllNotes]];
+
+}
+#pragma mark - Get notes from CoreData
+
+- (NSMutableArray *) getAllNotes {
+    
+    NSFetchRequest* request = [[NSFetchRequest alloc]init];
+    
+    
+    NSEntityDescription* description = [NSEntityDescription entityForName:@"Note"
+                                                   inManagedObjectContext:self.managedObjectContext];
+    
+    [request setEntity:description];
+    
+    NSError* error = nil;
+    NSMutableArray *arrayWithNote = [NSMutableArray array];
+    self.arrayNotes = [NSMutableArray array];
+    arrayWithNote = [[self.managedObjectContext executeFetchRequest:request error:&error]mutableCopy];
+    NSMutableArray *statusPause = [NSMutableArray array];
+    NSMutableArray *statusComplete = [NSMutableArray array];
+     NSMutableArray *statusActive = [NSMutableArray array];
+    for (int i = 0; i<[arrayWithNote count]; i++) {
+        Note *nextNote = [arrayWithNote objectAtIndex:i];
+    //for (Note *nextNote in self.arrayNotes) {
+        
+        if ([nextNote.statusPause boolValue]) { // или не statusComplete, но дата прошла
+            [statusPause addObject:nextNote];
+        } else {
+        if ([nextNote.statusComplete boolValue]) {
+            [statusComplete addObject:nextNote];
+        } else {
+            [statusActive addObject:nextNote];
+        }
+        }
+        
+    }
+   // [self.arrayNotes addObject:@{@"header_title":@"Активные", @"cells":statusActive}];
+    [self.arrayNotes addObject:@{ @"cells":statusActive}];
+    [self.arrayNotes addObject:@{@"header_title":@"Приостановленные", @"cells":statusPause}];
+    [self.arrayNotes addObject:@{@"header_title":@"Выполненные", @"cells":statusComplete}];
+    
+    if (error) {
+        
+        NSLog(@"ERROR! %@",[error localizedDescription]);
+        
+    }
+    NSLog(@"array notes%@",self.arrayNotes);
+    [notesTableView reloadData];
+    return self.arrayNotes;
+   
+    
+}
 
 -(IBAction) editClicked{
     NSLog(@"Edit button click");
@@ -94,6 +151,9 @@ CGFloat NotesDataSourceHeightForRow;
 - (void)viewDidLoad {
     NSLog(@"NotesPageViewController::viewDidLoad");
     [super viewDidLoad];
+    
+    AppDelegate *appDelegate =  [[UIApplication sharedApplication]delegate];
+    self.managedObjectContext=[appDelegate managedObjectContext];
 
     [self setNotesDataSource: [[NotesDataSource alloc]init] ];
     [[self notesDataSource] setNotesPageCtrl:self];
@@ -103,6 +163,10 @@ CGFloat NotesDataSourceHeightForRow;
     [search_bar setPlaceholder:[GLang getString:@"Notes.search.placeholder"]];
     
     [notesTableView setTableHeaderView:search_bar];
+    
+    //[self getAllNotes];
+    //nea
+    /*
     NSMutableArray* ara=[[NSMutableArray alloc]init];
     
     //temp
@@ -130,12 +194,13 @@ CGFloat NotesDataSourceHeightForRow;
          ];
     }
     [ara addObject:@{@"header_title":@"Экспиред", @"cells":tableRows}];
+     [notesTableView setExtendedDataSource: ara];
 
-    
+    */
     //end of temp
     
     
-    [notesTableView setExtendedDataSource:  ara ];
+    [notesTableView setExtendedDataSource:[self getAllNotes]];
     
 //    [segmentControl setTitle:[GLang getString:@"Notes.segments.here"]  forSegmentAtIndex:0];
     [segmentControl setTitle:[GLang getString:@"Notes.segments.today"]  forSegmentAtIndex:0];

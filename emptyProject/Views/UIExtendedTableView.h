@@ -8,6 +8,9 @@
 #import "NoteTableViewCell.h"
 #import <UIKit/UIKit.h>
 #import "GLang.h"
+#import "AppDelegate.h"
+#import "Note.h"
+
 
 
 typedef NSArray* UIExtendedDataSource;
