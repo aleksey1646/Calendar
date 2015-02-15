@@ -11,6 +11,7 @@
 #import "NoteTableViewCell.h"
 #import "Note.h"
 #import "SelectDatesAndTimeController.h"
+#import "UIExtendedTableView.h"
 
 @interface EditCreateViewController ()
 
@@ -25,7 +26,6 @@
 
 @synthesize managedObjectContext = _managedObjectContext; 
 @synthesize tableView,fetchedResultsController;
-
 
 
 - (void)tableView:(UIExtendedTableView *)tableView_local didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -44,17 +44,16 @@
             
             [self.navigationController pushViewController:selectDatesAndTimeController animated:YES];
             
-        } /*else if([drow_ident isEqual:@"note"]){
-            
-            UITableViewCell *cell = [tableView_local cellForRowAtIndexPath:indexPath];
-            NoteTableViewCell *noteCell = (NoteTableViewCell *)cell;
-            self.cell = noteCell;
-            
         }
-           */
     }
     
 }
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+#pragma mark - UITableViewDelegate
+
+
 #pragma mark - Add the note
 
 - (Note *) addNote {
@@ -68,8 +67,30 @@
 -(void)doneButtonClicked:(id)sender{
     
     NSError* error = nil;
+    
+    UIExtendedTableViewPrivateDataSource *ds = self.tableView.dataSource;
    
-    NSLog(@"Text in cell %@",self.cell.textView.text);
+    if ([ds.swithNotifPlace isOn]) {
+        self.note.notificationPlace = [NSNumber numberWithBool:YES];
+    } else {
+        self.note.notificationPlace = [NSNumber numberWithBool:NO];
+    }
+    if ([ds.swithNotifTime isOn]) {
+        self.note.notificationTime = [NSNumber numberWithBool:YES];
+    } else {
+        self.note.notificationTime = [NSNumber numberWithBool:NO];
+    }
+    if ([ds.swithStatusComplete isOn]) {
+        self.note.statusComplete = [NSNumber numberWithBool:YES];
+    } else {
+        self.note.statusComplete = [NSNumber numberWithBool:NO];
+    }
+    if ([ds.swithStatusPause isOn]) {
+        self.note.statusPause = [NSNumber numberWithBool:YES];
+    } else {
+        self.note.statusComplete = [NSNumber numberWithBool:NO];
+    }
+ 
     
     
     [self.managedObjectContext insertObject:self.note];

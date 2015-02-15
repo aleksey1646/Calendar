@@ -158,7 +158,19 @@
                 if(ss){
                     [uisw setOn:[ss isEqualToString:@"on"] animated:YES];
                 }
+               
                 [c setAccessoryView: uisw ];
+                NSString *title = [rowDictionary objectForKey:@"title"];
+                if ([title isEqual:[GLang getString:@"EditCreate.place_alert"]]) {
+                    self.swithNotifPlace = uisw;
+                } else if ([title isEqual:[GLang getString:@"EditCreate.time_alert"]]) {
+                    self.swithNotifTime = uisw;
+                } else if ([title isEqual:[GLang getString:@"EditCreate.pause"]]) {
+                    self.swithStatusPause = uisw;
+                } else if ([title isEqual:[GLang getString:@"EditCreate.complete"]]) {
+                    self.swithStatusComplete = uisw;
+                }
+                
             }else if([type isEqualToString:@"arrow"]){
                 [c setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
             }else if([type isEqualToString:@"checkbox"]){

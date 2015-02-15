@@ -15,6 +15,10 @@ typedef NSArray* UIExtendedDataSource;
 @interface UIExtendedTableViewPrivateDataSource:NSObject <UITableViewDataSource>{
 }
 @property (retain,nonatomic) UIExtendedDataSource dataSource;
+@property (weak) UISwitch *swithNotifTime;
+@property (weak) UISwitch *swithNotifPlace;
+@property (weak) UISwitch *swithStatusPause;
+@property (weak) UISwitch *swithStatusComplete;
 
 @end
 
@@ -24,7 +28,6 @@ typedef NSArray* UIExtendedDataSource;
     
 }
 @property (retain,nonatomic)    UIExtendedTableViewPrivateDataSource* privateDataSource;
-
 
 
 -(void)setExtendedDataSource:(UIExtendedDataSource)arrayWithDictionarys;
