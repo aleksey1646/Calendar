@@ -10,6 +10,7 @@
 #import "SubTabBarViewController.h"
 #import "UIExtendedTableView.h"
 #import "AppDelegate.h"//???
+#import "Note.h"
 @interface EditCreateViewController : SubTabBarViewController<UITableViewDelegate,UIScrollViewDelegate,NSFetchedResultsControllerDelegate>{
     NSFetchedResultsController *fetchedResultsController;
    // NSManagedObjectContext *managedObjectContext;
@@ -18,7 +19,7 @@
 }
 @property (retain,nonatomic) IBOutlet UIExtendedTableView* tableView;
 @property (assign) CGSize keyboardSize;
-
+@property (strong) Note *note;
 
 @property (nonatomic, retain) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;

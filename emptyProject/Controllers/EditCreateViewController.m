@@ -14,8 +14,9 @@
 
 @interface EditCreateViewController ()
 
-@property (strong) Note *note;
-
+//@property (strong) Note *note;
+@property (weak) UITextView *textView;
+@property (weak) NoteTableViewCell *cell;
 @end
 
 //#import "DataManager.h"
@@ -25,14 +26,11 @@
 @synthesize managedObjectContext = _managedObjectContext; 
 @synthesize tableView,fetchedResultsController;
 
-//#pragma mark - ManagedObjectContext
-//
-//- (NSManagedObjectContext*) managedObjectContext  {
-//    
-//    return [[DataManager sharedManager] managedObjectContext];
-//}
+
 
 - (void)tableView:(UIExtendedTableView *)tableView_local didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+   
+    
     NSDictionary* d=[tableView_local extendedDictionaryForIndexPath:indexPath];
     
     NSDictionary* drow_ident=[d objectForKey:@"ident"];
@@ -45,7 +43,15 @@
             
             
             [self.navigationController pushViewController:selectDatesAndTimeController animated:YES];
+            
+        } /*else if([drow_ident isEqual:@"note"]){
+            
+            UITableViewCell *cell = [tableView_local cellForRowAtIndexPath:indexPath];
+            NoteTableViewCell *noteCell = (NoteTableViewCell *)cell;
+            self.cell = noteCell;
+            
         }
+           */
     }
     
 }
@@ -61,8 +67,10 @@
 
 -(void)doneButtonClicked:(id)sender{
     
-    
     NSError* error = nil;
+   
+    NSLog(@"Text in cell %@",self.cell.textView.text);
+    
     
     [self.managedObjectContext insertObject:self.note];
     
@@ -82,20 +90,26 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+#pragma mark - UIScrollViewDelegate
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     scrollView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
 }
+#pragma mark - keyboard
 
-- (void)keyboardWillShow:(NSNotification *)notification
+- (void)keyboardWillHide:(NSNotification *)notification
 {
-    
-    CGSize keyboardSize = [[[notification userInfo] objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    _keyboardSize = keyboardSize;
+    NSLog(@"keyboardWillHide");
+   
+
     
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+   
+    [tableView setDelegate:self];
+ 
+
     //managedObjectContext same AppDelegate
     
     AppDelegate *appDelegate =  [[UIApplication sharedApplication]delegate];
@@ -103,12 +117,11 @@
     
     self.note = [self addNote];
     
-    [tableView setDelegate:self];
-   
+    
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
                                                object:nil];
     
     
@@ -137,7 +150,7 @@
     
     [mainTab addObject:@{ @"header_title": [GLang getString:@"EditCreate.category.note" ],@"cells":
                               [NSArray arrayWithObjects:
-                               @{@"title": [GLang getString:@"EditCreate.note"], @"style":@"UITableViewCellStyleDefault",@"description":@"Insert value",@"type":@"arrow", @"height":@"182"},
+                               @{@"title": [GLang getString:@"EditCreate.note"], @"ident":@"note", @"style":@"UITableViewCellStyleDefault",@"description":@"Insert value",@"type":@"arrow", @"height":@"182"},
                                nil]}];
     
     [tableView setExtendedDataSource: mainTab ];
@@ -160,7 +173,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark UTableView delegate
+#pragma mark UITableViewDelegate
+//- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//    return nil;
+//}
 
 - (CGFloat)tableView:(UIExtendedTableView *)tableView_local heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -168,6 +184,7 @@
     NSDictionary *dic = [dataSource objectAtIndex:indexPath.section];
     NSDictionary *cellDiscription = [[dic objectForKey:@"cells"] objectAtIndex:indexPath.row];
     if ([cellDiscription objectForKey:@"height"]) {
+        
         return [[cellDiscription objectForKey:@"height"] intValue];
     }
     

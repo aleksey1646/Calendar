@@ -11,9 +11,10 @@
 
 @interface NoteTableViewCell : UITableViewCell <UITableViewDelegate,UITextViewDelegate>
 
-@property (weak,nonatomic) UIExtendedTableView *tableView;
+
+
 @property (weak,nonatomic) UITextView *textView;
 @property (assign) CGSize keyboardSize;
 
-
 @end
+//@property (weak,nonatomic) UIExtendedTableView *tableView;

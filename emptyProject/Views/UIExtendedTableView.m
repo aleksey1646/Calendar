@@ -9,6 +9,8 @@
 #import "UIExtendedTableView.h"
 #import "NoteTableViewCell.h"
 
+
+
 @implementation UIExtendedTableViewPrivateDataSource
 @synthesize dataSource;
     - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -31,6 +33,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
+    
         /*
          Array @{
             @"header_title":
@@ -176,9 +181,20 @@
 @end
 
 
+
 @implementation UIExtendedTableView
 
 @synthesize privateDataSource;
+
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    if (indexPath.section == 3) {
+//        NoteTableViewCell *noteCell = (NoteTableViewCell *)cell;
+//       // self.cell = noteCell;
+//        return noteCell;
+//    }
+//    return cell;
+//}
 
 -(NSDictionary*)extendedDictionaryForIndexPath:(NSIndexPath*)indx{
     UIExtendedDataSource ds=[privateDataSource dataSource];

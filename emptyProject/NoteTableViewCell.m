@@ -7,12 +7,13 @@
 //
 
 #import "NoteTableViewCell.h"
+#import "EditCreateViewController.h"
 
 @interface NoteTableViewCell()
 
 
 @property (weak) UITableView *parentTableView;
-
+@property (strong) EditCreateViewController *editController;
 @end
 
 @implementation NoteTableViewCell
@@ -40,6 +41,12 @@
                                                  selector:@selector(keyboardWillShow:)
                                                      name:UIKeyboardWillShowNotification
                                                    object:nil];
+        
+        
+        
+        //self.editController =
+        
+        
         
     }
     return self;
@@ -107,9 +114,17 @@
     }
     return YES;
 }
-
+- (void)textViewDidEndEditing:(UITextView *)textView {
+    
+//    [self.editController viewDidLoad];
+    self.editController = (EditCreateViewController *)self.parentTableView.delegate;
+    self.editController.note.textNote = textView.text;
+    
+}
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
+//    self.selectionStyle = UITableViewCellSelectionStyleNone;
+//    [self setSelected:YES];
     
     if (!self.parentTableView) {
         self.parentTableView = [self findTableView:self];
@@ -128,9 +143,7 @@
                                                            pointToScrollY) animated:YES];
     }
     
-    
-    
-    
+
 }
 
 
