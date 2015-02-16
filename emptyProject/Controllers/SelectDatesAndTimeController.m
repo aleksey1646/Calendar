@@ -12,7 +12,10 @@
 
 @interface SelectDatesAndTimeController ()
 @property (weak) UIGCalendarMonthTmp *previousSelectedMonth;
-
+@property (assign) float fx;
+@property (assign) float fy;
+@property (assign) float fw;
+@property (assign) float fh;
 @end
 
 @implementation SelectDatesAndTimeController
@@ -44,12 +47,51 @@
 }
 -(void) GCalendarDelegate:(UIGCalendar*)cal onOnceTap:(UIGCalendarMonthTmp*)mf{
     
-    if (self.previousSelectedMonth) {
-        [self.previousSelectedMonth unselectAllDaysInMonth];
+        if ([self.previousSelectedMonth isEqual:mf]) {/////
+            [self.previousSelectedMonth unselectAllDaysInMonth];
+            self.previousSelectedMonth = nil;
+       
+    } else {
+        [mf selectAllDaysInMonth];
+        self.previousSelectedMonth = mf;
     }
-    [mf selectAllDaysInMonth];
-    self.previousSelectedMonth = mf;
+   
+    
 
+}
+- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
+    
+   UIGraphicsBeginImageContext(CGSizeMake(self.fw, self.fh));
+
+    CGRect borderRect = CGRectMake(self.fx, self.fy + 2, self.fw/1.25, self.fh/1.25);
+    CGContextSetRGBFillColor(ctx, 1, 0, 0, 0.5);
+    CGContextFillEllipseInRect (ctx, borderRect);
+    CGContextFillPath(ctx);
+    
+    UIGraphicsEndImageContext();
+    
+    
+}
+- (void)clickOnMonthView:(UITapGestureRecognizer *)sender {
+    
+    NSLog(@"clickOnMonthView");
+   
+    UIView *labelDayClick = sender.view;
+    
+    
+    self.fx= labelDayClick.frame.origin.x;
+    self.fy= labelDayClick.frame.origin.y;
+    self.fw= labelDayClick.frame.size.width;
+    self.fh= labelDayClick.frame.size.height;
+    
+    [self drawLayer:labelDayClick.layer inContext:UIGraphicsGetCurrentContext()];
+    
+    
+   
+    
+    //[attrStr drawAtPoint:CGPointMake(fx+(fw/2)-cwd2,fy+(fh/2)-chd2)];
+       
+    
 }
 
 -(void) GCalendarDelegate:(UIGCalendar*)cal onDoubleTap:(UIGCalendarMonthTmp*)mf{
@@ -58,7 +100,34 @@
     
     UIViewController* ctrl=[ self.storyboard instantiateViewControllerWithIdentifier:@"oneMonthInEdit" ];
     UIGCalendarMonthTmp* new_mf=(UIGCalendarMonthTmp*)ctrl.view;
+    
+    
     [new_mf setMonth:month withYear:year];
+    
+    
+    int dayInThisMonth = [new_mf getDaysInThisMonth];
+    NSMutableArray *dayPosition = [new_mf getDayPositionDictionaries];
+     for(NSDictionary* labelDict in dayPosition){
+         
+         UILabel *labelDay = [[UILabel alloc]initWithFrame:CGRectMake([[labelDict objectForKey:@"frame_x"] floatValue], [[labelDict objectForKey:@"frame_y"] floatValue], [[labelDict objectForKey:@"frame_width"] floatValue], [[labelDict objectForKey:@"frame_height"] floatValue])];
+        // [labelDay setText:[labelDict objectForKey:@"text"]];
+        // labelDay.textColor = [UIColor blackColor];
+         labelDay.backgroundColor = [UIColor clearColor];
+         UITapGestureRecognizer *tapRecognizer;
+         tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector (clickOnMonthView:)];
+         //tapRecognizer.delaysTouchesEnded = YES;
+         [tapRecognizer setNumberOfTouchesRequired : 1];
+         labelDay.userInteractionEnabled = YES;
+         
+         [new_mf addSubview:labelDay];
+         [labelDay addGestureRecognizer:tapRecognizer];
+     
+     }
+    
+    
+    
+    
+    
     /*
     ctrl.view.transform = CGAffineTransformMakeScale(0.01, 0.01);
     [UIView animateWithDuration:0.1

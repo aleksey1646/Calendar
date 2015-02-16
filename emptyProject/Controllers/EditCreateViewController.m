@@ -109,15 +109,15 @@
     } else {
         self.note.statusPause = [NSNumber numberWithBool:NO];
     }
- 
+ /*
     if (!self.managedObjectContext) {
          [self.managedObjectContext insertObject:self.note];
     } else {
         
     }
-    
+    */
    
-    
+     [self.managedObjectContext insertObject:self.note];
     if (![self.managedObjectContext save:&error]) {
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error:" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
