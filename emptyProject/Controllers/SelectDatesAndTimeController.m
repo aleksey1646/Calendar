@@ -12,10 +12,8 @@
 
 @interface SelectDatesAndTimeController ()
 @property (weak) UIGCalendarMonthTmp *previousSelectedMonth;
-@property (assign) float fx;
-@property (assign) float fy;
-@property (assign) float fw;
-@property (assign) float fh;
+@property (strong) NSMutableArray *dayPosition;
+@property (weak) UIView *senderView;
 @end
 
 @implementation SelectDatesAndTimeController
@@ -59,39 +57,88 @@
     
 
 }
-- (void)drawLayer:(CALayer *)layer inContext:(CGContextRef)ctx {
-    
-   UIGraphicsBeginImageContext(CGSizeMake(self.fw, self.fh));
 
-    CGRect borderRect = CGRectMake(self.fx, self.fy + 2, self.fw/1.25, self.fh/1.25);
-    CGContextSetRGBFillColor(ctx, 1, 0, 0, 0.5);
-    CGContextFillEllipseInRect (ctx, borderRect);
-    CGContextFillPath(ctx);
+- (void) selectDay {
+    UIView *labelDayClick = self.senderView;
+     float originLabel = self.senderView.frame.origin.x;
     
-    UIGraphicsEndImageContext();
+    for(NSDictionary* labelDict in self.dayPosition){
+        if ([[labelDict objectForKey:@"clicked"]isEqualToString:@"YES"]) {
+            
+            if ([[labelDict objectForKey:@"frame_x"]floatValue] == originLabel) {
+                if (labelDayClick.frame.size.width >50) {
+                    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(labelDayClick.frame.origin.x+17, labelDayClick.frame.origin.y-13, 45.714287, 81.8198)];
+                    view.backgroundColor = [UIColor clearColor];
+                    
+                    labelDayClick = view;
+                    
+                }
+                //45.714287
+                
+                labelDayClick.layer.cornerRadius= labelDayClick.frame.size.width/1.8976;
+                
+                labelDayClick.clipsToBounds=YES;
+                labelDayClick.backgroundColor = [UIColor colorWithRed:1.0 green:0.2 blue:0.2 alpha:0.9];
+                
+                [self.senderView.superview addSubview: labelDayClick];
+                return;
+            }
+            
+            
+        }
+       
+        
+    }
+}
+- (void) unSelectDay {
+    UIView *labelDayClick = self.senderView;
+    float originLabel = self.senderView.frame.origin.x;
     
-    
+    for(NSDictionary* labelDict in self.dayPosition){
+    if ([[labelDict objectForKey:@"clicked"]isEqualToString:@"NO"]) {
+          if ([[labelDict objectForKey:@"frame_x"]floatValue] == originLabel) {
+              labelDayClick.layer.cornerRadius = 0;
+              labelDayClick.clipsToBounds=NO;
+              labelDayClick.backgroundColor = [UIColor clearColor];
+              [self.senderView.superview addSubview: labelDayClick];
+              return;
+              
+          }
+
+        }
+    }
 }
 - (void)clickOnMonthView:(UITapGestureRecognizer *)sender {
     
+    self.senderView = sender.view;
     NSLog(@"clickOnMonthView");
-   
-    UIView *labelDayClick = sender.view;
+    float originLabel = sender.view.frame.origin.x;
     
-    
-    self.fx= labelDayClick.frame.origin.x;
-    self.fy= labelDayClick.frame.origin.y;
-    self.fw= labelDayClick.frame.size.width;
-    self.fh= labelDayClick.frame.size.height;
-    
-    [self drawLayer:labelDayClick.layer inContext:UIGraphicsGetCurrentContext()];
-    
-    
-   
-    
-    //[attrStr drawAtPoint:CGPointMake(fx+(fw/2)-cwd2,fy+(fh/2)-chd2)];
+    for(NSDictionary* labelDict in self.dayPosition){
        
+        
+        if ([[labelDict objectForKey:@"frame_x"]floatValue] == originLabel) {
+            
+            if ([[labelDict objectForKey:@"clicked"]isEqualToString:@"YES"]) {
+                [labelDict setValue:@"NO" forKey:@"clicked"];
+                [self unSelectDay];
+                return;
+                
+            } else {
+                [labelDict setValue:@"YES" forKey:@"clicked"];
+                [self selectDay];
+                return;
+                
+            }
+        }
+       
+    }
+   
     
+    
+   
+    
+
 }
 
 -(void) GCalendarDelegate:(UIGCalendar*)cal onDoubleTap:(UIGCalendarMonthTmp*)mf{
@@ -104,22 +151,29 @@
     
     [new_mf setMonth:month withYear:year];
     
+    UIView *baseView = [[UIView alloc]initWithFrame:CGRectZero];
+    baseView.frame = new_mf.frame;
+    baseView.backgroundColor = [UIColor whiteColor];
+    [new_mf addSubview:baseView];
     
-    int dayInThisMonth = [new_mf getDaysInThisMonth];
-    NSMutableArray *dayPosition = [new_mf getDayPositionDictionaries];
-     for(NSDictionary* labelDict in dayPosition){
+    
+    //int dayInThisMonth = [new_mf getDaysInThisMonth];
+    self.dayPosition = [new_mf getDayPositionDictionaries];
+     for(NSDictionary* labelDict in self.dayPosition){
          
          UILabel *labelDay = [[UILabel alloc]initWithFrame:CGRectMake([[labelDict objectForKey:@"frame_x"] floatValue], [[labelDict objectForKey:@"frame_y"] floatValue], [[labelDict objectForKey:@"frame_width"] floatValue], [[labelDict objectForKey:@"frame_height"] floatValue])];
-        // [labelDay setText:[labelDict objectForKey:@"text"]];
-        // labelDay.textColor = [UIColor blackColor];
+         [labelDay setText:[labelDict objectForKey:@"text"]];
+        [labelDay setFont:[UIFont systemFontOfSize:12]];
+         labelDay.textColor = [UIColor blackColor];
          labelDay.backgroundColor = [UIColor clearColor];
+         [labelDay setTextAlignment:NSTextAlignmentCenter];
          UITapGestureRecognizer *tapRecognizer;
          tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector (clickOnMonthView:)];
          //tapRecognizer.delaysTouchesEnded = YES;
          [tapRecognizer setNumberOfTouchesRequired : 1];
          labelDay.userInteractionEnabled = YES;
          
-         [new_mf addSubview:labelDay];
+         [baseView addSubview:labelDay];
          [labelDay addGestureRecognizer:tapRecognizer];
      
      }
