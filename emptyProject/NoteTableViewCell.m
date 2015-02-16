@@ -43,8 +43,8 @@
                                                    object:nil];
         
         
+       
         
-        //self.editController =
         
         
         
@@ -77,6 +77,18 @@
     
     self.textView.frame = rect;
     
+    if (!self.parentTableView) {
+        self.parentTableView = [self findTableView:self];
+    }
+    self.editController = (EditCreateViewController *)self.parentTableView.delegate;
+    if (self.editController.note) {
+        if (self.editController.note.textNote) {
+            [self.textView setText:self.editController.note.textNote];
+        }
+    }
+    
+   
+    
 }
 - (void)awakeFromNib {
     // Initialization code
@@ -85,7 +97,8 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
+    
     // Configure the view for the selected state
 }
 
@@ -115,20 +128,19 @@
     return YES;
 }
 - (void)textViewDidEndEditing:(UITextView *)textView {
+
     
-//    [self.editController viewDidLoad];
-    self.editController = (EditCreateViewController *)self.parentTableView.delegate;
+   
     self.editController.note.textNote = textView.text;
     
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-//    self.selectionStyle = UITableViewCellSelectionStyleNone;
-//    [self setSelected:YES];
+
     
-    if (!self.parentTableView) {
-        self.parentTableView = [self findTableView:self];
-    }
+//    if (!self.parentTableView) {
+//        self.parentTableView = [self findTableView:self];
+//    }
     
     CGRect aRect = self.parentTableView.frame;
     aRect.size.height -= _keyboardSize.height;

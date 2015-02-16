@@ -8,7 +8,7 @@
 
 #import "NotesPageViewController.h"
 #import "AppDelegate.h"
-
+#import "EditCreateViewController.h"
 bool firstLoadHideSearch=false;
 bool editMode=false;
 
@@ -30,6 +30,18 @@ CGFloat NotesDataSourceHeightForRow;
 
     AppDelegate *app= (AppDelegate*) [[UIApplication sharedApplication] delegate];
     [app notify:@"Notify From Notes"];
+    
+    
+    //edit selected cells with note
+    NSDictionary* sectionDictionary=[pctl.arrayNotes objectAtIndex:[indexPath section]];
+    
+    Note *selectNoteCell = [[sectionDictionary objectForKey:@"cells"] objectAtIndex:indexPath.row];
+    NSLog(@"selectNoteCell");
+     NSLog(@"%@",selectNoteCell);
+    
+    EditCreateViewController *controllerCreateNote = (EditCreateViewController *)uiv;
+    controllerCreateNote.note = selectNoteCell;
+    
     
     
     //UINavigationController *rootNavCtrl=(UINavigationController*)pctl.view.window.rootViewController;

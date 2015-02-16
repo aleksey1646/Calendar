@@ -24,7 +24,10 @@
 - (void) insertDayWeekInNote {
     
     Note *someNote = self.note;
+    
     someNote.dayWeek = self.dayWeeks;
+    
+    
     
 }
 
@@ -99,6 +102,7 @@
     NSMutableDictionary* firstSection= [extds objectAtIndex: 0 ];
     NSArray* cells=[firstSection objectForKey:@"cells"];
     NSMutableString* ms=[[NSMutableString alloc]init];
+    
     for(int i=0;i<7;i++){
         NSDictionary* o=[cells objectAtIndex:i];
         bool isSelected=[[o objectForKey:@"type"] isEqualToString:@"checkbox"];
@@ -175,7 +179,10 @@
     gcalendar=[[UIGCalendar alloc]initWithFrame:CGRectZero];
     gclock=[[ClockView alloc]initWithFrame:CGRectZero];
     [gcalendar setGCalendarDelegate:self];
+    
     uitableview=[[UIExtendedTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    
+    
     extds=
     [NSArray arrayWithObjects:
      @{@"cells":
@@ -193,6 +200,55 @@
        @"footer_align":@"center"
        }
        ,nil];
+    
+    if (self.note) {
+        if (self.note.dayWeek) {
+            
+            NSString *stringWithDayWeeks = [[NSString alloc]init];
+            stringWithDayWeeks = [self.note.dayWeek lowercaseString];
+             NSMutableDictionary *dictExtds = [extds firstObject];
+            
+            if ([stringWithDayWeeks containsString:@"monday"]) {
+                
+                NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:0];
+                [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
+            }
+            if ([stringWithDayWeeks containsString:@"tuesday"]) {
+                NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:1];
+                [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
+            }
+            
+            if ([stringWithDayWeeks containsString:@"wednesday"]) {
+                NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:2];
+                [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
+            }
+            if ([stringWithDayWeeks containsString:@"thursday"]) {
+                NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:3];
+                [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
+            }
+            if ([stringWithDayWeeks containsString:@"friday"]) {
+                NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:4];
+                [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
+            }
+            if ([stringWithDayWeeks containsString:@"saturday"]) {
+                NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:5];
+                [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
+            }
+            if ([stringWithDayWeeks containsString:@"sunday"]) {
+                NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:6];
+                [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
+            }
+             NSMutableString *dictFooter = [dictExtds objectForKey:@"footer_title"];
+            [dictFooter appendString:stringWithDayWeeks];
+            //stringWithDayWeeks;
+            
+            
+            
+        }
+    }
+    
+    
+    
     [uitableview setDelegate:self];
     
     [uitableview setExtendedDataSource:extds];

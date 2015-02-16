@@ -60,6 +60,28 @@
     Note *object = [[Note alloc] initWithEntity:entity insertIntoManagedObjectContext:nil];
     return object;
 }
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    if (self.note) {
+        UIExtendedTableViewPrivateDataSource *ds = self.tableView.dataSource;
+        if ([self.note.notificationPlace boolValue]) {
+            [ds.swithNotifPlace setOn:YES];
+        }
+        if ([self.note.notificationTime boolValue]) {
+            [ds.swithNotifTime setOn:YES];
+        }
+        if ([self.note.statusPause boolValue]) {
+            [ds.swithStatusPause setOn:YES];
+        }
+        if ([self.note.statusComplete boolValue]) {
+            [ds.swithStatusComplete setOn:NO];
+        }
+//        if (self.note.textNote) {
+//            // указатель на текстовое поле и установка его в определенное значение
+//        }
+        
+    }
+}
 
 -(void)doneButtonClicked:(id)sender{
     
@@ -70,27 +92,31 @@
     if ([ds.swithNotifPlace isOn]) {
         self.note.notificationPlace = [NSNumber numberWithBool:YES];
     } else {
-        self.note.notificationPlace = nil;
+        self.note.notificationPlace = [NSNumber numberWithBool:NO];
     }
     if ([ds.swithNotifTime isOn]) {
         self.note.notificationTime = [NSNumber numberWithBool:YES];
     } else {
-        self.note.notificationTime = nil;
+        self.note.notificationTime = [NSNumber numberWithBool:NO];
     }
     if ([ds.swithStatusComplete isOn]) {
         self.note.statusComplete = [NSNumber numberWithBool:YES];
     } else {
-        self.note.statusComplete = nil;
+        self.note.statusComplete = [NSNumber numberWithBool:NO];
     }
     if ([ds.swithStatusPause isOn]) {
         self.note.statusPause = [NSNumber numberWithBool:YES];
     } else {
-        self.note.statusPause = nil;
+        self.note.statusPause = [NSNumber numberWithBool:NO];
     }
  
+    if (!self.managedObjectContext) {
+         [self.managedObjectContext insertObject:self.note];
+    } else {
+        
+    }
     
-    
-    [self.managedObjectContext insertObject:self.note];
+   
     
     if (![self.managedObjectContext save:&error]) {
         
@@ -132,8 +158,11 @@
     
     AppDelegate *appDelegate =  [[UIApplication sharedApplication]delegate];
     self.managedObjectContext=[appDelegate managedObjectContext];
-    
-    self.note = [self addNote];
+    if (!self.note) {
+         self.note = [self addNote];
+    }
+     NSLog(@"First SELF NOTE %@",self.note);
+   
     
     
     
