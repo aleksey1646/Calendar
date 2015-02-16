@@ -13,6 +13,40 @@
 
 @implementation UIExtendedTableViewPrivateDataSource
 @synthesize dataSource;
+
+#pragma mark - UITableViewDataSource
+
+- (void)tableView:(UIExtendedTableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+
+        
+        NSDictionary* sectionDictionary=[dataSource objectAtIndex:[indexPath section]];
+        
+        Note *note = [[sectionDictionary objectForKey:@"cells"] objectAtIndex:indexPath.row];
+        NSMutableArray *arrayNotes = [NSMutableArray arrayWithArray:[sectionDictionary objectForKey:@"cells"]];
+        
+        NSMutableArray* tempArray = [NSMutableArray arrayWithArray:arrayNotes];
+        [tempArray removeObject:note];
+        
+        [[sectionDictionary objectForKey:@"cells"] setArray:tempArray];
+        
+        
+        [tableView beginUpdates];
+        
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        
+        [tableView endUpdates];
+        
+        
+        [tableView.managedObjectContext deleteObject:note];
+        
+        [tableView.managedObjectContext save:nil];
+        
+    }
+}
+
     - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
         if(!dataSource){return 0;}
         NSUInteger r= [[[dataSource objectAtIndex:section] objectForKey:@"cells"] count];
@@ -26,11 +60,9 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     
-   // if ([[dataSource objectAtIndex:section] objectForKey:@"cells"]) {
-         return [[dataSource objectAtIndex:section] objectForKey:@"header_title"];
-   // } else {
-      //  return [NSString stringWithFormat:@"Активные"];
-    //}
+   
+    return [[dataSource objectAtIndex:section] objectForKey:@"header_title"];
+  
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
@@ -238,6 +270,10 @@
 -(void)UIExtendedTableViewAfterInit{
     [self setPrivateDataSource: [[UIExtendedTableViewPrivateDataSource alloc]init]];
     [self setDataSource:privateDataSource];
+    
+    //set managedObjectContext
+    AppDelegate *appDelegate =  [[UIApplication sharedApplication]delegate];
+    self.managedObjectContext=[appDelegate managedObjectContext];
 }
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder{

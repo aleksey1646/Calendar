@@ -23,6 +23,19 @@ CGFloat NotesDataSourceHeightForRow;
     NotesDataSourceHeightForRow= st.height+sd.height;
 }
 
+#pragma mark - UITableViewDelegate
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return @"Remove";
+}
+
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     NSLog(@"didSelectRowAtIndexPath");
     NotesPageViewController* pctl=[self notesPageCtrl];
@@ -136,6 +149,7 @@ CGFloat NotesDataSourceHeightForRow;
 
 -(IBAction) editClicked{
     NSLog(@"Edit button click");
+  
     
     [UIView animateWithDuration:0.25
                           delay:0.0
@@ -151,7 +165,26 @@ CGFloat NotesDataSourceHeightForRow;
                      completion:NULL];
     
     editMode=!editMode;
-    [notesTableView setEditing:editMode animated:YES];
+   [notesTableView setEditing:editMode animated:YES];
+   
+    
+    UIBarButtonSystemItem item = UIBarButtonSystemItemEdit;
+    
+    if (!notesTableView.editing) {
+        
+        item = UIBarButtonSystemItemDone;
+        
+    }
+
+    if (item == UIBarButtonSystemItemDone) {
+        self.navigationItem.leftBarButtonItem.title = @"Edit";
+    } else {
+        self.navigationItem.leftBarButtonItem.title = @"Done";
+    }
+   
+    
+    
+    
 }
 
 -(IBAction) segmentChanged:(UISegmentedControl*)sender{
