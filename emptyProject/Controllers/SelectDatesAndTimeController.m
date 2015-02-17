@@ -13,7 +13,7 @@
 @interface SelectDatesAndTimeController ()
 @property (weak) UIGCalendarMonthTmp *previousSelectedMonth;
 @property (strong) NSMutableArray *dayPosition;
-@property (weak) UIView *senderView;
+@property (weak) UILabel *senderView;
 @end
 
 @implementation SelectDatesAndTimeController
@@ -60,17 +60,18 @@
 
 - (void) selectDay {
     UIView *labelDayClick = self.senderView;
-     float originLabel = self.senderView.frame.origin.x;
+      NSString *textLabel = self.senderView.text;
+
     
-    for(NSDictionary* labelDict in self.dayPosition){
+   for(NSDictionary* labelDict in self.dayPosition){
         if ([[labelDict objectForKey:@"clicked"]isEqualToString:@"YES"]) {
             
-            if ([[labelDict objectForKey:@"frame_x"]floatValue] == originLabel) {
+         if ([[labelDict objectForKey:@"text"]isEqualToString:textLabel]) {
+                
                 if (labelDayClick.frame.size.width >50) {
-                    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(labelDayClick.frame.origin.x+17, labelDayClick.frame.origin.y-13, 45.714287, 81.8198)];
-                    view.backgroundColor = [UIColor clearColor];
                     
-                    labelDayClick = view;
+                    UILabel *view = [[UILabel alloc]initWithFrame:CGRectMake(labelDayClick.frame.origin.x+17, labelDayClick.frame.origin.y-13, 45.714287, 81.8198)];
+                        labelDayClick.frame = view.frame;
                     
                 }
                 //45.714287
@@ -89,14 +90,22 @@
        
         
     }
+    
+    
+    
 }
 - (void) unSelectDay {
     UIView *labelDayClick = self.senderView;
-    float originLabel = self.senderView.frame.origin.x;
+    
+    NSString *textLabel = self.senderView.text;
+
     
     for(NSDictionary* labelDict in self.dayPosition){
     if ([[labelDict objectForKey:@"clicked"]isEqualToString:@"NO"]) {
-          if ([[labelDict objectForKey:@"frame_x"]floatValue] == originLabel) {
+        
+        
+        if ([[labelDict objectForKey:@"text"]isEqualToString:textLabel]) {
+           
               labelDayClick.layer.cornerRadius = 0;
               labelDayClick.clipsToBounds=NO;
               labelDayClick.backgroundColor = [UIColor clearColor];
@@ -110,14 +119,16 @@
 }
 - (void)clickOnMonthView:(UITapGestureRecognizer *)sender {
     
-    self.senderView = sender.view;
-    NSLog(@"clickOnMonthView");
-    float originLabel = sender.view.frame.origin.x;
+    self.senderView = (UILabel *)sender.view;
+    NSLog(@"clickOnMonthView text %@",self.senderView.text);
+    
+    NSString *textLabel = self.senderView.text;
+   
     
     for(NSDictionary* labelDict in self.dayPosition){
        
         
-        if ([[labelDict objectForKey:@"frame_x"]floatValue] == originLabel) {
+        if ([[labelDict objectForKey:@"text"]isEqualToString:textLabel]) {
             
             if ([[labelDict objectForKey:@"clicked"]isEqualToString:@"YES"]) {
                 [labelDict setValue:@"NO" forKey:@"clicked"];
@@ -131,15 +142,18 @@
                 
             }
         }
-       
+    
+//    if (sender.view.layer.cornerRadius!=0) {
+//        [self unSelectDay];
+//        return;
+//    } else {
+//        [self selectDay];
+//        return;
+//    }
+    
     }
-   
-    
-    
-   
-    
-
 }
+
 
 -(void) GCalendarDelegate:(UIGCalendar*)cal onDoubleTap:(UIGCalendarMonthTmp*)mf{
     int month=[mf getCurrentMonth];
