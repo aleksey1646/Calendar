@@ -36,11 +36,11 @@
 		C1F720A41A583CDB00320D33 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F720A31A583CDB00320D33 /* UIKit.framework */; };
 		C1FBD4E61A62F638003A6A9A /* SelectDatesAndTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBD4E51A62F638003A6A9A /* SelectDatesAndTimeController.m */; };
 		C8D9613E1A8B426000C81AEF /* CustomTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */; };
+		E10E85A71A94AD6200C13275 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E85A61A94AD6200C13275 /* Note.m */; };
 		E1B83C591A8634B50080892A /* NoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B83C581A8634B50080892A /* NoteTableViewCell.m */; };
 		E1BD20B71A8F3CE100AD7DDE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1BD20B61A8F3CE100AD7DDE /* CoreData.framework */; };
 		E1BD20BA1A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1BD20B81A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld */; };
 		E1BD20BE1A8F6CB900AD7DDE /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BD20BD1A8F6CB900AD7DDE /* DataManager.m */; };
-		E1BD20C91A8FCF2100AD7DDE /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BD20C81A8FCF2100AD7DDE /* Note.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,14 +107,14 @@
 		C1FBD4E51A62F638003A6A9A /* SelectDatesAndTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectDatesAndTimeController.m; path = Controllers/SelectDatesAndTimeController.m; sourceTree = "<group>"; };
 		C8D9613C1A8B426000C81AEF /* CustomTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTapGestureRecognizer.h; sourceTree = "<group>"; };
 		C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTapGestureRecognizer.m; sourceTree = "<group>"; };
+		E10E85A51A94AD6200C13275 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		E10E85A61A94AD6200C13275 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 		E1B83C571A8634B50080892A /* NoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteTableViewCell.h; sourceTree = "<group>"; };
 		E1B83C581A8634B50080892A /* NoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteTableViewCell.m; sourceTree = "<group>"; };
 		E1BD20B61A8F3CE100AD7DDE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E1BD20B91A8F3D9E00AD7DDE /* emptyProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = emptyProject.xcdatamodel; sourceTree = "<group>"; };
 		E1BD20BC1A8F6CB900AD7DDE /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		E1BD20BD1A8F6CB900AD7DDE /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
-		E1BD20C71A8FCF2100AD7DDE /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
-		E1BD20C81A8FCF2100AD7DDE /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -304,9 +304,9 @@
 		E1BD20BB1A8F3DA600AD7DDE /* model */ = {
 			isa = PBXGroup;
 			children = (
+				E10E85A51A94AD6200C13275 /* Note.h */,
+				E10E85A61A94AD6200C13275 /* Note.m */,
 				E1BD20B81A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld */,
-				E1BD20C71A8FCF2100AD7DDE /* Note.h */,
-				E1BD20C81A8FCF2100AD7DDE /* Note.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -412,7 +412,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1BD20C91A8FCF2100AD7DDE /* Note.m in Sources */,
+				E10E85A71A94AD6200C13275 /* Note.m in Sources */,
 				C1E7AB081A5EF62E00AA7665 /* UIGCalendarYearTmp.m in Sources */,
 				C131A0171A596A2500AE323E /* NotesPageViewController.m in Sources */,
 				C131A0241A59B2AF00AE323E /* SubTabBarViewController.m in Sources */,

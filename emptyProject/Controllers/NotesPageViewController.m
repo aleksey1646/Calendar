@@ -108,6 +108,15 @@ CGFloat NotesDataSourceHeightForRow;
     
     [request setEntity:description];
     
+    //predicate
+    if (self.textSearch) {
+        NSString *str = self.textSearch;
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title contains[cd] %@ || textNote contains[cd] %@", str,str];
+        
+        [request setPredicate:predicate];
+    }
+   
+   
     NSError* error = nil;
     NSMutableArray *arrayWithNote = [NSMutableArray array];
     self.arrayNotes = [NSMutableArray array];
@@ -193,6 +202,43 @@ CGFloat NotesDataSourceHeightForRow;
           );
 }
 
+#pragma mark - UISearchBarDelegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
+    
+    if (![searchText isEqualToString:@""]) {
+        self.textSearch = (NSMutableString *)searchText;
+    } else {
+         self.textSearch = nil;
+    }
+    
+    [notesTableView setExtendedDataSource:[self getAllNotes]];
+    NSLog(@" search text %@", self.textSearch);
+    
+}
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    
+    
+
+}
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)aSearchBar {
+    
+    [aSearchBar setShowsCancelButton:YES animated:YES];
+}
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    
+    [searchBar resignFirstResponder];
+    [searchBar setShowsCancelButton:NO animated:YES];
+    
+}
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+    
+    [searchBar resignFirstResponder];
+    [searchBar setShowsCancelButton:NO animated:YES];
+    [self.view endEditing:YES];
+}
+
+#pragma mark - viewDidLoad
 - (void)viewDidLoad {
     NSLog(@"NotesPageViewController::viewDidLoad");
     [super viewDidLoad];
@@ -207,6 +253,7 @@ CGFloat NotesDataSourceHeightForRow;
     UISearchBar * search_bar=[[UISearchBar alloc]initWithFrame:CGRectMake(0, 0, 0, 50)];
     [search_bar setPlaceholder:[GLang getString:@"Notes.search.placeholder"]];
     
+    search_bar.delegate = self;
     [notesTableView setTableHeaderView:search_bar];
     
     //[self getAllNotes];

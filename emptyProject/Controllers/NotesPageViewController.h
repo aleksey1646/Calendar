@@ -19,7 +19,7 @@
 @end
 
 
-@interface NotesPageViewController : SubTabBarViewController
+@interface NotesPageViewController : SubTabBarViewController <UISearchBarDelegate>
 {
 }
 
@@ -29,6 +29,7 @@
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, strong) NSMutableArray *arrayNotes;
+@property (strong) NSMutableString *textSearch;
 
 
 -(IBAction) segmentChanged:(UISegmentedControl*)sender;
