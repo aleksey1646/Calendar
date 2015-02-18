@@ -11,8 +11,11 @@
 #import "Note.h"
 
 @interface SelectDatesAndTimeController ()
-@property (weak) UIGCalendarMonthTmp *previousSelectedMonth;
+
+@property (weak) UIGCalendarMonthTmp *previousSelectedMonthDoubleClicked;
 @property (strong) NSMutableArray *dayPosition;
+@property (strong) NSMutableArray *dayPositionInMf;
+@property (strong) NSMutableArray *arrayWithSelectedMonth;
 @property (weak) UILabel *senderView;
 @end
 
@@ -43,16 +46,41 @@
     [gclock setFrame: cg_clock ];
     [uitableview setFrame:cg];
 }
+
+#pragma mark - onOnceTap
 -(void) GCalendarDelegate:(UIGCalendar*)cal onOnceTap:(UIGCalendarMonthTmp*)mf{
     
-        if ([self.previousSelectedMonth isEqual:mf]) {/////
-            [self.previousSelectedMonth unselectAllDaysInMonth];
-            self.previousSelectedMonth = nil;
-       
-    } else {
+   
+    int count = [self.arrayWithSelectedMonth count];
+    
+            if (count) {
+                
+                NSMutableArray *toDestroy = [NSMutableArray arrayWithCapacity:_arrayWithSelectedMonth.count];
+                for (UIGCalendarMonthTmp *month in self.arrayWithSelectedMonth) {
+                    if ([month isEqual:mf]) {
+                        
+                        [toDestroy addObject:month];
+                        [mf unselectAllDaysInMonth];
+                        continue;
+                    }
+                   
+                }
+                 [self.arrayWithSelectedMonth removeObjectsInArray:toDestroy];
+
+                
+             
+    
+        } else {
+            [self.arrayWithSelectedMonth addObject:mf];
+            [mf selectAllDaysInMonth];
+            return;
+        }
+    if (count==self.arrayWithSelectedMonth.count) {
+        [self.arrayWithSelectedMonth addObject:mf];
         [mf selectAllDaysInMonth];
-        self.previousSelectedMonth = mf;
+
     }
+  
    
     
 
@@ -64,7 +92,7 @@
 
     
    for(NSDictionary* labelDict in self.dayPosition){
-        if ([[labelDict objectForKey:@"clicked"]isEqualToString:@"YES"]) {
+        if ([[labelDict objectForKey:@"selected"]isEqualToString:@"YES"]) {
             
          if ([[labelDict objectForKey:@"text"]isEqualToString:textLabel]) {
                 
@@ -101,7 +129,7 @@
 
     
     for(NSDictionary* labelDict in self.dayPosition){
-    if ([[labelDict objectForKey:@"clicked"]isEqualToString:@"NO"]) {
+    if ([[labelDict objectForKey:@"selected"]isEqualToString:@"NO"]) {
         
         
         if ([[labelDict objectForKey:@"text"]isEqualToString:textLabel]) {
@@ -130,32 +158,29 @@
         
         if ([[labelDict objectForKey:@"text"]isEqualToString:textLabel]) {
             
-            if ([[labelDict objectForKey:@"clicked"]isEqualToString:@"YES"]) {
-                [labelDict setValue:@"NO" forKey:@"clicked"];
+            if ([[labelDict objectForKey:@"selected"]isEqualToString:@"YES"]) {
+                [labelDict setValue:@"NO" forKey:@"selected"];
                 [self unSelectDay];
                 return;
                 
             } else {
-                [labelDict setValue:@"YES" forKey:@"clicked"];
+                [labelDict setValue:@"YES" forKey:@"selected"];
                 [self selectDay];
                 return;
                 
             }
         }
-    
-//    if (sender.view.layer.cornerRadius!=0) {
-//        [self unSelectDay];
-//        return;
-//    } else {
-//        [self selectDay];
-//        return;
-//    }
-    
+   
     }
 }
 
 
 -(void) GCalendarDelegate:(UIGCalendar*)cal onDoubleTap:(UIGCalendarMonthTmp*)mf{
+    
+     self.previousSelectedMonthDoubleClicked = mf;
+    
+    
+    
     int month=[mf getCurrentMonth];
     int year=[mf getCurrentYear];
     
@@ -173,6 +198,7 @@
     
     //int dayInThisMonth = [new_mf getDaysInThisMonth];
     self.dayPosition = [new_mf getDayPositionDictionaries];
+    self.dayPositionInMf = [mf getDayPositionDictionaries];
      for(NSDictionary* labelDict in self.dayPosition){
          
          UILabel *labelDay = [[UILabel alloc]initWithFrame:CGRectMake([[labelDict objectForKey:@"frame_x"] floatValue], [[labelDict objectForKey:@"frame_y"] floatValue], [[labelDict objectForKey:@"frame_width"] floatValue], [[labelDict objectForKey:@"frame_height"] floatValue])];
@@ -215,6 +241,11 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    if (self.dayPosition) {
+        self.dayPositionInMf = self.dayPosition;
+    }
+
+    [self.previousSelectedMonthDoubleClicked selectedDays:self.dayPositionInMf];
     [self updateSizes];
 }
 
@@ -305,6 +336,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dayWeeks = [[NSString alloc]init];
+    self.arrayWithSelectedMonth = [NSMutableArray array];
   
     
     daysFooterLabel=[[UILabel alloc]initWithFrame:CGRectZero];

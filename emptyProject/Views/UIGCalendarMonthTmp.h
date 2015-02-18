@@ -25,6 +25,7 @@
 
 - (void) selectAllDaysInMonth;
 - (void) unselectAllDaysInMonth;
+- (void) selectedDays:(NSMutableArray *)dayPositionInMf;
 
 
 @property UIFont *font;

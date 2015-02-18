@@ -157,6 +157,28 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
 }
+- (void) selectedDays:(NSMutableArray *)dayPositionInMf {
+    
+    for (int i = 0; i<[dayPositionDictionaries count]; i++) {
+        NSDictionary *labelDict = [dayPositionDictionaries objectAtIndex:i];
+     
+        NSDictionary *labelDictMf = [dayPositionInMf objectAtIndex:i];
+            
+            if ([[labelDictMf objectForKey:@"selected"]isEqualToString:@"YES"]) {
+                
+                [labelDict setValue:@"YES" forKey:@"selected"];
+               
+            } else {
+                 [labelDict setValue:@"NO" forKey:@"selected"];
+            }
+            
+        
+     
+    }
+    
+
+    [self setNeedsDisplay];
+}
 - (void) selectAllDaysInMonth {
     for (NSDictionary *labelDict in dayPositionDictionaries) {
         [labelDict setValue:@"YES" forKey:@"selected"];
