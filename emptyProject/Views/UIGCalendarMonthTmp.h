@@ -14,6 +14,7 @@
     int currentYear;
     int days_in_this_month;
     int first_is_dayn;
+
 }
 
 - (int) getCurrentMonth;
@@ -26,8 +27,9 @@
 - (void) selectAllDaysInMonth;
 - (void) unselectAllDaysInMonth;
 - (void) selectedDays:(NSMutableArray *)dayPositionInMf;
+- (void) addDaysLabels;
 
-
+@property (weak) UIViewController *delegate;
 @property UIFont *font;
 @property UIColor* textColor;
 @property UILabel* monthLabel;

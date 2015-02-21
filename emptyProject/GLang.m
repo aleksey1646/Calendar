@@ -15,7 +15,7 @@ NSDictionary* GLangCurrentLangDict=nil;
 
 +(void)initialize{
     NSString * language = [[NSLocale preferredLanguages] objectAtIndex:0];
-//    language=@"en";
+    language=@"ru";
     NSDictionary* dicts=
   @{
         @"en":

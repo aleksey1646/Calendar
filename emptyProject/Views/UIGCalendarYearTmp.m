@@ -66,11 +66,12 @@
     }
         
         currentYearLabel = [[UILabel alloc]initWithFrame:CGRectZero];
-        [currentYearLabel setFont:[UIFont systemFontOfSize:24]];
+        [currentYearLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Thin" size:(24.0)]];
+    
         [currentYearLabel setText:[NSString stringWithFormat:@"%d",currentYear]];
         
         [currentYearLabel setFrame:CGRectMake(ira_x+border/2, ira_y, widthOverWidth, oneElementSize/5)];
-        [currentYearLabel setTextColor:[UIColor grayColor]];
+        [currentYearLabel setTextColor:[UIColor blackColor]];
         
         [self addSubview:currentYearLabel];
     
@@ -83,7 +84,7 @@
     
     _viewUnderline.frame=CGRectMake(currentYearLabel.frame.origin.x,currentYearLabel.frame.origin.y+currentYearLabel.frame.size.height+border/2,widthOverWidth,0.5);
                                    
-    _viewUnderline.backgroundColor=[UIColor grayColor];
+    _viewUnderline.backgroundColor=[UIColor lightGrayColor];
     [self addSubview:_viewUnderline];
 
     for(i=0;i<12;i++){
@@ -109,7 +110,7 @@
         [cf setMonth:(int)tmp_m withYear:(int)currentYear];
         
        
-        [cf setFrame:CGRectMake(ira_x, ira_y+(oneElementSize/3), oneElementWidth-(border/2), oneElementSize)];
+        [cf setFrame:CGRectMake(ira_x+border/2, ira_y+(oneElementSize/3), oneElementWidth-(border/2), oneElementSize)];
         ira_x+=oneElementWidth;
         if(ira_x>=widthOverWidth){
             ira_x=0;

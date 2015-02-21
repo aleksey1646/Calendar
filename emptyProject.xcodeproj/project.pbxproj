@@ -37,6 +37,7 @@
 		C1FBD4E61A62F638003A6A9A /* SelectDatesAndTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBD4E51A62F638003A6A9A /* SelectDatesAndTimeController.m */; };
 		C8D9613E1A8B426000C81AEF /* CustomTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */; };
 		E10E85A71A94AD6200C13275 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E85A61A94AD6200C13275 /* Note.m */; };
+		E16D34671A98B708001928D8 /* ViewSelectedMonth.m in Sources */ = {isa = PBXBuildFile; fileRef = E16D34661A98B708001928D8 /* ViewSelectedMonth.m */; };
 		E1B83C591A8634B50080892A /* NoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B83C581A8634B50080892A /* NoteTableViewCell.m */; };
 		E1BD20B71A8F3CE100AD7DDE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1BD20B61A8F3CE100AD7DDE /* CoreData.framework */; };
 		E1BD20BA1A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1BD20B81A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld */; };
@@ -109,6 +110,8 @@
 		C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTapGestureRecognizer.m; sourceTree = "<group>"; };
 		E10E85A51A94AD6200C13275 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
 		E10E85A61A94AD6200C13275 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+		E16D34651A98B708001928D8 /* ViewSelectedMonth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewSelectedMonth.h; sourceTree = "<group>"; };
+		E16D34661A98B708001928D8 /* ViewSelectedMonth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewSelectedMonth.m; sourceTree = "<group>"; };
 		E1B83C571A8634B50080892A /* NoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteTableViewCell.h; sourceTree = "<group>"; };
 		E1B83C581A8634B50080892A /* NoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteTableViewCell.m; sourceTree = "<group>"; };
 		E1BD20B61A8F3CE100AD7DDE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -277,6 +280,8 @@
 				C1E7AB041A5EBF8600AA7665 /* UIGCalendarMonthTmp.m */,
 				C1E7AB061A5EF62E00AA7665 /* UIGCalendarYearTmp.h */,
 				C1E7AB071A5EF62E00AA7665 /* UIGCalendarYearTmp.m */,
+				E16D34651A98B708001928D8 /* ViewSelectedMonth.h */,
+				E16D34661A98B708001928D8 /* ViewSelectedMonth.m */,
 				C1AA2D6C1A5F382F005DCC23 /* ClockView.h */,
 				C1AA2D6D1A5F382F005DCC23 /* ClockView.m */,
 			);
@@ -424,6 +429,7 @@
 				C131A0331A5ABD3B00AE323E /* SettingsViewController.m in Sources */,
 				C1FBD4E61A62F638003A6A9A /* SelectDatesAndTimeController.m in Sources */,
 				E1B83C591A8634B50080892A /* NoteTableViewCell.m in Sources */,
+				E16D34671A98B708001928D8 /* ViewSelectedMonth.m in Sources */,
 				C199B28D1A6D5A1B00B77253 /* HTMLViewController.m in Sources */,
 				C1D871C01A5769A300B61429 /* AppDelegate.m in Sources */,
 				E1BD20BE1A8F6CB900AD7DDE /* DataManager.m in Sources */,

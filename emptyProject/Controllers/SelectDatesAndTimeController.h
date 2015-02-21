@@ -32,6 +32,7 @@
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 -(IBAction)onSegmentClick:(id)sender;
+-(void)setRoundedView:(UIView *)roundedView toDiameter:(float)newSize;
 
 
 @end

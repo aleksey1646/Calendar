@@ -7,6 +7,14 @@
 //
 
 #import "UIGCalendarMonthTmp.h"
+#import "GLang.h"
+
+
+@interface UIGCalendarMonthTmp ()
+
+@property (weak) UIView *baseView;
+
+@end
 
 @implementation UIGCalendarMonthTmp
 @synthesize font,textColor,monthLabel,yearLabel;
@@ -25,6 +33,160 @@
 
 - (NSMutableArray *)getDayPositionDictionaries {
     return dayPositionDictionaries;
+}
+
+- (void)addDaysLabels
+{
+    
+    if (self.baseView) {
+        [self.baseView removeFromSuperview];
+    }
+    
+    UIView *baseView = [[UIView alloc]initWithFrame:CGRectZero];
+    baseView.frame= self.frame;
+    
+    self.baseView = baseView;
+    
+    baseView.backgroundColor = [UIColor whiteColor];
+    [self addSubview:baseView];
+    
+    //int dayInThisMonth = [new_mf getDaysInThisMonth];
+    NSMutableArray *dayPositions = [self getDayPositionDictionaries];
+    
+    NSDictionary *firstDictDay = [dayPositions firstObject];
+    
+    float yFirstDay = [[firstDictDay objectForKey:@"frame_y"] floatValue];
+    float heightDay = [[firstDictDay objectForKey:@"frame_height"] floatValue];
+    float widthDay = [[firstDictDay objectForKey:@"frame_width"] floatValue];
+    
+    //NSMutableArray *dayPositionInMf= [self getDayPositionDictionaries];
+    int countVisibleDays = 0;
+    for(NSDictionary* labelDict in dayPositions){
+        
+        CGRect rect = CGRectMake([[labelDict objectForKey:@"frame_x"] floatValue],
+                                 [[labelDict objectForKey:@"frame_y"] floatValue]+[[labelDict objectForKey:@"frame_height"] floatValue]/2.5,
+                                 [[labelDict objectForKey:@"frame_width"] floatValue],
+                                 [[labelDict objectForKey:@"frame_height"] floatValue]/3);
+        
+        
+        if (![[labelDict objectForKey:@"visibility"] boolValue]) {
+            continue;
+        }
+
+        UILabel *labelDay = [[UILabel alloc]initWithFrame:rect];
+        
+        [labelDay setText:[labelDict objectForKey:@"text"]];
+        [labelDay setFont:[UIFont systemFontOfSize:12]];
+        
+        if (labelDay.frame.origin.x>widthDay*4) {
+            
+            labelDay.textColor = [UIColor lightGrayColor];
+            
+        } else {
+            labelDay.textColor = [UIColor blackColor];
+        }
+        
+        labelDay.backgroundColor = [UIColor clearColor];//clearColor
+        [labelDay setTextAlignment:NSTextAlignmentCenter];
+        UITapGestureRecognizer *tapRecognizer;
+        tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:_delegate action: @selector (clickOnMonthView:)];
+        
+        [tapRecognizer setNumberOfTouchesRequired : 1];
+        labelDay.userInteractionEnabled = YES;
+        
+        
+        
+        if ([[labelDict objectForKey:@"selected"]isEqualToString:@"YES"]) {
+            
+            
+            /*
+            CGPoint saveCenter = roundedView.center;
+            CGRect newFrame = CGRectMake(roundedView.frame.origin.x, roundedView.frame.origin.y, newSize/2, newSize/2);
+            roundedView.frame = newFrame;
+            roundedView.layer.cornerRadius = newSize / 4.0;
+            roundedView.center = saveCenter;
+            */
+
+         
+//                float newSize = labelDay.frame.size.width;
+//                labelDay.clipsToBounds = YES;
+//                [_delegate performSelector:@selector(setRoundedView:toDiameter:) withObject:labelDay withObject:[NSNumber numberWithFloat:newSize]];
+            
+                labelDay.backgroundColor = [UIColor colorWithRed:76.0/255.0 green:217.0/255.0 blue:100.0/255.0 alpha:0.9];
+                labelDay.textColor = [UIColor whiteColor];
+           
+            
+        }
+        
+       
+        
+        if ([[labelDict objectForKey:@"visibility"] boolValue]) {
+            countVisibleDays++;
+        }
+        
+        [baseView addSubview:labelDay];
+        [labelDay addGestureRecognizer:tapRecognizer];
+        
+    }
+    
+    
+    
+    NSDictionary *lastDictDay = [dayPositions objectAtIndex:countVisibleDays-1];
+    float yLastDay = [[lastDictDay objectForKey:@"frame_y"] floatValue]+[[firstDictDay objectForKey:@"frame_height"] floatValue]/2.5;
+    
+    
+    for (int i = 0; i<6; i++) {
+        
+        UIView *viewLine = [[UIView alloc]init];
+        viewLine.frame = CGRectMake(baseView.frame.origin.x, yFirstDay+25+(heightDay*i), baseView.frame.size.width, 0.5);
+        viewLine.backgroundColor = [UIColor lightGrayColor];
+        [baseView addSubview:viewLine];
+        
+        if (viewLine.frame.origin.y>yLastDay) {
+            
+            [viewLine removeFromSuperview];
+        }
+    }
+    
+    //NSMutableArray *arrayDayWeeks = [NSMutableArray array];
+    for (int i = 0;i<7; i++) {
+        
+        
+        CGRect rectDayWeekLabel = CGRectMake(baseView.frame.origin.x+(widthDay*i), yFirstDay-10, widthDay, heightDay/2);
+        
+        UILabel *labelDayWeek = [[UILabel alloc]initWithFrame:rectDayWeekLabel];
+        NSString *stringDayWeek = [[GLang getString: [NSString stringWithFormat:@"DayNames.full.d%d",i+1] ] substringToIndex:1];
+        [labelDayWeek setText:stringDayWeek];
+        [labelDayWeek setTextAlignment:NSTextAlignmentCenter];
+        
+        if (i>4) {
+            labelDayWeek.textColor = [UIColor lightGrayColor];
+        } else {
+            labelDayWeek.textColor = [UIColor blackColor];
+        }
+        [baseView addSubview:labelDayWeek];
+        //[arrayDayWeeks addObject:stringDayWeek];
+    }
+    
+    
+    
+    
+    
+    
+    /*
+     ctrl.view.transform = CGAffineTransformMakeScale(0.01, 0.01);
+     [UIView animateWithDuration:0.1
+     animations:^{
+     [self.view addSubview:ctrl.view];
+     ctrl.view.transform=CGAffineTransformMakeScale(1, 1);
+     }
+     completion:^(BOOL finished){
+     [ctrl.view removeFromSuperview];
+     [self.navigationController pushViewController: ctrl animated:NO];
+     }];
+     
+     */
+
 }
 
 - (void)restructOnChange{
@@ -77,7 +239,22 @@
 
 - (void)layoutSubviews {
     [super layoutSubviews];
+    
     [self restructOnChange];
+    if (self.baseView) {
+        if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+        {
+            NSLog(@"UIDeviceOrientationIsLandscape");
+        }
+        if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
+        {
+             NSLog(@"UIDeviceOrientationIsPortrait");
+            
+        }
+        [self addDaysLabels];
+    }
+    [self setNeedsDisplay];
+    
 }
 
 - (void) setMonth:(int)month withYear:(int)year{
@@ -89,9 +266,8 @@
     
     [monthLabel setText:
      [
-      NSString stringWithFormat:@"%@-%d",                   //убрать год?
-     [NSString stringWithUTF8String:monthNames[month-1]],
-      currentYear
+      NSString stringWithFormat:@"%@",                   //убрать год?
+     [NSString stringWithUTF8String:monthNames[month-1]]
      ]
      ];
     
@@ -141,7 +317,7 @@
     [self setTextColor:[UIColor blackColor]];
     [self setMonthLabel:[[UILabel alloc]initWithFrame:CGRectZero]];
     [self addSubview:monthLabel];
-    [monthLabel setTextAlignment:NSTextAlignmentCenter];
+    [monthLabel setTextAlignment:NSTextAlignmentLeft];
     [monthLabel setTextColor:[UIColor colorWithRed:1.0 green:0.2 blue:0.2 alpha:1]];
     [self setMonth:1 withYear:2015]; //last in init
     return self;
@@ -199,6 +375,8 @@
     @autoreleasepool {
     [super drawRect:rect];
     NSDictionary* stringAttrs = @{ NSFontAttributeName : font, NSForegroundColorAttributeName : textColor };
+   
+        
     CGSize c9fontSizeResult=[@"9" sizeWithAttributes: @{NSFontAttributeName: [self font] } ];
     CGSize  c99fontSizeResult=[@"99" sizeWithAttributes: @{NSFontAttributeName: [self font] } ];
     CGFloat c9hd2=c9fontSizeResult.height/2;
@@ -212,6 +390,7 @@
         if([[labelDict objectForKey:@"visibility"] isEqualToString:@"YES"]){
             NSString* wrstr=[labelDict objectForKey:@"text"];
             NSAttributedString* attrStr = [[NSAttributedString alloc] initWithString: wrstr attributes:stringAttrs];
+            
             CGFloat fx=[[labelDict objectForKey:@"frame_x"] floatValue];
             CGFloat fy=[[labelDict objectForKey:@"frame_y"] floatValue];
             CGFloat fw=[[labelDict objectForKey:@"frame_width"] floatValue];
@@ -229,10 +408,17 @@
             
             if ([[labelDict objectForKey:@"selected"] boolValue]) {
                 
-                CGRect borderRect = CGRectMake(fx, fy + 2, fw/1.25, fh/1.25);
-                CGContextSetRGBFillColor(ctx, 1, 0, 0, 0.5);
+                 NSDictionary* stringAttrsForSelect = @{ NSFontAttributeName : font, NSForegroundColorAttributeName : [UIColor whiteColor] };
+                NSAttributedString* attrStrForSelect = [[NSAttributedString alloc] initWithString: [labelDict objectForKey:@"text"] attributes:stringAttrsForSelect];
+                
+                CGRect borderRect = CGRectMake(fx, fy + 1.1, fw/1.1, fh/1.1);
+                UIColor *color = [UIColor colorWithRed:76.0/255.0 green:217.0/255.0 blue:100.0/255.0 alpha:0.9];
+                CGContextSetFillColorWithColor(ctx, color.CGColor);
                 CGContextFillEllipseInRect (ctx, borderRect);
                 CGContextFillPath(ctx);
+                
+                [attrStrForSelect drawAtPoint:CGPointMake(fx+(fw/2)-cwd2,fy+(fh/2)-chd2)];
+                continue;
 
                 
             }
