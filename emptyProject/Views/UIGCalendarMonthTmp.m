@@ -35,15 +35,16 @@
     return dayPositionDictionaries;
 }
 
-- (void)addDaysLabels
+- (void)addDaysLabels:(NSMutableArray *)dayPositions
 {
-    
+    self.dayPositions = dayPositions;
     if (self.baseView) {
         [self.baseView removeFromSuperview];
     }
     
     UIView *baseView = [[UIView alloc]initWithFrame:CGRectZero];
-    baseView.frame= self.frame;
+    
+   baseView.frame= self.frame;
     
     self.baseView = baseView;
     
@@ -51,24 +52,34 @@
     [self addSubview:baseView];
     
     //int dayInThisMonth = [new_mf getDaysInThisMonth];
-    NSMutableArray *dayPositions = [self getDayPositionDictionaries];
+    //NSMutableArray *dayPositions = [self getDayPositionDictionaries];
     
     NSDictionary *firstDictDay = [dayPositions firstObject];
     
     float yFirstDay = [[firstDictDay objectForKey:@"frame_y"] floatValue];
     float heightDay = [[firstDictDay objectForKey:@"frame_height"] floatValue];
     float widthDay = [[firstDictDay objectForKey:@"frame_width"] floatValue];
-    
+    //float widthDayForS = [[firstDictDay objectForKey:@"frame_width"] floatValue];
+
     //NSMutableArray *dayPositionInMf= [self getDayPositionDictionaries];
+    float k = 1;
     int countVisibleDays = 0;
     for(NSDictionary* labelDict in dayPositions){
+        
         
         CGRect rect = CGRectMake([[labelDict objectForKey:@"frame_x"] floatValue],
                                  [[labelDict objectForKey:@"frame_y"] floatValue]+[[labelDict objectForKey:@"frame_height"] floatValue]/2.5,
                                  [[labelDict objectForKey:@"frame_width"] floatValue],
                                  [[labelDict objectForKey:@"frame_height"] floatValue]/3);
         
-        
+        if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+        {
+            k = 1.25;
+            CGRect rectNewFrame = CGRectMake(rect.origin.x+rect.size.width/4, rect.origin.y, rect.size.width/2, rect.size.height*2);
+            rect = rectNewFrame;
+            NSLog(@"UIDeviceOrientationIsLandscape");
+            
+        }
         if (![[labelDict objectForKey:@"visibility"] boolValue]) {
             continue;
         }
@@ -78,7 +89,7 @@
         [labelDay setText:[labelDict objectForKey:@"text"]];
         [labelDay setFont:[UIFont systemFontOfSize:12]];
         
-        if (labelDay.frame.origin.x>widthDay*4) {
+        if (labelDay.frame.origin.x>widthDay*k*4) {
             
             labelDay.textColor = [UIColor lightGrayColor];
             
@@ -98,19 +109,16 @@
         
         if ([[labelDict objectForKey:@"selected"]isEqualToString:@"YES"]) {
             
+           
             
-            /*
-            CGPoint saveCenter = roundedView.center;
-            CGRect newFrame = CGRectMake(roundedView.frame.origin.x, roundedView.frame.origin.y, newSize/2, newSize/2);
-            roundedView.frame = newFrame;
-            roundedView.layer.cornerRadius = newSize / 4.0;
-            roundedView.center = saveCenter;
-            */
-
-         
-//                float newSize = labelDay.frame.size.width;
-//                labelDay.clipsToBounds = YES;
-//                [_delegate performSelector:@selector(setRoundedView:toDiameter:) withObject:labelDay withObject:[NSNumber numberWithFloat:newSize]];
+            CGPoint savePoint = labelDay.center;
+            labelDay.clipsToBounds = YES;
+             float newSize = labelDay.frame.size.width;
+            CGRect newFrame = CGRectMake(labelDay.frame.origin.x, labelDay.frame.origin.y, newSize/2, newSize/2);
+            labelDay.frame = newFrame;
+            labelDay.layer.cornerRadius = newSize / 4.0;
+            labelDay.center = savePoint;
+            
             
                 labelDay.backgroundColor = [UIColor colorWithRed:76.0/255.0 green:217.0/255.0 blue:100.0/255.0 alpha:0.9];
                 labelDay.textColor = [UIColor whiteColor];
@@ -134,6 +142,13 @@
     NSDictionary *lastDictDay = [dayPositions objectAtIndex:countVisibleDays-1];
     float yLastDay = [[lastDictDay objectForKey:@"frame_y"] floatValue]+[[firstDictDay objectForKey:@"frame_height"] floatValue]/2.5;
     
+    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+    {
+        yFirstDay = yFirstDay-5;
+        heightDay = heightDay*2;
+        
+        yLastDay = [[lastDictDay objectForKey:@"frame_y"] floatValue]+([[firstDictDay objectForKey:@"frame_height"] floatValue]*2)/2.5;
+    }
     
     for (int i = 0; i<6; i++) {
         
@@ -242,16 +257,11 @@
     
     [self restructOnChange];
     if (self.baseView) {
-        if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
-        {
-            NSLog(@"UIDeviceOrientationIsLandscape");
+
+        if (self.dayPositions) {
+            [self addDaysLabels:self.dayPositions];
         }
-        if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
-        {
-             NSLog(@"UIDeviceOrientationIsPortrait");
-            
-        }
-        [self addDaysLabels];
+        
     }
     [self setNeedsDisplay];
     

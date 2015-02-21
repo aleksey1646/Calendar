@@ -108,6 +108,15 @@
 //                 return;
 //             }
                 //45.714287
+            
+             UIColor *color = labelDayClick.textColor;
+             if ([color isEqual:[UIColor lightGrayColor]]) {
+                 [labelDict setValue:@"lightGrayColor" forKey:@"textColor"];
+             }
+             else {
+                 [labelDict setValue:@"blackColor" forKey:@"textColor"];
+             }
+             
              labelDayClick.clipsToBounds = YES;
              
              if (!labelDayClick.layer.cornerRadius) {
@@ -151,13 +160,17 @@
         
         
         if ([[labelDict objectForKey:@"text"]isEqualToString:textLabel]) {
-           
-              //labelDayClick.layer.cornerRadius = 0;
-              //labelDayClick.clipsToBounds=NO;
-              labelDayClick.backgroundColor = [UIColor clearColor];
-              labelDayClick.textColor = [UIColor blackColor];
+            
+            labelDayClick.backgroundColor = [UIColor clearColor];
 
-              //[self.senderView.superview addSubview: labelDayClick];
+            if ([[labelDict objectForKey:@"textColor"]isEqualToString:@"lightGrayColor"]) {
+                labelDayClick.textColor = [UIColor lightGrayColor];
+            }
+             
+            else   if ([[labelDict objectForKey:@"textColor"]isEqualToString:@"blackColor"]) {
+                labelDayClick.textColor = [UIColor blackColor];
+            }
+            
               return;
               
           }
@@ -212,9 +225,12 @@
     UIGCalendarMonthTmp* new_mf=(UIGCalendarMonthTmp*)ctrl.view;
     [new_mf setMonth:month withYear:year];
     new_mf.delegate = self;
-    [new_mf addDaysLabels];
     
-    self.dayPosition = [new_mf getDayPositionDictionaries];
+     self.dayPosition = [new_mf getDayPositionDictionaries];
+    
+    [new_mf addDaysLabels:self.dayPosition];
+    
+   
 
 
 /*

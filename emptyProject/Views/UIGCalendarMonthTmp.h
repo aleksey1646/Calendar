@@ -27,9 +27,10 @@
 - (void) selectAllDaysInMonth;
 - (void) unselectAllDaysInMonth;
 - (void) selectedDays:(NSMutableArray *)dayPositionInMf;
-- (void) addDaysLabels;
+- (void) addDaysLabels:(NSMutableArray *)dayPositions;
 
 @property (weak) UIViewController *delegate;
+@property (strong) NSMutableArray *dayPositions;
 @property UIFont *font;
 @property UIColor* textColor;
 @property UILabel* monthLabel;
