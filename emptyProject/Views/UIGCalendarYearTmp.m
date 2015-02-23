@@ -70,7 +70,7 @@
     
         [currentYearLabel setText:[NSString stringWithFormat:@"%d",currentYear]];
         
-        [currentYearLabel setFrame:CGRectMake(ira_x+border/2, ira_y, widthOverWidth, oneElementSize/5)];
+        [currentYearLabel setFrame:CGRectMake(ira_x+border/2, ira_y, widthOverWidth, oneElementSize/4)];
         [currentYearLabel setTextColor:[UIColor blackColor]];
         
         [self addSubview:currentYearLabel];
@@ -110,7 +110,7 @@
         [cf setMonth:(int)tmp_m withYear:(int)currentYear];
         
        
-        [cf setFrame:CGRectMake(ira_x+border/2, ira_y+(oneElementSize/3), oneElementWidth-(border/2), oneElementSize)];
+        [cf setFrame:CGRectMake(ira_x+border/2, ira_y+(oneElementSize/2), oneElementWidth-(border/2), oneElementSize)];
         ira_x+=oneElementWidth;
         if(ira_x>=widthOverWidth){
             ira_x=0;

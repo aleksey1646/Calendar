@@ -39,10 +39,49 @@
     CGRect cg=CGRectMake(0, 0, cw.frame.size.width,cw.frame.size.height);
     [gcalendar setFrame: cg ];
     //clock
+//    CGFloat clocksize=(cw.frame.size.width>cw.frame.size.height)?cw.frame.size.height:cw.frame.size.width;
+//    CGFloat width95p= clocksize/100*90;
+//    CGFloat wleft=(cw.frame.size.width/2)-(width95p/2);
+//    CGRect cg_clock=CGRectMake( wleft , 0, width95p, width95p);
+    //[gclock setFrame: cg_clock ];
+    
     CGFloat clocksize=(cw.frame.size.width>cw.frame.size.height)?cw.frame.size.height:cw.frame.size.width;
+    CGFloat width =cw.frame.size.width/100*90;
+    CGFloat widthleft = (cw.frame.size.width/2)-(width/2);
     CGFloat width95p= clocksize/100*90;
     CGFloat wleft=(cw.frame.size.width/2)-(width95p/2);
-    CGRect cg_clock=CGRectMake( wleft , 0, width95p, width95p);
+   
+    
+    CGRect rectForCellTime = CGRectMake(0, 0, cw.frame.size.width, 45.0);
+    [cellWithSwitchTime setFrame:rectForCellTime];
+    cellWithSwitchTime.backgroundColor = [UIColor whiteColor];
+    
+    CGRect cg_clock=CGRectMake( wleft ,cellWithSwitchTime.frame.origin.y+cellWithSwitchTime.frame.size.height/2 , width95p, cw.frame.size.height);
+
+    
+    
+    CGRect rectForTextLabel = CGRectMake(widthleft, 0, cellWithSwitchTime.frame.size.width/2, cellWithSwitchTime.frame.size.height);
+    [textLabelTime setFrame:rectForTextLabel];
+    [textLabelTime setText:[GLang getString: @"SelectDates.clock.time"]];
+    [textLabelTime setTextAlignment:NSTextAlignmentLeft];
+    [textLabelTime setFont:[UIFont fontWithName:@"HelveticaNeueCyr-Light" size:(24.0)]];
+  
+    
+   
+    CGRect rectForSwitch = CGRectMake(cw.frame.size.width-switchView.frame.size.width - widthleft,5, switchView.frame.size.width, switchView.frame.size.height);
+    [switchView setFrame:rectForSwitch];
+    [cellWithSwitchTime addSubview:switchView];
+    [cellWithSwitchTime addSubview:textLabelTime];
+    
+    CGRect rectForLineBeforeTime = CGRectMake(0, 0, cw.frame.size.width, 0.5);
+    [lineBeforeCellTime setFrame:rectForLineBeforeTime];
+    lineBeforeCellTime.backgroundColor = [UIColor lightGrayColor];
+    
+    CGRect rectForLineUnderTime = CGRectMake(0, switchView.frame.size.height+10, cw.frame.size.width, 0.5);
+    [lineUnderCellTime setFrame:rectForLineUnderTime];
+    lineUnderCellTime.backgroundColor = [UIColor lightGrayColor];
+
+    
     [gclock setFrame: cg_clock ];
     [uitableview setFrame:cg];
 }
@@ -229,120 +268,7 @@
      self.dayPosition = [new_mf getDayPositionDictionaries];
     
     [new_mf addDaysLabels:self.dayPosition];
-    
-   
-
-
-/*
-        UIView *baseView = [[UIView alloc]initWithFrame:CGRectZero];
-       baseView.frame= new_mf.frame;
-    
-   
-    
-    
-        baseView.backgroundColor = [UIColor whiteColor];
-        [new_mf addSubview:baseView];
-   
-    
-   
-    //int dayInThisMonth = [new_mf getDaysInThisMonth];
-    self.dayPosition = [new_mf getDayPositionDictionaries];
-    
-    NSDictionary *firstDictDay = [self.dayPosition firstObject];
-    
-   
-    float yFirstDay = [[firstDictDay objectForKey:@"frame_y"] floatValue];
-    float heightDay = [[firstDictDay objectForKey:@"frame_height"] floatValue];
-    float widthDay = [[firstDictDay objectForKey:@"frame_width"] floatValue];
-    
-    self.dayPositionInMf = [mf getDayPositionDictionaries];
-    int countVisibleDays = 0;
-     for(NSDictionary* labelDict in self.dayPosition){
-         
-         CGRect rect = CGRectMake([[labelDict objectForKey:@"frame_x"] floatValue],
-                                  [[labelDict objectForKey:@"frame_y"] floatValue]+[[labelDict objectForKey:@"frame_height"] floatValue]/2.5,
-                                [[labelDict objectForKey:@"frame_width"] floatValue],
-                                  [[labelDict objectForKey:@"frame_height"] floatValue]/3);
-        
-         if (![[labelDict objectForKey:@"visibility"] boolValue]) {
-             continue;
-         }
-         
-         UILabel *labelDay = [[UILabel alloc]initWithFrame:rect];
-         
-         [labelDay setText:[labelDict objectForKey:@"text"]];
-        [labelDay setFont:[UIFont systemFontOfSize:12]];
-         
-         
-         if (labelDay.frame.origin.x>widthDay*4) {
-             
-             labelDay.textColor = [UIColor lightGrayColor];
-
-         } else {
-              labelDay.textColor = [UIColor blackColor];
-         }
-         
-         
-        
-         labelDay.backgroundColor = [UIColor clearColor];//clearColor
-         [labelDay setTextAlignment:NSTextAlignmentCenter];
-         UITapGestureRecognizer *tapRecognizer;
-         tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget: self action: @selector (clickOnMonthView:)];
-         
-         [tapRecognizer setNumberOfTouchesRequired : 1];
-         labelDay.userInteractionEnabled = YES;
-         
-         if ([[labelDict objectForKey:@"visibility"] boolValue]) {
-             countVisibleDays++;
-         }
-         
-         [baseView addSubview:labelDay];
-         [labelDay addGestureRecognizer:tapRecognizer];
-     
-     }
-    
-    NSDictionary *lastDictDay = [self.dayPosition objectAtIndex:countVisibleDays-1];
-     float yLastDay = [[lastDictDay objectForKey:@"frame_y"] floatValue]+[[firstDictDay objectForKey:@"frame_height"] floatValue]/2.5;
-    
-
-    for (int i = 0; i<6; i++) {
-        
-        UIView *viewLine = [[UIView alloc]init];
-        viewLine.frame = CGRectMake(baseView.frame.origin.x, yFirstDay+25+(heightDay*i), baseView.frame.size.width, 0.5);
-        viewLine.backgroundColor = [UIColor lightGrayColor];
-        [baseView addSubview:viewLine];
-        
-        if (viewLine.frame.origin.y>yLastDay) {
-
-            [viewLine removeFromSuperview];
-        }
-    }
-   
-    //NSMutableArray *arrayDayWeeks = [NSMutableArray array];
-    for (int i = 0;i<7; i++) {
-        
-        
-        CGRect rectDayWeekLabel = CGRectMake(baseView.frame.origin.x+(widthDay*i), yFirstDay-10, widthDay, heightDay/2);
-        
-        UILabel *labelDayWeek = [[UILabel alloc]initWithFrame:rectDayWeekLabel];
-        NSString *stringDayWeek = [[GLang getString: [NSString stringWithFormat:@"DayNames.full.d%d",i+1] ] substringToIndex:1];
-        [labelDayWeek setText:stringDayWeek];
-        [labelDayWeek setTextAlignment:NSTextAlignmentCenter];
-        
-        if (i>4) {
-            labelDayWeek.textColor = [UIColor lightGrayColor];
-        } else {
-            labelDayWeek.textColor = [UIColor blackColor];
-        }
-        [baseView addSubview:labelDayWeek];
-        //[arrayDayWeeks addObject:stringDayWeek];
-    }
-    
-
-
-    
-
-    */
+ 
     [self.navigationController pushViewController: ctrl animated:YES];
 //    NSLog(@"UIGCalendarYearFast! %@",mf);
 }
@@ -365,10 +291,23 @@
 -(IBAction)onSegmentClick:(id)sender{
     [gcalendar removeFromSuperview];
     [gclock removeFromSuperview];
+    [cellWithSwitchTime removeFromSuperview];
+    [lineBeforeCellTime removeFromSuperview];
+    [lineUnderCellTime removeFromSuperview];
     [uitableview removeFromSuperview];
     switch([segmentControl selectedSegmentIndex]){
         case 0:[cw addSubview:gcalendar];break;
-        case 1:[cw addSubview:gclock];break;
+        case 1:{
+            self.view.backgroundColor = [UIColor blackColor];
+
+            //cw.backgroundColor = [UIColor blackColor];
+            [cw addSubview:gclock];
+            [cw addSubview:cellWithSwitchTime];
+            [cw addSubview:lineBeforeCellTime];
+            [cw addSubview:lineUnderCellTime];
+            
+            break;
+        }
         case 2:[cw addSubview:uitableview];break;
     }
     
@@ -455,6 +394,11 @@
     [daysFooterLabel setTextAlignment:NSTextAlignmentCenter];
     gcalendar=[[UIGCalendar alloc]initWithFrame:CGRectZero];
     gclock=[[ClockView alloc]initWithFrame:CGRectZero];
+    textLabelTime = [[UILabel alloc]initWithFrame:CGRectZero];
+    switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
+    cellWithSwitchTime = [[UIView alloc]initWithFrame:CGRectZero];
+    lineUnderCellTime = [[UIView alloc]initWithFrame:CGRectZero];
+    lineBeforeCellTime = [[UIView alloc]initWithFrame:CGRectZero];
     [gcalendar setGCalendarDelegate:self];
     
     uitableview=[[UIExtendedTableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];

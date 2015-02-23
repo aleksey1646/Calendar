@@ -19,6 +19,11 @@
 @interface SelectDatesAndTimeController : UIViewController<UITableViewDelegate,UIGCalendarDelegate>{
     UIGCalendar* gcalendar;
     ClockView* gclock;
+    UIView *cellWithSwitchTime;
+    UIView *lineBeforeCellTime;
+    UIView *lineUnderCellTime;
+    UILabel *textLabelTime;
+    UISwitch *switchView;
     UIExtendedTableView* uitableview;
     NSArray* extds;
     UILabel* daysFooterLabel;
@@ -26,6 +31,7 @@
 
 @property IBOutlet UISegmentedControl* segmentControl;
 @property IBOutlet UIView* cw;
+
 
 @property (weak) Note *note;
 @property (nonatomic, strong) NSString *dayWeeks;

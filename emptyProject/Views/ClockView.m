@@ -7,6 +7,13 @@
 //
 
 #import "ClockView.h"
+#import "AnalogDayClock.h"
+
+@interface ClockView ()
+
+@property (weak) AnalogDayClock *dayClock;
+
+@end
 
 @implementation ClockView
 
@@ -14,6 +21,15 @@
 
 -(void)layoutSubviews{
     [super layoutSubviews];
+    
+    if (!self.dayClock) {
+        AnalogDayClock *dayClock = [[AnalogDayClock alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        self.dayClock = dayClock;
+        [dayClock setHours:6 minutes:1 seconds:45];
+        
+        [self addSubview:dayClock];
+    }
+    
 }
 
 -(CGFloat)getSZ{
@@ -109,7 +125,7 @@ int secs=1;
     CGFloat center_y=[self getCenterY];
     center_y+=[self getMarginTop];
     
-    //    NSLog(@"x=%f %f",p.x,p.y);
+        NSLog(@"x=%f %f",p.x,p.y);
     
     CGFloat touch_x=p.x-center_x;
     CGFloat touch_y=p.y-center_y;
