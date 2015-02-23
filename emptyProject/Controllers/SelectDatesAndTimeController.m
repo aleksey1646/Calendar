@@ -52,11 +52,11 @@
     CGFloat wleft=(cw.frame.size.width/2)-(width95p/2);
    
     
-    CGRect rectForCellTime = CGRectMake(0, 0, cw.frame.size.width, 45.0);
+    CGRect rectForCellTime = CGRectMake(0, 0, cw.frame.size.width, 40.0);
     [cellWithSwitchTime setFrame:rectForCellTime];
     cellWithSwitchTime.backgroundColor = [UIColor whiteColor];
     
-    CGRect cg_clock=CGRectMake( wleft ,cellWithSwitchTime.frame.origin.y+cellWithSwitchTime.frame.size.height/2 , width95p, cw.frame.size.height);
+//    CGRect cg_clock=CGRectMake( wleft ,cellWithSwitchTime.frame.origin.y+cellWithSwitchTime.frame.size.height/2 , width95p, cw.frame.size.height);
 
     
     
@@ -81,6 +81,7 @@
     [lineUnderCellTime setFrame:rectForLineUnderTime];
     lineUnderCellTime.backgroundColor = [UIColor lightGrayColor];
 
+     CGRect cg_clock=CGRectMake( wleft ,lineUnderCellTime.frame.origin.y+lineBeforeCellTime.frame.size.height , width95p, cw.frame.size.height);
     
     [gclock setFrame: cg_clock ];
     [uitableview setFrame:cg];
@@ -294,11 +295,13 @@
     [cellWithSwitchTime removeFromSuperview];
     [lineBeforeCellTime removeFromSuperview];
     [lineUnderCellTime removeFromSuperview];
+    cw.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor whiteColor];
     [uitableview removeFromSuperview];
     switch([segmentControl selectedSegmentIndex]){
         case 0:[cw addSubview:gcalendar];break;
         case 1:{
-            self.view.backgroundColor = [UIColor blackColor];
+            //self.view.backgroundColor = [UIColor blackColor];
 
             //cw.backgroundColor = [UIColor blackColor];
             [cw addSubview:gclock];
