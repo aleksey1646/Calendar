@@ -11,4 +11,6 @@
 
 @interface ClockBaseView : UIView <ClockProtocol>
 
+- (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
+
 @end

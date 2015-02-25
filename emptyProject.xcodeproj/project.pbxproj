@@ -35,20 +35,37 @@
 		C1E7AB081A5EF62E00AA7665 /* UIGCalendarYearTmp.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E7AB071A5EF62E00AA7665 /* UIGCalendarYearTmp.m */; };
 		C1F720A41A583CDB00320D33 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F720A31A583CDB00320D33 /* UIKit.framework */; };
 		C1FBD4E61A62F638003A6A9A /* SelectDatesAndTimeController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBD4E51A62F638003A6A9A /* SelectDatesAndTimeController.m */; };
+		C8138E1F1A9B85D100E29839 /* UIImage+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E1E1A9B85D100E29839 /* UIImage+Extensions.m */; };
+		C8138E221A9B86A900E29839 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E211A9B86A900E29839 /* Constants.m */; };
+		C8138E281A9C71B600E29839 /* day_center_point@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E241A9C71B600E29839 /* day_center_point@2x.png */; };
+		C8138E291A9C71B600E29839 /* day_hour_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E251A9C71B600E29839 /* day_hour_arrow@2x.png */; };
+		C8138E2A1A9C71B600E29839 /* day_minute_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E261A9C71B600E29839 /* day_minute_arrow@2x.png */; };
+		C8138E2B1A9C71B600E29839 /* day_seconds_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E271A9C71B600E29839 /* day_seconds_arrow@2x.png */; };
+		C8138E2E1A9C71DF00E29839 /* day_clock_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E2C1A9C71DF00E29839 /* day_clock_bg@2x.png */; };
+		C8138E2F1A9C71DF00E29839 /* night_clock_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E2D1A9C71DF00E29839 /* night_clock_bg@2x.png */; };
+		C8138E321A9C73C900E29839 /* Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E311A9C73C900E29839 /* Utils.m */; };
+		C8138E371A9C7D7B00E29839 /* night_hour_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E331A9C7D7B00E29839 /* night_hour_arrow.png */; };
+		C8138E381A9C7D7B00E29839 /* night_hour_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E341A9C7D7B00E29839 /* night_hour_arrow@2x.png */; };
+		C8138E391A9C7D7B00E29839 /* night_minute_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E351A9C7D7B00E29839 /* night_minute_arrow.png */; };
+		C8138E3A1A9C7D7B00E29839 /* night_minute_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E361A9C7D7B00E29839 /* night_minute_arrow@2x.png */; };
+		C8138E3F1A9C7F2E00E29839 /* day_center_point.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E3B1A9C7F2E00E29839 /* day_center_point.png */; };
+		C8138E401A9C7F2E00E29839 /* day_hour_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E3C1A9C7F2E00E29839 /* day_hour_arrow.png */; };
+		C8138E411A9C7F2E00E29839 /* day_minute_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E3D1A9C7F2E00E29839 /* day_minute_arrow.png */; };
+		C8138E421A9C7F2E00E29839 /* day_seconds_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E3E1A9C7F2E00E29839 /* day_seconds_arrow.png */; };
+		C8138E451A9C82A700E29839 /* day_clock_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E431A9C82A700E29839 /* day_clock_bg.png */; };
+		C8138E461A9C82A700E29839 /* night_clock_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E441A9C82A700E29839 /* night_clock_bg.png */; };
+		C8138E4B1A9C859B00E29839 /* ClockContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E4A1A9C859B00E29839 /* ClockContainerView.m */; };
+		C8138E4E1A9C86E900E29839 /* ClockController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E4D1A9C86E900E29839 /* ClockController.m */; };
+		C8138E511A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E501A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.m */; };
+		C8138E541A9C897900E29839 /* AnalogClockSelectTimeIntervalView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E531A9C897900E29839 /* AnalogClockSelectTimeIntervalView.m */; };
 		C8D9613E1A8B426000C81AEF /* CustomTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */; };
 		E10E85A71A94AD6200C13275 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E85A61A94AD6200C13275 /* Note.m */; };
 		E16D34671A98B708001928D8 /* ViewSelectedMonth.m in Sources */ = {isa = PBXBuildFile; fileRef = E16D34661A98B708001928D8 /* ViewSelectedMonth.m */; };
 		E1B4312E1A99FB620054AC47 /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B4312D1A99FB620054AC47 /* TimeView.m */; };
-		E1B431371A9A4F980054AC47 /* AnalogDayClock.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B431361A9A4F980054AC47 /* AnalogDayClock.m */; };
-		E1B4313A1A9A4FAD0054AC47 /* AnalogNightClock.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B431391A9A4FAD0054AC47 /* AnalogNightClock.m */; };
+		E1B431371A9A4F980054AC47 /* AnalogDayClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B431361A9A4F980054AC47 /* AnalogDayClockView.m */; };
+		E1B4313A1A9A4FAD0054AC47 /* AnalogNightClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B431391A9A4FAD0054AC47 /* AnalogNightClockView.m */; };
 		E1B4313D1A9A4FF90054AC47 /* ClockBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B4313C1A9A4FF90054AC47 /* ClockBaseView.m */; };
-		E1B431401A9A53340054AC47 /* AnalogClock.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B4313F1A9A53340054AC47 /* AnalogClock.m */; };
-		E1B431491A9A58E80054AC47 /* minuteArror@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1B431431A9A58E80054AC47 /* minuteArror@2x.png */; };
-		E1B4314A1A9A58E80054AC47 /* secondsArror@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1B431441A9A58E80054AC47 /* secondsArror@2x.png */; };
-		E1B4314B1A9A58E80054AC47 /* hourArror.png in Resources */ = {isa = PBXBuildFile; fileRef = E1B431451A9A58E80054AC47 /* hourArror.png */; };
-		E1B4314C1A9A58E80054AC47 /* hourArror@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E1B431461A9A58E80054AC47 /* hourArror@2x.png */; };
-		E1B4314D1A9A58E80054AC47 /* minuteArror.png in Resources */ = {isa = PBXBuildFile; fileRef = E1B431471A9A58E80054AC47 /* minuteArror.png */; };
-		E1B4314E1A9A58E80054AC47 /* secondsArror.png in Resources */ = {isa = PBXBuildFile; fileRef = E1B431481A9A58E80054AC47 /* secondsArror.png */; };
+		E1B431401A9A53340054AC47 /* AnalogClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B4313F1A9A53340054AC47 /* AnalogClockView.m */; };
 		E1B83C591A8634B50080892A /* NoteTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B83C581A8634B50080892A /* NoteTableViewCell.m */; };
 		E1BD20B71A8F3CE100AD7DDE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1BD20B61A8F3CE100AD7DDE /* CoreData.framework */; };
 		E1BD20BA1A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1BD20B81A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld */; };
@@ -117,6 +134,37 @@
 		C1F720A31A583CDB00320D33 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C1FBD4E41A62F638003A6A9A /* SelectDatesAndTimeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectDatesAndTimeController.h; path = Controllers/SelectDatesAndTimeController.h; sourceTree = "<group>"; };
 		C1FBD4E51A62F638003A6A9A /* SelectDatesAndTimeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectDatesAndTimeController.m; path = Controllers/SelectDatesAndTimeController.m; sourceTree = "<group>"; };
+		C8138E1D1A9B85D100E29839 /* UIImage+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = "UIImage+Extensions.h"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C8138E1E1A9B85D100E29839 /* UIImage+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = "UIImage+Extensions.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C8138E201A9B86A900E29839 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Constants.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C8138E211A9B86A900E29839 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Constants.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C8138E231A9B86F900E29839 /* CalendarPrefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CalendarPrefix.pch; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C8138E241A9C71B600E29839 /* day_center_point@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "day_center_point@2x.png"; sourceTree = "<group>"; };
+		C8138E251A9C71B600E29839 /* day_hour_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "day_hour_arrow@2x.png"; sourceTree = "<group>"; };
+		C8138E261A9C71B600E29839 /* day_minute_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "day_minute_arrow@2x.png"; sourceTree = "<group>"; };
+		C8138E271A9C71B600E29839 /* day_seconds_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "day_seconds_arrow@2x.png"; sourceTree = "<group>"; };
+		C8138E2C1A9C71DF00E29839 /* day_clock_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "day_clock_bg@2x.png"; sourceTree = "<group>"; };
+		C8138E2D1A9C71DF00E29839 /* night_clock_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "night_clock_bg@2x.png"; sourceTree = "<group>"; };
+		C8138E301A9C73C900E29839 /* Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Utils.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C8138E311A9C73C900E29839 /* Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Utils.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C8138E331A9C7D7B00E29839 /* night_hour_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = night_hour_arrow.png; sourceTree = "<group>"; };
+		C8138E341A9C7D7B00E29839 /* night_hour_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "night_hour_arrow@2x.png"; sourceTree = "<group>"; };
+		C8138E351A9C7D7B00E29839 /* night_minute_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = night_minute_arrow.png; sourceTree = "<group>"; };
+		C8138E361A9C7D7B00E29839 /* night_minute_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "night_minute_arrow@2x.png"; sourceTree = "<group>"; };
+		C8138E3B1A9C7F2E00E29839 /* day_center_point.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = day_center_point.png; sourceTree = "<group>"; };
+		C8138E3C1A9C7F2E00E29839 /* day_hour_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = day_hour_arrow.png; sourceTree = "<group>"; };
+		C8138E3D1A9C7F2E00E29839 /* day_minute_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = day_minute_arrow.png; sourceTree = "<group>"; };
+		C8138E3E1A9C7F2E00E29839 /* day_seconds_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = day_seconds_arrow.png; sourceTree = "<group>"; };
+		C8138E431A9C82A700E29839 /* day_clock_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = day_clock_bg.png; sourceTree = "<group>"; };
+		C8138E441A9C82A700E29839 /* night_clock_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = night_clock_bg.png; sourceTree = "<group>"; };
+		C8138E491A9C859B00E29839 /* ClockContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ClockContainerView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C8138E4A1A9C859B00E29839 /* ClockContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ClockContainerView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C8138E4C1A9C86E900E29839 /* ClockController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ClockController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C8138E4D1A9C86E900E29839 /* ClockController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ClockController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C8138E4F1A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ClockSelectTimeIntervalBaseView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C8138E501A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ClockSelectTimeIntervalBaseView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C8138E521A9C897900E29839 /* AnalogClockSelectTimeIntervalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AnalogClockSelectTimeIntervalView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C8138E531A9C897900E29839 /* AnalogClockSelectTimeIntervalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AnalogClockSelectTimeIntervalView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C8D9613C1A8B426000C81AEF /* CustomTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTapGestureRecognizer.h; sourceTree = "<group>"; };
 		C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTapGestureRecognizer.m; sourceTree = "<group>"; };
 		E10E85A51A94AD6200C13275 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
@@ -126,20 +174,14 @@
 		E1B4312C1A99FB620054AC47 /* TimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeView.h; sourceTree = "<group>"; };
 		E1B4312D1A99FB620054AC47 /* TimeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeView.m; sourceTree = "<group>"; };
 		E1B431301A9A4D940054AC47 /* ClockProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockProtocol.h; sourceTree = "<group>"; };
-		E1B431351A9A4F980054AC47 /* AnalogDayClock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalogDayClock.h; sourceTree = "<group>"; };
-		E1B431361A9A4F980054AC47 /* AnalogDayClock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalogDayClock.m; sourceTree = "<group>"; };
-		E1B431381A9A4FAD0054AC47 /* AnalogNightClock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalogNightClock.h; sourceTree = "<group>"; };
-		E1B431391A9A4FAD0054AC47 /* AnalogNightClock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalogNightClock.m; sourceTree = "<group>"; };
+		E1B431351A9A4F980054AC47 /* AnalogDayClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalogDayClockView.h; sourceTree = "<group>"; };
+		E1B431361A9A4F980054AC47 /* AnalogDayClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalogDayClockView.m; sourceTree = "<group>"; };
+		E1B431381A9A4FAD0054AC47 /* AnalogNightClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalogNightClockView.h; sourceTree = "<group>"; };
+		E1B431391A9A4FAD0054AC47 /* AnalogNightClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalogNightClockView.m; sourceTree = "<group>"; };
 		E1B4313B1A9A4FF90054AC47 /* ClockBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockBaseView.h; sourceTree = "<group>"; };
 		E1B4313C1A9A4FF90054AC47 /* ClockBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockBaseView.m; sourceTree = "<group>"; };
-		E1B4313E1A9A53340054AC47 /* AnalogClock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalogClock.h; sourceTree = "<group>"; };
-		E1B4313F1A9A53340054AC47 /* AnalogClock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalogClock.m; sourceTree = "<group>"; };
-		E1B431431A9A58E80054AC47 /* minuteArror@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "minuteArror@2x.png"; sourceTree = "<group>"; };
-		E1B431441A9A58E80054AC47 /* secondsArror@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "secondsArror@2x.png"; sourceTree = "<group>"; };
-		E1B431451A9A58E80054AC47 /* hourArror.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hourArror.png; sourceTree = "<group>"; };
-		E1B431461A9A58E80054AC47 /* hourArror@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hourArror@2x.png"; sourceTree = "<group>"; };
-		E1B431471A9A58E80054AC47 /* minuteArror.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minuteArror.png; sourceTree = "<group>"; };
-		E1B431481A9A58E80054AC47 /* secondsArror.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = secondsArror.png; sourceTree = "<group>"; };
+		E1B4313E1A9A53340054AC47 /* AnalogClockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalogClockView.h; sourceTree = "<group>"; };
+		E1B4313F1A9A53340054AC47 /* AnalogClockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalogClockView.m; sourceTree = "<group>"; };
 		E1B83C571A8634B50080892A /* NoteTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoteTableViewCell.h; sourceTree = "<group>"; };
 		E1B83C581A8634B50080892A /* NoteTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoteTableViewCell.m; sourceTree = "<group>"; };
 		E1BD20B61A8F3CE100AD7DDE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -254,6 +296,11 @@
 		C1D871B91A5769A300B61429 /* emptyProject */ = {
 			isa = PBXGroup;
 			children = (
+				E1B4312F1A9A4D090054AC47 /* Clock */,
+				C8138E301A9C73C900E29839 /* Utils.h */,
+				C8138E311A9C73C900E29839 /* Utils.m */,
+				C8138E201A9B86A900E29839 /* Constants.h */,
+				C8138E211A9B86A900E29839 /* Constants.m */,
 				C8D9613B1A8B422200C81AEF /* Utils */,
 				E1B83C531A86333B0080892A /* cells */,
 				C1E7AAFF1A5C899E00AA7665 /* Views */,
@@ -276,6 +323,7 @@
 				C1D871BF1A5769A300B61429 /* AppDelegate.m */,
 				C1D871BB1A5769A300B61429 /* Info.plist */,
 				C1D871BC1A5769A300B61429 /* main.m */,
+				C8138E231A9B86F900E29839 /* CalendarPrefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -300,7 +348,6 @@
 		C1E7AAFF1A5C899E00AA7665 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E1B4312F1A9A4D090054AC47 /* Clock */,
 				C131A0281A5A103500AE323E /* UIExtendedTableView.h */,
 				C131A0291A5A103500AE323E /* UIExtendedTableView.m */,
 				C1E7AB001A5C89F600AA7665 /* UIGCalendar.h */,
@@ -320,9 +367,42 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		C8138E1C1A9B857100E29839 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				C8138E1D1A9B85D100E29839 /* UIImage+Extensions.h */,
+				C8138E1E1A9B85D100E29839 /* UIImage+Extensions.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+		C8138E471A9C84DC00E29839 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E1B431341A9A4F7E0054AC47 /* AnalogClock */,
+				E1B4313B1A9A4FF90054AC47 /* ClockBaseView.h */,
+				E1B4313C1A9A4FF90054AC47 /* ClockBaseView.m */,
+				C8138E491A9C859B00E29839 /* ClockContainerView.h */,
+				C8138E4A1A9C859B00E29839 /* ClockContainerView.m */,
+				C8138E4F1A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.h */,
+				C8138E501A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		C8138E481A9C855000E29839 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C8138E4C1A9C86E900E29839 /* ClockController.h */,
+				C8138E4D1A9C86E900E29839 /* ClockController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		C8D9613B1A8B422200C81AEF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C8138E1C1A9B857100E29839 /* Category */,
 				C8D9613C1A8B426000C81AEF /* CustomTapGestureRecognizer.h */,
 				C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */,
 			);
@@ -332,10 +412,9 @@
 		E1B4312F1A9A4D090054AC47 /* Clock */ = {
 			isa = PBXGroup;
 			children = (
-				E1B431341A9A4F7E0054AC47 /* AnalogClock */,
+				C8138E481A9C855000E29839 /* Controllers */,
+				C8138E471A9C84DC00E29839 /* Views */,
 				E1B431301A9A4D940054AC47 /* ClockProtocol.h */,
-				E1B4313B1A9A4FF90054AC47 /* ClockBaseView.h */,
-				E1B4313C1A9A4FF90054AC47 /* ClockBaseView.m */,
 			);
 			name = Clock;
 			sourceTree = "<group>";
@@ -343,12 +422,14 @@
 		E1B431341A9A4F7E0054AC47 /* AnalogClock */ = {
 			isa = PBXGroup;
 			children = (
-				E1B431351A9A4F980054AC47 /* AnalogDayClock.h */,
-				E1B431361A9A4F980054AC47 /* AnalogDayClock.m */,
-				E1B431381A9A4FAD0054AC47 /* AnalogNightClock.h */,
-				E1B431391A9A4FAD0054AC47 /* AnalogNightClock.m */,
-				E1B4313E1A9A53340054AC47 /* AnalogClock.h */,
-				E1B4313F1A9A53340054AC47 /* AnalogClock.m */,
+				E1B431351A9A4F980054AC47 /* AnalogDayClockView.h */,
+				E1B431361A9A4F980054AC47 /* AnalogDayClockView.m */,
+				E1B431381A9A4FAD0054AC47 /* AnalogNightClockView.h */,
+				E1B431391A9A4FAD0054AC47 /* AnalogNightClockView.m */,
+				E1B4313E1A9A53340054AC47 /* AnalogClockView.h */,
+				E1B4313F1A9A53340054AC47 /* AnalogClockView.m */,
+				C8138E521A9C897900E29839 /* AnalogClockSelectTimeIntervalView.h */,
+				C8138E531A9C897900E29839 /* AnalogClockSelectTimeIntervalView.m */,
 			);
 			name = AnalogClock;
 			sourceTree = "<group>";
@@ -364,12 +445,22 @@
 		E1B431421A9A58D70054AC47 /* AnalogClock */ = {
 			isa = PBXGroup;
 			children = (
-				E1B431431A9A58E80054AC47 /* minuteArror@2x.png */,
-				E1B431441A9A58E80054AC47 /* secondsArror@2x.png */,
-				E1B431451A9A58E80054AC47 /* hourArror.png */,
-				E1B431461A9A58E80054AC47 /* hourArror@2x.png */,
-				E1B431471A9A58E80054AC47 /* minuteArror.png */,
-				E1B431481A9A58E80054AC47 /* secondsArror.png */,
+				C8138E431A9C82A700E29839 /* day_clock_bg.png */,
+				C8138E441A9C82A700E29839 /* night_clock_bg.png */,
+				C8138E3B1A9C7F2E00E29839 /* day_center_point.png */,
+				C8138E3C1A9C7F2E00E29839 /* day_hour_arrow.png */,
+				C8138E3D1A9C7F2E00E29839 /* day_minute_arrow.png */,
+				C8138E3E1A9C7F2E00E29839 /* day_seconds_arrow.png */,
+				C8138E2C1A9C71DF00E29839 /* day_clock_bg@2x.png */,
+				C8138E331A9C7D7B00E29839 /* night_hour_arrow.png */,
+				C8138E341A9C7D7B00E29839 /* night_hour_arrow@2x.png */,
+				C8138E351A9C7D7B00E29839 /* night_minute_arrow.png */,
+				C8138E361A9C7D7B00E29839 /* night_minute_arrow@2x.png */,
+				C8138E2D1A9C71DF00E29839 /* night_clock_bg@2x.png */,
+				C8138E241A9C71B600E29839 /* day_center_point@2x.png */,
+				C8138E251A9C71B600E29839 /* day_hour_arrow@2x.png */,
+				C8138E261A9C71B600E29839 /* day_minute_arrow@2x.png */,
+				C8138E271A9C71B600E29839 /* day_seconds_arrow@2x.png */,
 			);
 			name = AnalogClock;
 			sourceTree = "<group>";
@@ -474,15 +565,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C8138E421A9C7F2E00E29839 /* day_seconds_arrow.png in Resources */,
+				C8138E411A9C7F2E00E29839 /* day_minute_arrow.png in Resources */,
 				C1D871C61A5769A300B61429 /* Main.storyboard in Resources */,
+				C8138E291A9C71B600E29839 /* day_hour_arrow@2x.png in Resources */,
+				C8138E3A1A9C7D7B00E29839 /* night_minute_arrow@2x.png in Resources */,
+				C8138E281A9C71B600E29839 /* day_center_point@2x.png in Resources */,
 				C1D871CB1A5769A300B61429 /* LaunchScreen.xib in Resources */,
-				E1B4314E1A9A58E80054AC47 /* secondsArror.png in Resources */,
-				E1B4314D1A9A58E80054AC47 /* minuteArror.png in Resources */,
+				C8138E401A9C7F2E00E29839 /* day_hour_arrow.png in Resources */,
+				C8138E451A9C82A700E29839 /* day_clock_bg.png in Resources */,
+				C8138E461A9C82A700E29839 /* night_clock_bg.png in Resources */,
 				C1D871C81A5769A300B61429 /* Images.xcassets in Resources */,
-				E1B4314A1A9A58E80054AC47 /* secondsArror@2x.png in Resources */,
-				E1B4314C1A9A58E80054AC47 /* hourArror@2x.png in Resources */,
-				E1B4314B1A9A58E80054AC47 /* hourArror.png in Resources */,
-				E1B431491A9A58E80054AC47 /* minuteArror@2x.png in Resources */,
+				C8138E2B1A9C71B600E29839 /* day_seconds_arrow@2x.png in Resources */,
+				C8138E391A9C7D7B00E29839 /* night_minute_arrow.png in Resources */,
+				C8138E2A1A9C71B600E29839 /* day_minute_arrow@2x.png in Resources */,
+				C8138E2F1A9C71DF00E29839 /* night_clock_bg@2x.png in Resources */,
+				C8138E371A9C7D7B00E29839 /* night_hour_arrow.png in Resources */,
+				C8138E2E1A9C71DF00E29839 /* day_clock_bg@2x.png in Resources */,
+				C8138E3F1A9C7F2E00E29839 /* day_center_point.png in Resources */,
+				C8138E381A9C7D7B00E29839 /* night_hour_arrow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,7 +601,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E1B431401A9A53340054AC47 /* AnalogClock.m in Sources */,
+				E1B431401A9A53340054AC47 /* AnalogClockView.m in Sources */,
 				E10E85A71A94AD6200C13275 /* Note.m in Sources */,
 				C1E7AB081A5EF62E00AA7665 /* UIGCalendarYearTmp.m in Sources */,
 				C131A0171A596A2500AE323E /* NotesPageViewController.m in Sources */,
@@ -510,8 +611,11 @@
 				C1E7AB021A5C89F600AA7665 /* UIGCalendar.m in Sources */,
 				C1E7AB051A5EBF8600AA7665 /* UIGCalendarMonthTmp.m in Sources */,
 				C131A0381A5AC6A400AE323E /* PlacesViewController.m in Sources */,
-				E1B4313A1A9A4FAD0054AC47 /* AnalogNightClock.m in Sources */,
+				E1B4313A1A9A4FAD0054AC47 /* AnalogNightClockView.m in Sources */,
+				C8138E221A9B86A900E29839 /* Constants.m in Sources */,
+				C8138E1F1A9B85D100E29839 /* UIImage+Extensions.m in Sources */,
 				C131A0331A5ABD3B00AE323E /* SettingsViewController.m in Sources */,
+				C8138E511A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.m in Sources */,
 				C1FBD4E61A62F638003A6A9A /* SelectDatesAndTimeController.m in Sources */,
 				E1B4312E1A99FB620054AC47 /* TimeView.m in Sources */,
 				E1B83C591A8634B50080892A /* NoteTableViewCell.m in Sources */,
@@ -522,15 +626,19 @@
 				C135BDBB1A6C165400A2559E /* MainTabBarController.m in Sources */,
 				C131A02D1A5AA17C00AE323E /* MainNaviationController.m in Sources */,
 				C135BDB81A6BF83000A2559E /* GLang.m in Sources */,
+				C8138E4B1A9C859B00E29839 /* ClockContainerView.m in Sources */,
 				C199B2931A6D6D6B00B77253 /* AccountViewController.m in Sources */,
 				E1B4313D1A9A4FF90054AC47 /* ClockBaseView.m in Sources */,
 				C199B2901A6D680500B77253 /* SelectSoundViewController.m in Sources */,
+				C8138E4E1A9C86E900E29839 /* ClockController.m in Sources */,
 				C1AA2D6E1A5F382F005DCC23 /* ClockView.m in Sources */,
+				C8138E541A9C897900E29839 /* AnalogClockSelectTimeIntervalView.m in Sources */,
 				C8D9613E1A8B426000C81AEF /* CustomTapGestureRecognizer.m in Sources */,
 				C131A03B1A5AF83C00AE323E /* GLocationProvider.m in Sources */,
 				C131A0271A59BB6E00AE323E /* EditCreateViewController.m in Sources */,
 				C1D871BD1A5769A300B61429 /* main.m in Sources */,
-				E1B431371A9A4F980054AC47 /* AnalogDayClock.m in Sources */,
+				E1B431371A9A4F980054AC47 /* AnalogDayClockView.m in Sources */,
+				C8138E321A9C73C900E29839 /* Utils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -656,6 +764,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = emptyProject/CalendarPrefix.pch;
 				INFOPLIST_FILE = emptyProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -670,6 +780,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = emptyProject/CalendarPrefix.pch;
 				INFOPLIST_FILE = emptyProject/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

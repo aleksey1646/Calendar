@@ -6,10 +6,9 @@
 //  Copyright (c) 2015 A.O. All rights reserved.
 //
 
-#import "AnalogClock.h"
-#define DEGREES_TO_RADIANS(x) (M_PI * (x) / 180.0)
+#import "AnalogClockView.h"
 
-@implementation AnalogClock
+@implementation AnalogClockView
 
 - (void)setHours:(int)hours minutes:(int)minutes seconds:(int)seconds
 {

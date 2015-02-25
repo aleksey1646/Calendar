@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AnalogClock.h"
+#import "AnalogClockView.h"
 
-@interface AnalogDayClock : AnalogClock
+@interface AnalogDayClockView : AnalogClockView
 
 @end

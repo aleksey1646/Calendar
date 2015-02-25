@@ -7,11 +7,12 @@
 //
 
 #import "ClockView.h"
-#import "AnalogDayClock.h"
+#import "AnalogDayClockView.h"
+#import "AnalogNightClockView.h"
 
 @interface ClockView ()
 
-@property (weak) AnalogDayClock *dayClock;
+@property (weak) AnalogNightClockView *dayClock;
 
 @end
 
@@ -23,9 +24,9 @@
     [super layoutSubviews];
     
     if (!self.dayClock) {
-        AnalogDayClock *dayClock = [[AnalogDayClock alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        AnalogNightClockView *dayClock = [[AnalogNightClockView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
         self.dayClock = dayClock;
-        [dayClock setHours:6 minutes:1 seconds:45];
+        [dayClock setHours:6 minutes:0 seconds:45];
         
         [self addSubview:dayClock];
     }

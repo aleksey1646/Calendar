@@ -9,6 +9,7 @@
 #import "SelectDatesAndTimeController.h"
 #import "GLang.h"
 #import "Note.h"
+#import "ClockController.h"
 
 @interface SelectDatesAndTimeController ()
 
@@ -16,6 +17,7 @@
 @property (strong) NSMutableArray *dayPosition;
 @property (strong) NSMutableArray *dayPositionInMf;
 @property (strong) NSMutableArray *arrayWithSelectedMonth;
+@property (strong) ClockController *clockController;
 @property (weak) UILabel *senderView;
 @end
 
@@ -83,7 +85,7 @@
 
      CGRect cg_clock=CGRectMake( wleft ,lineUnderCellTime.frame.origin.y+lineBeforeCellTime.frame.size.height , width95p, cw.frame.size.height);
     
-    [gclock setFrame: cg_clock ];
+    [_clockController.view setFrame: cg_clock ];
     [uitableview setFrame:cg];
 }
 
@@ -291,7 +293,7 @@
 
 -(IBAction)onSegmentClick:(id)sender{
     [gcalendar removeFromSuperview];
-    [gclock removeFromSuperview];
+    [_clockController.view removeFromSuperview];
     [cellWithSwitchTime removeFromSuperview];
     [lineBeforeCellTime removeFromSuperview];
     [lineUnderCellTime removeFromSuperview];
@@ -304,7 +306,7 @@
             //self.view.backgroundColor = [UIColor blackColor];
 
             //cw.backgroundColor = [UIColor blackColor];
-            [cw addSubview:gclock];
+            [cw addSubview:_clockController.view];
             [cw addSubview:cellWithSwitchTime];
             [cw addSubview:lineBeforeCellTime];
             [cw addSubview:lineUnderCellTime];
@@ -380,8 +382,12 @@
     if(tableView!=uitableview){return 0;}
     return [@"A\nA\nA\nA" sizeWithAttributes:@{NSFontAttributeName: [daysFooterLabel font] }].height;
 }
-- (void)dealloc {
+- (void)dealloc
+{
     self.dayWeeks = nil;
+    
+    [self.clockController invalidate];
+    self.clockController = nil;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -396,7 +402,10 @@
     [daysFooterLabel setLineBreakMode:NSLineBreakByWordWrapping];
     [daysFooterLabel setTextAlignment:NSTextAlignmentCenter];
     gcalendar=[[UIGCalendar alloc]initWithFrame:CGRectZero];
-    gclock=[[ClockView alloc]initWithFrame:CGRectZero];
+//    gclock=[[ClockView alloc]initWithFrame:CGRectZero];
+    
+    _clockController = [[ClockController alloc] init];
+    
     textLabelTime = [[UILabel alloc]initWithFrame:CGRectZero];
     switchView = [[UISwitch alloc] initWithFrame:CGRectZero];
     cellWithSwitchTime = [[UIView alloc]initWithFrame:CGRectZero];
