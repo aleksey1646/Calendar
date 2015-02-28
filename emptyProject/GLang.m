@@ -151,6 +151,8 @@ NSDictionary* GLangCurrentLangDict=nil;
             @"Places.segments.here":@"Здесь",
             @"Places.segments.today":@"Сегодня",
             @"Places.segments.all":@"Все",
+            
+            @"EditCreate.category.note":@"Заметка",
 
             @"EditCreate.category.task":@"Задача",
             @"EditCreate.category.alerts":@"Оповещения",

@@ -130,8 +130,8 @@
         
         NSString *title=[rowDictionary objectForKey:@"title"];
         
-        if ([title isEqualToString:@"Note"]) {
-            
+    if (([title isEqualToString:@"Note"])||([title isEqualToString:@"Заметка"])) {
+        
             static NSString *identifNoteCell = @"noteCell";
             
             NoteTableViewCell *c = [tableView dequeueReusableCellWithIdentifier:identifNoteCell];

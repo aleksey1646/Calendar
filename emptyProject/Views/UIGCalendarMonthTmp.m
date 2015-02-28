@@ -141,13 +141,15 @@
     
     NSDictionary *lastDictDay = [dayPositions objectAtIndex:countVisibleDays-1];
     float yLastDay = [[lastDictDay objectForKey:@"frame_y"] floatValue]+[[firstDictDay objectForKey:@"frame_height"] floatValue]/2.5;
+ 
     
     if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
     {
-        yFirstDay = yFirstDay-5;
-        heightDay = heightDay*2;
+        yFirstDay = yFirstDay-3;
+       // heightDay = heightDay*2;
         
         yLastDay = [[lastDictDay objectForKey:@"frame_y"] floatValue]+([[firstDictDay objectForKey:@"frame_height"] floatValue]*2)/2.5;
+        
     }
     
     for (int i = 0; i<6; i++) {
@@ -155,15 +157,18 @@
         UIView *viewLine = [[UIView alloc]init];
         viewLine.frame = CGRectMake(baseView.frame.origin.x, yFirstDay+25+(heightDay*i), baseView.frame.size.width, 0.5);
         viewLine.backgroundColor = [UIColor lightGrayColor];
+       
+        
         [baseView addSubview:viewLine];
         
-        if (viewLine.frame.origin.y>yLastDay) {
+        if (viewLine.frame.origin.y>=yLastDay) {
             
             [viewLine removeFromSuperview];
         }
+        
     }
     
-    //NSMutableArray *arrayDayWeeks = [NSMutableArray array];
+  
     for (int i = 0;i<7; i++) {
         
         
@@ -180,7 +185,7 @@
             labelDayWeek.textColor = [UIColor blackColor];
         }
         [baseView addSubview:labelDayWeek];
-        //[arrayDayWeeks addObject:stringDayWeek];
+        
     }
     
     
