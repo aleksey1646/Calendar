@@ -10,7 +10,7 @@
 #import "ClockContainerView.h"
 #import "AnalogDayClockView.h"
 #import "AnalogNightClockView.h"
-#import "AnalogClockSelectTimeIntervalView.h"
+#import "AnalogClockIntervalPickerControl.h"
 
 #define timerUpdateInterval 1.0f
 
@@ -53,10 +53,10 @@
     [super viewDidLoad];
     
     AnalogDayClockView *dayClock = [[AnalogDayClockView alloc] init];
-    AnalogClockSelectTimeIntervalView *selectTimeInterval = [[AnalogClockSelectTimeIntervalView alloc] init];
-    selectTimeInterval.delegate = self;
+    AnalogClockIntervalPickerControl *intervalPickerControl = [[AnalogClockIntervalPickerControl alloc] init];
+    intervalPickerControl.delegate = self;
     [_clockContainer setClockView:dayClock];
-    [_clockContainer setSelectTimeIntervalView:selectTimeInterval];
+    [_clockContainer setIntervalPikerControl:intervalPickerControl];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:timerUpdateInterval
                                                   target:self
@@ -65,21 +65,31 @@
                                                  repeats:YES];
     
     // Do any additional setup after loading the view.
+    
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    NSDate *currentDate = [NSDate date];
-    NSTimeZone *timeZone = [NSTimeZone defaultTimeZone];
-    NSTimeInterval additionalSecondsForCurrentTimeZone = (NSTimeInterval)[timeZone secondsFromGMTForDate:currentDate];
+    NSTimeInterval additionalSecondsForCurrentTimeZone = [Utils currentTimeZone];
     
     //Start time with current time zone
     self.initialTimeInterval = [[NSDate date] timeIntervalSince1970] + additionalSecondsForCurrentTimeZone;
     self.initialTimeIntervalWithoutRebootSystem = CACurrentMediaTime();
     
     [self timerUpdate];
+
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+//    [_clockContainer.clockView drawIntervalFromTime:ClockTimeMake(1, 0, 0) toTime:ClockTimeMake(11, 0, 0)];
+
+    
 }
 
 
@@ -107,15 +117,16 @@
     int seconds = ((int)currentTime)%60;
     
     [_clockContainer.clockView setHours:hours minutes:minutes seconds:seconds];
-    
-    NSLog(@"%02d:%02d:%02d", hours, minutes, seconds);
-    
+
 }
 
 #pragma mark ClockSelectTimeIntervalDelegate
-- (void)clockSelectTimeIntervalSelectedFromTime:(ClockTime)fromTime toTime:(ClockTime)toTime
+- (void)clockIntervalPickerControlPickFromTime:(ClockTime)fromTime toTime:(ClockTime)toTime
 {
-    NSLog(@"clockSelectTimeIntervalSelectedFromTime in %@", [self class]);
+    [_clockContainer.clockView drawIntervalFromTime:fromTime toTime:toTime];
+    NSLog(@"clockIntervalPickerControlPickFromTime %@ toTime: %@",
+          NSStringFromClockTime(fromTime),
+          NSStringFromClockTime(toTime));
 }
 
 

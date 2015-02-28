@@ -10,4 +10,11 @@
 
 @implementation Utils
 
++ (NSTimeInterval)currentTimeZone
+{
+    NSDate *currentDate = [NSDate date];
+    NSTimeZone *timeZone = [NSTimeZone defaultTimeZone];
+    return (NSTimeInterval)[timeZone secondsFromGMTForDate:currentDate];
+}
+
 @end

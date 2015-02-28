@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 A.O. All rights reserved.
 //
 
-#import "ClockSelectTimeIntervalBaseView.h"
+#import "ClockIntervalPickerBaseControl.h"
 
-@implementation ClockSelectTimeIntervalBaseView
+@implementation ClockIntervalPickerBaseControl
 
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -20,7 +20,7 @@
 {
     [super touchesMoved:touches withEvent:event];
     if (self.delegate) {
-        [self.delegate clockSelectTimeIntervalSelectedFromTime:self.startTime toTime:self.startTime];
+        [self.delegate clockIntervalPickerControlPickFromTime:self.startTime toTime:self.endTime];
     }
 }
 

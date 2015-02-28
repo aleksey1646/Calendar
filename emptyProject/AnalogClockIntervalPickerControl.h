@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 A.O. All rights reserved.
 //
 
-#import "ClockSelectTimeIntervalBaseView.h"
+#import "ClockIntervalPickerBaseControl.h"
 
-@interface AnalogClockSelectTimeIntervalView : ClockSelectTimeIntervalBaseView
+@interface AnalogClockIntervalPickerControl : ClockIntervalPickerBaseControl
 
 @end

@@ -7,22 +7,17 @@
 //
 
 #import "AnalogClockView.h"
+#import "AnalogClockUtils.h"
 
 @implementation AnalogClockView
 
 - (void)setHours:(int)hours minutes:(int)minutes seconds:(int)seconds
 {
-    self.hourArrow.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS([self angleForHour:hours andMinutes:minutes]));
+    self.hourArrow.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS([AnalogClockUtils angleForHour:hours
+                                                                                                    andMinutes:minutes]));
     self.minuteArrow.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS([self angleForMinute:minutes]));
     self.secondsArrow.transform = CGAffineTransformMakeRotation(DEGREES_TO_RADIANS([self angleForMinute:seconds]));
     
-}
-
-- (float)angleForHour:(int)hour andMinutes:(float)minutes
-{
-    float angle = 0.5*(60*hour + minutes);
- 
-    return angle;
 }
 
 - (float)angleForMinute:(int)minute

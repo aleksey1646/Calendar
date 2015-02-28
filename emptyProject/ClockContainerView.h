@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ClockSelectTimeIntervalBaseView.h"
+#import "ClockIntervalPickerBaseControl.h"
 #import "ClockBaseView.h"
 
 @interface ClockContainerView : UIView
 
-@property (weak, readonly) ClockSelectTimeIntervalBaseView *selectTimeIntervalView;
+@property (weak, readonly) ClockIntervalPickerBaseControl *intervalPikerControl;
 @property (weak, readonly) ClockBaseView *clockView;
 
 - (void)setClockView:(ClockBaseView *)clockView;
-- (void)setSelectTimeIntervalView:(ClockSelectTimeIntervalBaseView *)selectTimeIntervalView;
+- (void)setIntervalPikerControl:(ClockIntervalPickerBaseControl *)intervalPikerControl;
 
 @end

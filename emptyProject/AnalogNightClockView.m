@@ -7,10 +7,11 @@
 //
 
 #import "AnalogNightClockView.h"
+#import "AnalogClockDrawIntervalView.h"
 
 @implementation AnalogNightClockView
 
-@synthesize hourArrow, minuteArrow, secondsArrow, centerPoint;
+@synthesize hourArrow, minuteArrow, secondsArrow, centerPoint, drawIntervalView;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -24,6 +25,13 @@
 - (void)fillingView
 {
     self.layer.contents = (id)[UIImage imageWithContentsOfResolutionIndependentFile:BundlePath(@"night_clock_bg.png")].CGImage;
+    
+    AnalogClockDrawIntervalView *analogDrawInterval = [[AnalogClockDrawIntervalView alloc] init];
+    analogDrawInterval.circleRadius = 60.0f;
+    analogDrawInterval.firstCircleColor = [UIColor colorWithWhite:0.3 alpha:0.5];
+    analogDrawInterval.secondCircleColor = [UIColor colorWithWhite:0.3 alpha:0.5];
+    drawIntervalView = analogDrawInterval;
+    [self addSubview:drawIntervalView];
     
     UIImage *hourImage = [UIImage imageWithContentsOfResolutionIndependentFile:BundlePath(@"night_hour_arrow.png")];
     UIImageView *hArror = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 12, 109)];
