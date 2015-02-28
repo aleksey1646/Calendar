@@ -11,4 +11,6 @@
 
 @interface ClockDrawIntervalBaseView : UIView <ClockDrawIntervalProtocol>
 
+- (void)reset;
+
 @end

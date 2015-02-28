@@ -19,6 +19,11 @@
     return self;
 }
 
+- (void)reset
+{
+    
+}
+
 - (void)drawIntervalFromTime:(ClockTime)startTime toTime:(ClockTime)endTime
 {
     

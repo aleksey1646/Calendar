@@ -15,6 +15,13 @@
     
 }
 
+- (void)reset
+{
+    if (self.drawIntervalView) {
+        [self.drawIntervalView reset];
+    }
+}
+
 - (void)drawIntervalFromTime:(ClockTime)startTime toTime:(ClockTime)endTime
 {
     if (self.drawIntervalView)

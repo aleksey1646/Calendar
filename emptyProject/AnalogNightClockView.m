@@ -27,9 +27,9 @@
     self.layer.contents = (id)[UIImage imageWithContentsOfResolutionIndependentFile:BundlePath(@"night_clock_bg.png")].CGImage;
     
     AnalogClockDrawIntervalView *analogDrawInterval = [[AnalogClockDrawIntervalView alloc] init];
-    analogDrawInterval.circleRadius = 60.0f;
-    analogDrawInterval.firstCircleColor = [UIColor colorWithWhite:0.3 alpha:0.5];
-    analogDrawInterval.secondCircleColor = [UIColor colorWithWhite:0.3 alpha:0.5];
+    analogDrawInterval.circleRadius = 110.0f;
+    analogDrawInterval.firstCircleColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.5];
+    analogDrawInterval.secondCircleColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.5];
     drawIntervalView = analogDrawInterval;
     [self addSubview:drawIntervalView];
     
