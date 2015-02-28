@@ -34,7 +34,7 @@
 
     //We haven't a time interval to draw
     if (ClockTimeEqualToClockTime(_startTime, ClockTimeZero) &&
-        ClockTimeEqualToClockTime(_endTime, ClockTimeZero))
+        ClockTimeEqualToClockTime(_endTime, ClockTimeZero)) 
     {
         return;
     }

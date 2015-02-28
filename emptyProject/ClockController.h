@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "ClockProtocol.h"
+#import "ClockContainerView.h"
 
 @interface ClockController : UIViewController <ClockIntervalPickerControlDelegate>
+
+@property (weak) UISwitch *switchFrameTime;
+@property (weak) ClockContainerView *clockContainer;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil NS_UNAVAILABLE;

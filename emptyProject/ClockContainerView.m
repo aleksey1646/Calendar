@@ -7,30 +7,69 @@
 //
 
 #import "ClockContainerView.h"
+#import "ClockController.h"
 
 @implementation ClockContainerView
 
 - (void)setFrame:(CGRect)frame
 {
     [super setFrame:frame];
+  
+    
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
+    
+//UIViewController* viewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+//    
+//UIViewController *clockCtrl = viewController.presentedViewController;
+  //  NSLog(@"presentedViewController %@",clockCtrl);
+    
+//    
+//    if (![clockCtrl.switchFrameTime isOn]) {
+//        NSLog(@"switchFrameTime isOff!!!");
+//    }
+    
+   
     CGRect rect = _clockView.frame;
     float size = MIN(self.frame.size.width, self.frame.size.height);
     rect.size.width = size;
     rect.size.height = size;
     
-    CGPoint center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
+    CGPoint center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2-size/9.5);
     
     _clockView.frame = rect;
     _intervalPikerControl.frame = rect;
     _clockView.center = center;
     _intervalPikerControl.center = center;
+    
+    
+    float deltaSize = self.frame.size.height-(_clockView.frame.origin.y+_clockView.frame.size.height);
+    
+   
+    CGRect frameLabelTimeInterval = CGRectMake(0, self.frame.size.height-deltaSize,self.frame.size.width, deltaSize>40.0 ? 40.0:deltaSize);
+    _labelTimeInterval.frame = frameLabelTimeInterval;
+    
+  
+    
 
+}
+- (void) setLabelTimeInterval:(UILabel *)labelTimeInterval {
+    if (_labelTimeInterval.superview) {
+        [_labelTimeInterval removeFromSuperview];
+    }
+    _labelTimeInterval = labelTimeInterval;
+    
+    
+    _labelTimeInterval.frame = CGRectMake(0, 0,self.frame.size.width,
+                                          self.frame.size.height);
+    
+     [self addSubview:labelTimeInterval];
+    
+    
 }
 
 - (void)setClockView:(ClockBaseView *)clockView

@@ -26,6 +26,9 @@
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize cw,segmentControl;
 
+
+
+
 #pragma mark - Add the note
 - (void) insertDayWeekInNote {
     
@@ -72,6 +75,9 @@
    
     CGRect rectForSwitch = CGRectMake(cw.frame.size.width-switchView.frame.size.width - widthleft,5, switchView.frame.size.width, switchView.frame.size.height);
     [switchView setFrame:rectForSwitch];
+    
+    [switchView addTarget:self action:@selector(changeSwitch:) forControlEvents:UIControlEventValueChanged];
+    
     [cellWithSwitchTime addSubview:switchView];
     [cellWithSwitchTime addSubview:textLabelTime];
     
@@ -86,7 +92,25 @@
      CGRect cg_clock=CGRectMake( wleft ,lineUnderCellTime.frame.origin.y+lineBeforeCellTime.frame.size.height , width95p, cw.frame.size.height);
     
     [_clockController.view setFrame: cg_clock ];
+    
+    //switchFrameTime
+    _clockController.switchFrameTime = switchView;
+    
     [uitableview setFrame:cg];
+}
+
+
+- (void)changeSwitch:(id)sender{
+    if([sender isOn]){
+        [_clockController.clockContainer.labelTimeInterval setText:@""];
+        
+        NSLog(@"Switch is ON");
+    } else{
+        [_clockController.clockContainer.labelTimeInterval setText:[GLang getString:@"SelectDates.clock.time_frame"]];
+        [_clockController.clockContainer.clockView drawIntervalFromTime:ClockTimeZero toTime:ClockTimeZero];
+        
+        NSLog(@"Switch is OFF");
+    }
 }
 
 #pragma mark - onOnceTap
@@ -277,6 +301,7 @@
 -(void)viewDidLayoutSubviews{
     [super viewDidLayoutSubviews];
     [self updateSizes];
+   
 }
 
 -(IBAction)onSegmentClick:(id)sender{

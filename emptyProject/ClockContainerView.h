@@ -10,12 +10,15 @@
 #import "ClockIntervalPickerBaseControl.h"
 #import "ClockBaseView.h"
 
-@interface ClockContainerView : UIView
+@interface ClockContainerView : UIView 
 
 @property (weak, readonly) ClockIntervalPickerBaseControl *intervalPikerControl;
 @property (weak, readonly) ClockBaseView *clockView;
+@property (weak,readonly) UILabel *labelTimeInterval;
+
 
 - (void)setClockView:(ClockBaseView *)clockView;
+- (void) setLabelTimeInterval:(UILabel *)labelTimeInterval;
 - (void)setIntervalPikerControl:(ClockIntervalPickerBaseControl *)intervalPikerControl;
 
 @end

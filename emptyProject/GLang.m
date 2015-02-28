@@ -86,6 +86,7 @@ NSDictionary* GLangCurrentLangDict=nil;
             @"SelectDates.title":@"Scheduler",
             
             @"SelectDates.clock.time":@"Time frame",
+            @"SelectDates.clock.time_frame":@"Around the clock",
             
             @"DayNames.full.d1":@"monday",
             @"DayNames.full.d2":@"tuesday",
@@ -181,6 +182,7 @@ NSDictionary* GLangCurrentLangDict=nil;
             @"SelectDates.title":@"График",
             
             @"SelectDates.clock.time":@"Временные рамки",
+            @"SelectDates.clock.time_frame":@"Круглосуточно",
             
             @"DayNames.full.d1":@"понедельник",
             @"DayNames.full.d2":@"вторник",
