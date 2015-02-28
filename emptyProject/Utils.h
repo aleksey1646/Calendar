@@ -17,4 +17,7 @@
 
 @interface Utils : NSObject
 
+/* @return current time zone in seconds*/
++ (NSTimeInterval)currentTimeZone;
+
 @end

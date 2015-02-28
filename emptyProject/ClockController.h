@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ClockProtocol.h"
 
-@interface ClockController : UIViewController <ClockSelectTimeIntervalDelegate>
+@interface ClockController : UIViewController <ClockIntervalPickerControlDelegate>
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil NS_UNAVAILABLE;

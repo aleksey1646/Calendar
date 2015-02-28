@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "ClockProtocol.h"
+#import "ClockDrawIntervalBaseView.h"
 
-@interface ClockBaseView : UIView <ClockProtocol>
+@interface ClockBaseView : UIView <ClockProtocol, ClockDrawIntervalProtocol>
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
+
+@property (weak, readonly) ClockDrawIntervalBaseView *drawIntervalView;
 
 @end

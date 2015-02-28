@@ -56,8 +56,11 @@
 		C8138E461A9C82A700E29839 /* night_clock_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = C8138E441A9C82A700E29839 /* night_clock_bg.png */; };
 		C8138E4B1A9C859B00E29839 /* ClockContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E4A1A9C859B00E29839 /* ClockContainerView.m */; };
 		C8138E4E1A9C86E900E29839 /* ClockController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E4D1A9C86E900E29839 /* ClockController.m */; };
-		C8138E511A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E501A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.m */; };
-		C8138E541A9C897900E29839 /* AnalogClockSelectTimeIntervalView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E531A9C897900E29839 /* AnalogClockSelectTimeIntervalView.m */; };
+		C8138E511A9C894B00E29839 /* ClockIntervalPickerBaseControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E501A9C894B00E29839 /* ClockIntervalPickerBaseControl.m */; };
+		C8138E541A9C897900E29839 /* AnalogClockIntervalPickerControl.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E531A9C897900E29839 /* AnalogClockIntervalPickerControl.m */; };
+		C8138E5A1AA0844400E29839 /* ClockDrawIntervalBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E591AA0844400E29839 /* ClockDrawIntervalBaseView.m */; };
+		C8138E5D1AA0862E00E29839 /* AnalogClockDrawIntervalView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E5C1AA0862E00E29839 /* AnalogClockDrawIntervalView.m */; };
+		C8138E601AA100AD00E29839 /* AnalogClockUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E5F1AA100AD00E29839 /* AnalogClockUtils.m */; };
 		C8D9613E1A8B426000C81AEF /* CustomTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */; };
 		E10E85A71A94AD6200C13275 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = E10E85A61A94AD6200C13275 /* Note.m */; };
 		E16D34671A98B708001928D8 /* ViewSelectedMonth.m in Sources */ = {isa = PBXBuildFile; fileRef = E16D34661A98B708001928D8 /* ViewSelectedMonth.m */; };
@@ -161,10 +164,16 @@
 		C8138E4A1A9C859B00E29839 /* ClockContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ClockContainerView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C8138E4C1A9C86E900E29839 /* ClockController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ClockController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C8138E4D1A9C86E900E29839 /* ClockController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ClockController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C8138E4F1A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ClockSelectTimeIntervalBaseView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C8138E501A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ClockSelectTimeIntervalBaseView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C8138E521A9C897900E29839 /* AnalogClockSelectTimeIntervalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AnalogClockSelectTimeIntervalView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C8138E531A9C897900E29839 /* AnalogClockSelectTimeIntervalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AnalogClockSelectTimeIntervalView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C8138E4F1A9C894B00E29839 /* ClockIntervalPickerBaseControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = ClockIntervalPickerBaseControl.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C8138E501A9C894B00E29839 /* ClockIntervalPickerBaseControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ClockIntervalPickerBaseControl.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C8138E521A9C897900E29839 /* AnalogClockIntervalPickerControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AnalogClockIntervalPickerControl.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C8138E531A9C897900E29839 /* AnalogClockIntervalPickerControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AnalogClockIntervalPickerControl.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C8138E581AA0844400E29839 /* ClockDrawIntervalBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClockDrawIntervalBaseView.h; sourceTree = "<group>"; };
+		C8138E591AA0844400E29839 /* ClockDrawIntervalBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClockDrawIntervalBaseView.m; sourceTree = "<group>"; };
+		C8138E5B1AA0862E00E29839 /* AnalogClockDrawIntervalView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalogClockDrawIntervalView.h; sourceTree = "<group>"; };
+		C8138E5C1AA0862E00E29839 /* AnalogClockDrawIntervalView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalogClockDrawIntervalView.m; sourceTree = "<group>"; };
+		C8138E5E1AA100AD00E29839 /* AnalogClockUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalogClockUtils.h; sourceTree = "<group>"; };
+		C8138E5F1AA100AD00E29839 /* AnalogClockUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalogClockUtils.m; sourceTree = "<group>"; };
 		C8D9613C1A8B426000C81AEF /* CustomTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTapGestureRecognizer.h; sourceTree = "<group>"; };
 		C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTapGestureRecognizer.m; sourceTree = "<group>"; };
 		E10E85A51A94AD6200C13275 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
@@ -384,8 +393,8 @@
 				E1B4313C1A9A4FF90054AC47 /* ClockBaseView.m */,
 				C8138E491A9C859B00E29839 /* ClockContainerView.h */,
 				C8138E4A1A9C859B00E29839 /* ClockContainerView.m */,
-				C8138E4F1A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.h */,
-				C8138E501A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.m */,
+				C8138E581AA0844400E29839 /* ClockDrawIntervalBaseView.h */,
+				C8138E591AA0844400E29839 /* ClockDrawIntervalBaseView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -397,6 +406,42 @@
 				C8138E4D1A9C86E900E29839 /* ClockController.m */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		C8138E611AA100CD00E29839 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				C8138E621AA1193F00E29839 /* AnalogClock */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		C8138E621AA1193F00E29839 /* AnalogClock */ = {
+			isa = PBXGroup;
+			children = (
+				C8138E5E1AA100AD00E29839 /* AnalogClockUtils.h */,
+				C8138E5F1AA100AD00E29839 /* AnalogClockUtils.m */,
+			);
+			name = AnalogClock;
+			sourceTree = "<group>";
+		};
+		C8138E631AA1194D00E29839 /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				C8138E4F1A9C894B00E29839 /* ClockIntervalPickerBaseControl.h */,
+				C8138E501A9C894B00E29839 /* ClockIntervalPickerBaseControl.m */,
+				C8138E641AA1196100E29839 /* AnalogClock */,
+			);
+			name = Controls;
+			sourceTree = "<group>";
+		};
+		C8138E641AA1196100E29839 /* AnalogClock */ = {
+			isa = PBXGroup;
+			children = (
+				C8138E521A9C897900E29839 /* AnalogClockIntervalPickerControl.h */,
+				C8138E531A9C897900E29839 /* AnalogClockIntervalPickerControl.m */,
+			);
+			name = AnalogClock;
 			sourceTree = "<group>";
 		};
 		C8D9613B1A8B422200C81AEF /* Utils */ = {
@@ -412,6 +457,8 @@
 		E1B4312F1A9A4D090054AC47 /* Clock */ = {
 			isa = PBXGroup;
 			children = (
+				C8138E631AA1194D00E29839 /* Controls */,
+				C8138E611AA100CD00E29839 /* Utils */,
 				C8138E481A9C855000E29839 /* Controllers */,
 				C8138E471A9C84DC00E29839 /* Views */,
 				E1B431301A9A4D940054AC47 /* ClockProtocol.h */,
@@ -428,8 +475,8 @@
 				E1B431391A9A4FAD0054AC47 /* AnalogNightClockView.m */,
 				E1B4313E1A9A53340054AC47 /* AnalogClockView.h */,
 				E1B4313F1A9A53340054AC47 /* AnalogClockView.m */,
-				C8138E521A9C897900E29839 /* AnalogClockSelectTimeIntervalView.h */,
-				C8138E531A9C897900E29839 /* AnalogClockSelectTimeIntervalView.m */,
+				C8138E5B1AA0862E00E29839 /* AnalogClockDrawIntervalView.h */,
+				C8138E5C1AA0862E00E29839 /* AnalogClockDrawIntervalView.m */,
 			);
 			name = AnalogClock;
 			sourceTree = "<group>";
@@ -603,6 +650,7 @@
 			files = (
 				E1B431401A9A53340054AC47 /* AnalogClockView.m in Sources */,
 				E10E85A71A94AD6200C13275 /* Note.m in Sources */,
+				C8138E601AA100AD00E29839 /* AnalogClockUtils.m in Sources */,
 				C1E7AB081A5EF62E00AA7665 /* UIGCalendarYearTmp.m in Sources */,
 				C131A0171A596A2500AE323E /* NotesPageViewController.m in Sources */,
 				C131A0241A59B2AF00AE323E /* SubTabBarViewController.m in Sources */,
@@ -615,12 +663,14 @@
 				C8138E221A9B86A900E29839 /* Constants.m in Sources */,
 				C8138E1F1A9B85D100E29839 /* UIImage+Extensions.m in Sources */,
 				C131A0331A5ABD3B00AE323E /* SettingsViewController.m in Sources */,
-				C8138E511A9C894B00E29839 /* ClockSelectTimeIntervalBaseView.m in Sources */,
+				C8138E5A1AA0844400E29839 /* ClockDrawIntervalBaseView.m in Sources */,
+				C8138E511A9C894B00E29839 /* ClockIntervalPickerBaseControl.m in Sources */,
 				C1FBD4E61A62F638003A6A9A /* SelectDatesAndTimeController.m in Sources */,
 				E1B4312E1A99FB620054AC47 /* TimeView.m in Sources */,
 				E1B83C591A8634B50080892A /* NoteTableViewCell.m in Sources */,
 				E16D34671A98B708001928D8 /* ViewSelectedMonth.m in Sources */,
 				C199B28D1A6D5A1B00B77253 /* HTMLViewController.m in Sources */,
+				C8138E5D1AA0862E00E29839 /* AnalogClockDrawIntervalView.m in Sources */,
 				C1D871C01A5769A300B61429 /* AppDelegate.m in Sources */,
 				E1BD20BE1A8F6CB900AD7DDE /* DataManager.m in Sources */,
 				C135BDBB1A6C165400A2559E /* MainTabBarController.m in Sources */,
@@ -632,7 +682,7 @@
 				C199B2901A6D680500B77253 /* SelectSoundViewController.m in Sources */,
 				C8138E4E1A9C86E900E29839 /* ClockController.m in Sources */,
 				C1AA2D6E1A5F382F005DCC23 /* ClockView.m in Sources */,
-				C8138E541A9C897900E29839 /* AnalogClockSelectTimeIntervalView.m in Sources */,
+				C8138E541A9C897900E29839 /* AnalogClockIntervalPickerControl.m in Sources */,
 				C8D9613E1A8B426000C81AEF /* CustomTapGestureRecognizer.m in Sources */,
 				C131A03B1A5AF83C00AE323E /* GLocationProvider.m in Sources */,
 				C131A0271A59BB6E00AE323E /* EditCreateViewController.m in Sources */,

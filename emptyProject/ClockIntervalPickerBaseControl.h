@@ -9,11 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "ClockProtocol.h"
 
-@interface ClockSelectTimeIntervalBaseView : UIView
+@interface ClockIntervalPickerBaseControl : UIControl
 
 @property (assign) ClockTime startTime;
 @property (assign) ClockTime endTime;
 
-@property (weak) id<ClockSelectTimeIntervalDelegate> delegate;
+@property (weak) id<ClockIntervalPickerControlDelegate> delegate;
 
 @end

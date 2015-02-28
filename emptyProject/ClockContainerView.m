@@ -27,9 +27,9 @@
     CGPoint center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     
     _clockView.frame = rect;
-    _selectTimeIntervalView.frame = rect;
+    _intervalPikerControl.frame = rect;
     _clockView.center = center;
-    _selectTimeIntervalView.center = center;
+    _intervalPikerControl.center = center;
 
 }
 
@@ -45,23 +45,23 @@
     
     [self addSubview:clockView];
     
-    if (_selectTimeIntervalView) {
-        [self bringSubviewToFront:_selectTimeIntervalView];
+    if (_intervalPikerControl) {
+        [self bringSubviewToFront:_intervalPikerControl];
     }
     
 }
 
-- (void)setSelectTimeIntervalView:(ClockSelectTimeIntervalBaseView *)selectTimeIntervalView
+- (void)setIntervalPikerControl:(ClockIntervalPickerBaseControl *)intervalPikerControl
 {
-    if (_selectTimeIntervalView.superview) {
-        [_selectTimeIntervalView removeFromSuperview];
+    if (_intervalPikerControl.superview) {
+        [_intervalPikerControl removeFromSuperview];
     }
     
-    _selectTimeIntervalView = selectTimeIntervalView;
-    _selectTimeIntervalView.frame = CGRectMake(0, 0, self.frame.size.width,
+    _intervalPikerControl = intervalPikerControl;
+    _intervalPikerControl.frame = CGRectMake(0, 0, self.frame.size.width,
                                   self.frame.size.height);
     
-    [self addSubview:selectTimeIntervalView];
+    [self addSubview:intervalPikerControl];
 }
 
 /*
