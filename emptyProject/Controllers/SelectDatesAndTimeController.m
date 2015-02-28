@@ -138,18 +138,7 @@
             
          if ([[labelDict objectForKey:@"text"]isEqualToString:textLabel]) {
                 
-                if (labelDayClick.frame.size.width >50) {
-                    
-                    UILabel *view = [[UILabel alloc]initWithFrame:CGRectMake(labelDayClick.frame.origin.x+17, labelDayClick.frame.origin.y-13, 45.714287, 81.8198)];
-                        labelDayClick.frame = view.frame;
-                    
-                }
  
-             
-//             if (labelDayClick.superview) {
-//                 return;
-//             }
-                //45.714287
             
              UIColor *color = labelDayClick.textColor;
              if ([color isEqual:[UIColor lightGrayColor]]) {
@@ -168,8 +157,7 @@
              
             labelDayClick.backgroundColor = [UIColor colorWithRed:76.0/255.0 green:217.0/255.0 blue:100.0/255.0 alpha:0.9];
              labelDayClick.textColor = [UIColor whiteColor];
-             
-//                [self.senderView.superview addSubview: labelDayClick];
+
                 return;
             }
             
@@ -441,33 +429,33 @@
             stringWithDayWeeks = [self.note.dayWeek lowercaseString];
              NSMutableDictionary *dictExtds = [extds firstObject];
             
-            if ([stringWithDayWeeks containsString:@"monday"]) {
+            if ([stringWithDayWeeks containsString:[[GLang getString:@"SelectDates.day.d1"]lowercaseString]]) {
                 
                 NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:0];
                 [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
             }
-            if ([stringWithDayWeeks containsString:@"tuesday"]) {
+            if ([stringWithDayWeeks containsString:[[GLang getString:@"SelectDates.day.d2"]lowercaseString]]) {
                 NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:1];
                 [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
             }
             
-            if ([stringWithDayWeeks containsString:@"wednesday"]) {
+            if ([stringWithDayWeeks containsString:[[GLang getString:@"SelectDates.day.d3"]lowercaseString]]) {
                 NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:2];
                 [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
             }
-            if ([stringWithDayWeeks containsString:@"thursday"]) {
+            if ([stringWithDayWeeks containsString:[[GLang getString:@"SelectDates.day.d4"]lowercaseString]]) {
+                
                 NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:3];
                 [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
             }
-            if ([stringWithDayWeeks containsString:@"friday"]) {
-                NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:4];
+           if ([stringWithDayWeeks containsString:[[GLang getString:@"SelectDates.day.d5"]lowercaseString]]) {                NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:4];
                 [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
             }
-            if ([stringWithDayWeeks containsString:@"saturday"]) {
+            if ([stringWithDayWeeks containsString:[[GLang getString:@"SelectDates.day.d6"]lowercaseString]]) {
                 NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:5];
                 [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
             }
-            if ([stringWithDayWeeks containsString:@"sunday"]) {
+            if ([stringWithDayWeeks containsString:[[GLang getString:@"SelectDates.day.d7"]lowercaseString]]) {
                 NSMutableDictionary *cellDictExtds = [[dictExtds objectForKey:@"cells"] objectAtIndex:6];
                 [cellDictExtds setObject:([[cellDictExtds objectForKey:@"type"] isEqualToString:@"default"])?@"checkbox":@"default" forKey:@"type"];
             }

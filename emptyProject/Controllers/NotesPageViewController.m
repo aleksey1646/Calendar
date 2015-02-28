@@ -139,10 +139,18 @@ CGFloat NotesDataSourceHeightForRow;
         }
         
     }
+    if ([statusActive count]) {
+        [self.arrayNotes addObject:@{ @"cells":statusActive}];
+    }
+    if ([statusPause count]) {
+         [self.arrayNotes addObject:@{@"header_title":@"Приостановленные", @"cells":statusPause}];
+    }
+    if ([statusComplete count]) {
+        [self.arrayNotes addObject:@{@"header_title":@"Выполненные", @"cells":statusComplete}];
+    }
    // [self.arrayNotes addObject:@{@"header_title":@"Активные", @"cells":statusActive}];
-    [self.arrayNotes addObject:@{ @"cells":statusActive}];
-    [self.arrayNotes addObject:@{@"header_title":@"Приостановленные", @"cells":statusPause}];
-    [self.arrayNotes addObject:@{@"header_title":@"Выполненные", @"cells":statusComplete}];
+    
+    
     
     if (error) {
         

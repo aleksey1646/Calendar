@@ -15,6 +15,9 @@
 
 @implementation AccountViewController
 @synthesize tableView;
+
+
+
 -(void)tableView:(UITableView *)tableView_ didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
      NSString* ident=[[[[mainTab objectAtIndex:[indexPath section]] objectForKey:@"cells"] objectAtIndex: [indexPath row] ] objectForKey:@"ident"];
     [[tableView_ cellForRowAtIndexPath:indexPath] setSelected:NO animated:YES];
