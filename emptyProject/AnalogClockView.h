@@ -9,11 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "ClockBaseView.h"
 
+typedef enum : NSUInteger {
+    AnalogClockDayType,
+    AnalogClockNightType
+} AnalogClockType;
+
 @interface AnalogClockView : ClockBaseView
 
 @property (weak, readonly) UIImageView *hourArrow;
 @property (weak, readonly) UIImageView *minuteArrow;
 @property (weak, readonly) UIImageView *secondsArrow;
 @property (weak, readonly) UIImageView *centerPoint;
+@property (assign)AnalogClockType clockType;
 
 @end

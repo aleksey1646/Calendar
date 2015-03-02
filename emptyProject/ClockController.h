@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "ClockProtocol.h"
-#import "ClockContainerView.h"
+//#import "ClockContainerView.h"
 
-@interface ClockController : UIViewController <ClockIntervalPickerControlDelegate>
+extern NSString *const ClockControllerDidChangeBackgroundColorNotification;
+extern NSString *const ClockControllerBackgroundColorUserInfoKey;
 
-@property (weak) UISwitch *switchFrameTime;
-@property (weak) ClockContainerView *clockContainer;
+@interface ClockController : UIViewController <ClockIntervalPickerControlDelegate, UIAlertViewDelegate>
+
+
+
+//@property (weak) UISwitch *switchFrameTime;
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil NS_UNAVAILABLE;

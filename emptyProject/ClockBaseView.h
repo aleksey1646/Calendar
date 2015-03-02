@@ -13,6 +13,7 @@
 @interface ClockBaseView : UIView <ClockProtocol, ClockDrawIntervalProtocol>
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder NS_UNAVAILABLE;
+- (void)reset;
 
 @property (weak, readonly) ClockDrawIntervalBaseView *drawIntervalView;
 

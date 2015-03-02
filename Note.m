@@ -2,7 +2,7 @@
 //  Note.m
 //  emptyProject
 //
-//  Created by Katushka Mazalova on 18.02.15.
+//  Created by Katushka Mazalova on 02.03.15.
 //  Copyright (c) 2015 A.O. All rights reserved.
 //
 
@@ -14,7 +14,6 @@
 @dynamic category;
 @dynamic date;
 @dynamic dayWeek;
-@dynamic title;
 @dynamic latitude;
 @dynamic longitude;
 @dynamic notificationPlace;
@@ -24,5 +23,6 @@
 @dynamic statusPause;
 @dynamic textNote;
 @dynamic timeInterval;
+@dynamic title;
 
 @end

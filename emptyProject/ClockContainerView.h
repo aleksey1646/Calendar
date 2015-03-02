@@ -18,7 +18,7 @@
 
 
 - (void)setClockView:(ClockBaseView *)clockView;
-- (void) setLabelTimeInterval:(UILabel *)labelTimeInterval;
+- (void)setLabelTimeInterval:(UILabel *)labelTimeInterval;
 - (void)setIntervalPikerControl:(ClockIntervalPickerBaseControl *)intervalPikerControl;
 
 @end

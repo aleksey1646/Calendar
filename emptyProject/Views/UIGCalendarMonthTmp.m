@@ -13,6 +13,7 @@
 @interface UIGCalendarMonthTmp ()
 
 @property (weak) UIView *baseView;
+//@property (weak) NSMutableArray *arrayForSelectedDaysAndSelectedMonth;
 
 @end
 
@@ -44,7 +45,7 @@
     
     UIView *baseView = [[UIView alloc]initWithFrame:CGRectZero];
     
-   baseView.frame= self.frame;
+    baseView.frame= self.frame;
     
     self.baseView = baseView;
     
@@ -437,6 +438,8 @@
 
                 
             }
+            
+            //NSLog(@"%@",)
             
             [attrStr drawAtPoint:CGPointMake(fx+(fw/2)-cwd2,fy+(fh/2)-chd2)];
         }

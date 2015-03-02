@@ -11,6 +11,7 @@
 
 @interface ClockIntervalPickerBaseControl : UIControl
 
+@property (assign) BOOL isAM;
 @property (assign) ClockTime startTime;
 @property (assign) ClockTime endTime;
 

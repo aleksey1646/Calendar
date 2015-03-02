@@ -7,18 +7,21 @@
 //
 
 #import "ClockController.h"
-//#import "ClockContainerView.h"
+#import "ClockContainerView.h"
 #import "AnalogDayClockView.h"
 #import "AnalogNightClockView.h"
+#import "AnalogClockView.h"
 #import "AnalogClockIntervalPickerControl.h"
 #import "GLang.h"
 
 #define timerUpdateInterval 1.0f
 
+NSString *const ClockControllerDidChangeBackgroundColorNotification = @"DidChangeBackgroundColorNotification";
+NSString *const ClockControllerBackgroundColorUserInfoKey = @"ClockControllerBackgroundColorUserInfoKey";
 
 @interface ClockController ()
 
-//@property (weak) ClockContainerView *clockContainer;
+@property (weak) ClockContainerView *clockContainer;
 @property (strong) NSTimer *timer;
 @property (assign) NSTimeInterval initialTimeInterval;
 // CPU ticks since the last reboot in seconds
@@ -53,21 +56,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    AnalogDayClockView *dayClock = [[AnalogDayClockView alloc] init];
     AnalogClockIntervalPickerControl *intervalPickerControl = [[AnalogClockIntervalPickerControl alloc] init];
     intervalPickerControl.delegate = self;
-    [_clockContainer setClockView:dayClock];
     
-    /*
-    //time frame is on
-    if ([self.switchFrameTime isOn]) {
-        [_clockContainer setIntervalPikerControl:intervalPickerControl];
-   
-    }
-   */
-    
-    //time frame is off
     [_clockContainer setIntervalPikerControl:intervalPickerControl];
+    [intervalPickerControl addTarget:self action:@selector(intervalPickerControlClicked:)
+                    forControlEvents:UIControlEventTouchUpInside];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:timerUpdateInterval
                                                   target:self
@@ -75,12 +69,24 @@
                                                 userInfo:nil
                                                  repeats:YES];
     
+    UILabel *label = [[UILabel alloc] init];
+    [label setTextAlignment:NSTextAlignmentCenter];
+    [label setFont:[UIFont fontWithName:@"HelveticaNeueCyr-Light" size:(16.0)]];
+    [label setTextColor:[UIColor blackColor]];
+    
+    [_clockContainer setLabelTimeInterval:label];
+    
     // Do any additional setup after loading the view.
     
-    UILabel *label = [[UILabel alloc]init];
-    [_clockContainer setLabelTimeInterval:label];
+}
 
-    
+- (void)intervalPickerControlClicked:(id)sender
+{
+    //Need to call reset
+    [_clockContainer.clockView reset];
+
+//    NSLog(@"%@ %@", NSStringFromClockTime(_clockContainer.intervalPikerControl.startTime),
+//          NSStringFromClockTime(_clockContainer.intervalPikerControl.endTime));
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -93,14 +99,47 @@
     self.initialTimeInterval = [[NSDate date] timeIntervalSince1970] + additionalSecondsForCurrentTimeZone;
     self.initialTimeIntervalWithoutRebootSystem = CACurrentMediaTime();
     
-    [self timerUpdate];
+    [self initialClock];
 
+}
+
+- (void)initialClock
+{
+    AnalogClockView *analogClock = nil;
+    
+    int hours = ((int)(self.initialTimeInterval/60/60))%24;
+    if (hours>=12)
+    {
+        analogClock = [[AnalogNightClockView alloc] init];
+        analogClock.clockType = AnalogClockNightType;
+        _clockContainer.intervalPikerControl.isAM = NO;
+        //_clockContainer.backgroundColor = [UIColor darkGrayColor];
+        _clockContainer.backgroundColor = [UIColor blackColor];
+        _clockContainer.labelTimeInterval.textColor = [UIColor whiteColor];
+    } else
+    {
+        analogClock = [[AnalogDayClockView alloc] init];
+        analogClock.clockType = AnalogClockDayType;
+        _clockContainer.intervalPikerControl.isAM = YES;
+        _clockContainer.backgroundColor = [UIColor whiteColor];
+        _clockContainer.labelTimeInterval.textColor = [UIColor blackColor];
+    }
+    [_clockContainer setClockView:analogClock];
+    
+     [self timerUpdate];
+    //post notification with backgroundColor in dictionaryColorView
+    NSDictionary *dictionaryColorView = [NSDictionary dictionaryWithObject:_clockContainer.backgroundColor forKey:ClockControllerBackgroundColorUserInfoKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ClockControllerDidChangeBackgroundColorNotification object:nil userInfo:dictionaryColorView];
+    //
+    
+    
+   
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-//    [_clockContainer.clockView drawIntervalFromTime:ClockTimeMake(1, 0, 0) toTime:ClockTimeMake(11, 0, 0)];
+//    [_clockContainer.clockView drawIntervalFromTime:ClockTimeMake(1, 0, 0) toTime:ClockTimeMake(1, 0, 0)];
 
     
 }
@@ -136,27 +175,48 @@
 #pragma mark ClockSelectTimeIntervalDelegate
 - (void)clockIntervalPickerControlPickFromTime:(ClockTime)fromTime toTime:(ClockTime)toTime
 {
+//    
+//    if (![self.switchFrameTime isOn]) {
+//        
+//        [_clockContainer.labelTimeInterval setText:[GLang getString:@"SelectDates.clock.time_frame"]];
+//        return;
+//    }
     
-    if (![self.switchFrameTime isOn]) {
-        
-        [_clockContainer.labelTimeInterval setText:[GLang getString:@"SelectDates.clock.time_frame"]];
-        
-    } else {
-        
-        [_clockContainer.clockView drawIntervalFromTime:fromTime toTime:toTime];
-        // @"SelectDates.clock.time_frame"
-        [_clockContainer.labelTimeInterval setText:[NSString stringWithFormat:@"%@ - %@",NSStringFromClockTime(fromTime),NSStringFromClockTime(toTime)]];
+    AnalogClockView *analogClockView = (AnalogClockView *)_clockContainer.clockView;
+    
+    //Changes clocks, if need
+    
+        if (toTime.hours >=12 &&
+            analogClockView.clockType == AnalogClockDayType)
+        {
+            analogClockView = [[AnalogNightClockView alloc] init];
+            analogClockView.clockType = AnalogClockNightType;
+            [_clockContainer setClockView:analogClockView];
+            _clockContainer.backgroundColor = [UIColor blackColor];
+            _clockContainer.labelTimeInterval.textColor = [UIColor whiteColor];
+        } else if (toTime.hours <12 &&
+                   analogClockView.clockType == AnalogClockNightType)
+        {
+            analogClockView = [[AnalogDayClockView alloc] init];
+            analogClockView.clockType = AnalogClockDayType;
+            [_clockContainer setClockView:analogClockView];
+            _clockContainer.backgroundColor = [UIColor whiteColor];
+            _clockContainer.labelTimeInterval.textColor = [UIColor blackColor];
+        }
+    
+     [self timerUpdate];
+    
+    //post notification with backgroundColor in dictionaryColorView
+    NSDictionary *dictionaryColorView = [NSDictionary dictionaryWithObject:_clockContainer.backgroundColor forKey:ClockControllerBackgroundColorUserInfoKey];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ClockControllerDidChangeBackgroundColorNotification object:nil userInfo:dictionaryColorView];
+    
+    
+    
+    [_clockContainer.clockView drawIntervalFromTime:fromTime toTime:toTime];
+    [_clockContainer.labelTimeInterval setText:[NSString stringWithFormat:@"%@ - %@",NSStringFromClockTime(fromTime),NSStringFromClockTime(toTime)]];
+    
 
-    }
     
-    [_clockContainer.labelTimeInterval setTextAlignment:NSTextAlignmentCenter];
-    [_clockContainer.labelTimeInterval setFont:[UIFont fontWithName:@"HelveticaNeueCyr-Light" size:(16.0)]];
-    [_clockContainer.labelTimeInterval setTextColor:[UIColor blackColor]];
-    
-    
-    NSLog(@"clockIntervalPickerControlPickFromTime %@ toTime: %@",
-          NSStringFromClockTime(fromTime),
-          NSStringFromClockTime(toTime));
 }
 
 

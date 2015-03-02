@@ -45,6 +45,23 @@ NSStringFromClockTime(ClockTime time)
     return [NSString stringWithFormat:@"%02d:%02d:%02d", time.hours, time.minutes, time.seconds];
 }
 
+static inline ClockTime
+ClockTimeSumClockTime(ClockTime time1, ClockTime time2)
+{
+    float timeInterval = time1.hours * 3600 +
+    time1.minutes * 60 +
+    time1.seconds +
+    time2.hours * 3600 +
+    time2.minutes * 60 +
+    time2.seconds;
+    
+    int hours = timeInterval / 60 / 60;
+    int minutes = (timeInterval - (float)hours * 60 * 60) / 60;
+    int seconds = timeInterval - (float)hours * 60 * 60 - (float)minutes * 60;
+    
+    return ClockTimeMake(hours, minutes, seconds);
+}
+
 @protocol ClockProtocol <NSObject>
 
 - (void)setHours:(int)hours minutes:(int)minutes seconds:(int)seconds;

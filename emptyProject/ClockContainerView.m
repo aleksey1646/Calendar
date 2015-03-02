@@ -57,7 +57,7 @@
     
 
 }
-- (void) setLabelTimeInterval:(UILabel *)labelTimeInterval {
+- (void)setLabelTimeInterval:(UILabel *)labelTimeInterval {
     if (_labelTimeInterval.superview) {
         [_labelTimeInterval removeFromSuperview];
     }

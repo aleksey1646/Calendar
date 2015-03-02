@@ -10,6 +10,7 @@
 #import "GLang.h"
 #import "Note.h"
 #import "ClockController.h"
+#import "ClockContainerView.h"
 
 @interface SelectDatesAndTimeController ()
 
@@ -43,12 +44,7 @@
 -(void)updateSizes{
     CGRect cg=CGRectMake(0, 0, cw.frame.size.width,cw.frame.size.height);
     [gcalendar setFrame: cg ];
-    //clock
-//    CGFloat clocksize=(cw.frame.size.width>cw.frame.size.height)?cw.frame.size.height:cw.frame.size.width;
-//    CGFloat width95p= clocksize/100*90;
-//    CGFloat wleft=(cw.frame.size.width/2)-(width95p/2);
-//    CGRect cg_clock=CGRectMake( wleft , 0, width95p, width95p);
-    //[gclock setFrame: cg_clock ];
+
     
     CGFloat clocksize=(cw.frame.size.width>cw.frame.size.height)?cw.frame.size.height:cw.frame.size.width;
     CGFloat width =cw.frame.size.width/100*90;
@@ -59,12 +55,8 @@
     
     CGRect rectForCellTime = CGRectMake(0, 0, cw.frame.size.width, 40.0);
     [cellWithSwitchTime setFrame:rectForCellTime];
-    cellWithSwitchTime.backgroundColor = [UIColor whiteColor];
-    
-//    CGRect cg_clock=CGRectMake( wleft ,cellWithSwitchTime.frame.origin.y+cellWithSwitchTime.frame.size.height/2 , width95p, cw.frame.size.height);
+   
 
-    
-    
     CGRect rectForTextLabel = CGRectMake(widthleft, 0, cellWithSwitchTime.frame.size.width/2, cellWithSwitchTime.frame.size.height);
     [textLabelTime setFrame:rectForTextLabel];
     [textLabelTime setText:[GLang getString: @"SelectDates.clock.time"]];
@@ -93,21 +85,55 @@
     
     [_clockController.view setFrame: cg_clock ];
     
-    //switchFrameTime
-    _clockController.switchFrameTime = switchView;
+
+//    _clockController.switchFrameTime = switchView;
     
     [uitableview setFrame:cg];
+    
+    
+    ClockContainerView *clockContainer = (ClockContainerView *) _clockController.view;
+    clockContainer.intervalPikerControl.enabled = switchView.isOn;
+
+    if (!switchView.isOn) {
+        [clockContainer.labelTimeInterval setText:[GLang getString:@"SelectDates.clock.time_frame"]];
+    }
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(backgroundColorDidChange:) name:ClockControllerDidChangeBackgroundColorNotification object:nil];
+    
+    
+}
+#pragma mark - backgroundColorDidChange
+- (void) backgroundColorDidChange:(NSNotification *)notification {
+    
+    UIColor *color = [notification.userInfo objectForKey:ClockControllerBackgroundColorUserInfoKey];
+    self.view.backgroundColor = color;
+    cw.backgroundColor = color;
+    cellWithSwitchTime.backgroundColor = color;
+    if ([color isEqual:[UIColor blackColor]]) {
+        textLabelTime.textColor = [UIColor whiteColor];
+    } else {
+        textLabelTime.textColor = [UIColor blackColor];
+    }
+        
+      
+    
+    
+    
 }
 
 
-- (void)changeSwitch:(id)sender{
+- (void)changeSwitch:(UISwitch *)sender{
+    
+   ClockContainerView *clockContainer = (ClockContainerView *) _clockController.view;
+    clockContainer.intervalPikerControl.enabled = sender.isOn;
+    
     if([sender isOn]){
-        [_clockController.clockContainer.labelTimeInterval setText:@""];
+        [clockContainer.labelTimeInterval setText:@""];
         
         NSLog(@"Switch is ON");
     } else{
-        [_clockController.clockContainer.labelTimeInterval setText:[GLang getString:@"SelectDates.clock.time_frame"]];
-        [_clockController.clockContainer.clockView drawIntervalFromTime:ClockTimeZero toTime:ClockTimeZero];
+        [clockContainer.labelTimeInterval setText:[GLang getString:@"SelectDates.clock.time_frame"]];
+        [clockContainer.clockView drawIntervalFromTime:ClockTimeZero toTime:ClockTimeZero];
         
         NSLog(@"Switch is OFF");
     }
@@ -293,6 +319,8 @@
     if (self.dayPosition) {
         self.dayPositionInMf = self.dayPosition;
     }
+    
+    NSLog(@"viewDidAppear");
 
     [self.previousSelectedMonthDoubleClicked selectedDays:self.dayPositionInMf];
     [self updateSizes];
@@ -316,9 +344,7 @@
     switch([segmentControl selectedSegmentIndex]){
         case 0:[cw addSubview:gcalendar];break;
         case 1:{
-            //self.view.backgroundColor = [UIColor blackColor];
-
-            //cw.backgroundColor = [UIColor blackColor];
+            
             [cw addSubview:_clockController.view];
             [cw addSubview:cellWithSwitchTime];
             [cw addSubview:lineBeforeCellTime];
@@ -401,6 +427,9 @@
     
     [self.clockController invalidate];
     self.clockController = nil;
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:ClockControllerDidChangeBackgroundColorNotification object:nil];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -418,6 +447,10 @@
 //    gclock=[[ClockView alloc]initWithFrame:CGRectZero];
     
     _clockController = [[ClockController alloc] init];
+    
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(backgroundColorChanges:) name:@"backgroundColorChanges" object:_clockController];
+   
+    
     
     textLabelTime = [[UILabel alloc]initWithFrame:CGRectZero];
     switchView = [[UISwitch alloc] initWithFrame:CGRectZero];

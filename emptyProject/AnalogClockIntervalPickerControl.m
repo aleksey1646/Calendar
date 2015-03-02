@@ -11,12 +11,18 @@
 #import "Utils.h"
 #define chekingIntervalMinutes 5
 
+
+#define countTwentyHoursFullCircles 2
+
 @interface AnalogClockIntervalPickerControl ()
 {
     CGPoint pointBegin;
-    // Count full circles, can be <=2 for 24 hours
-    int countCircles;
-    int previousEndTime;
+    
+    float previousDegrees;
+    float tempCurrentDegrees;
+    float startDegrees;
+    float endDegrees;
+    
 }
 
 @end
@@ -31,22 +37,24 @@
     CGPoint touchLocation = [touch locationInView:self];
     pointBegin = touchLocation;
     
-    
-    
     CGPoint center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
-    float startDegrees = [self pointPairToBearingDegrees:center secondPoint:pointBegin];
-    self.startTime = [AnalogClockUtils convertAngleToTime:startDegrees];
-    previousEndTime = self.startTime.hours + self.startTime.minutes;
+    previousDegrees = [self pointPairToBearingDegrees:center secondPoint:pointBegin];
+    startDegrees = previousDegrees;
     
-    NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970] + [Utils currentTimeZone];
-    int hours = ((int)(currentTime/60/60))%24;
+    //Calculate time with current time
+    ClockTime startTime = [AnalogClockUtils convertAngleToTime:startDegrees];
+    NSTimeInterval additionalSecondsForCurrentTimeZone = [Utils currentTimeZone];
     
-    ClockTime time = self.startTime;
-    
-    if (hours>=12) {
-        time.hours += 12;
-        self.startTime = time;
+//    NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970] + additionalSecondsForCurrentTimeZone;
+//    int hours = ((int)(currentTime/60/60))%24;
+//    if (hours >= 12) {
+//        startTime.hours += 12;
+//    }
+    if (!self.isAM) {
+        startTime.hours += 12;
     }
+    
+    self.startTime = startTime;
 
 }
 
@@ -59,49 +67,53 @@
     CGPoint touchLocation = [touch locationInView:self];
     CGPoint center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     
-    float endDegrees = [self pointPairToBearingDegrees:center secondPoint:touchLocation];
     
-    
-    self.endTime = [AnalogClockUtils convertAngleToTime:endDegrees];
-    
-    
-    int summStartTime = self.startTime.hours + self.startTime.minutes;
-    int summEndTime = self.endTime.hours + self.endTime.minutes;
-    
-    //Check full circles
-    if ((summEndTime < previousEndTime) &&
-        previousEndTime > (summStartTime - chekingIntervalMinutes) &&
-        summEndTime < chekingIntervalMinutes)
-    {
-        countCircles ++;
-    } else if ((summEndTime > previousEndTime) &&
-               previousEndTime < chekingIntervalMinutes &&
-               summEndTime > (summStartTime - chekingIntervalMinutes))
-    {
-        countCircles --;
+    float currentDegrees = [self pointPairToBearingDegrees:center secondPoint:touchLocation];
+    float differenceBetweenDegrees = currentDegrees - previousDegrees;
+    if (fabs(differenceBetweenDegrees) >= 300) {
+        differenceBetweenDegrees = fabs(differenceBetweenDegrees) - 360;
     }
     
     
+    tempCurrentDegrees += differenceBetweenDegrees;
+    previousDegrees = currentDegrees;
     
+    /* Calculate edges to degrees*/
+    if (tempCurrentDegrees < 0) {
+        endDegrees = 0;
+    } else
+    if (tempCurrentDegrees > 360 * countTwentyHoursFullCircles) {
+        endDegrees = 360 * countTwentyHoursFullCircles;
+    } else
+        endDegrees = tempCurrentDegrees;
     
+    ClockTime additionalTimeForCurrentEndDegrees = [AnalogClockUtils convertAngleToTime:endDegrees];
     
+    ClockTime sumTimes = ClockTimeSumClockTime(self.startTime, additionalTimeForCurrentEndDegrees);
+    sumTimes.hours = sumTimes.hours%24;
+    self.endTime = sumTimes;
     
-    if (self.startTime.hours >= 12) {
-        ClockTime time = self.endTime;
-        time.hours += 12;
-        self.endTime = time;
+    self.isAM = (sumTimes.hours < 12);
+    
+//    NSLog(@"start degrees %f, current degrees: %f", startDegrees, endDegrees);
 
-    }
-    
-    
-    NSLog(@"degrees %f, count circles: %i", endDegrees, countCircles);
     [super touchesMoved:touches withEvent:event];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    [super touchesEnded:touches withEvent:event];
+    //We don't have a changes.
+    if (!endDegrees) {
+        self.startTime = ClockTimeZero;
+        self.endTime = ClockTimeZero;
+    }
+    
     pointBegin = CGPointZero;
+    tempCurrentDegrees = 0;
+    previousDegrees = 0;
+    startDegrees = 0;
+    endDegrees = 0;
+    [super touchesEnded:touches withEvent:event];
 }
 
 - (CGFloat)pointPairToBearingDegrees:(CGPoint)startingPoint secondPoint:(CGPoint)endingPoint
