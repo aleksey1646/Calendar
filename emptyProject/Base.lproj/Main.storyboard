@@ -151,7 +151,9 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                 <items>
                                     <navigationItem title="Месяц" id="9SB-H1-lse">
-                                        <barButtonItem key="leftBarButtonItem" title="Назад" id="ivm-DR-XG7"/>
+                                        <barButtonItem key="leftBarButtonItem" title="Item" style="plain" id="ivm-DR-XG7">
+                                            <color key="tintColor" red="1" green="0.14723076685418846" blue="0.18500677145230371" alpha="1" colorSpace="calibratedRGB"/>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

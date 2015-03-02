@@ -11,6 +11,7 @@
 #import "Note.h"
 #import "ClockController.h"
 #import "ClockContainerView.h"
+#import "UIGCalendarYearTmp.h"
 
 @interface SelectDatesAndTimeController ()
 
@@ -20,6 +21,7 @@
 @property (strong) NSMutableArray *arrayWithSelectedMonth;
 @property (strong) ClockController *clockController;
 @property (weak) UILabel *senderView;
+@property (strong)  NSMutableString *stringWithMonths;
 @end
 
 @implementation SelectDatesAndTimeController
@@ -27,8 +29,68 @@
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize cw,segmentControl;
 
+#pragma mark - Parse stringDate 
+- (void) parseStringDate:(NSString *)dateString {
+    
+    //@"2,5,13,4.3.14;all.3.15;1,4,5.7.17;"
+//    NSArray *components = [dateString componentsSeparatedByString:@"("];
+//    NSString *afterOpenBracket = [components objectAtIndex:1];
+//    components = [afterOpenBracket componentsSeparatedByString:@")"];
+//    NSString *numberString = [components objectAtIndex:0];
+//    long timeStamp = [numberString longValue];
+    
+    NSMutableArray *allMonthDate = [NSMutableArray array];
+     NSMutableArray *someDaysMonthDate = [NSMutableArray array];
+    
+    NSArray *datesArray = [dateString componentsSeparatedByString:@";"];
+    for (NSString *dateStr in datesArray) {
+        if ([dateStr hasPrefix:@"all"]) {
+            [allMonthDate addObject:dateStr];
+        } else {
+            [someDaysMonthDate addObject:dateStr];
+        }
+    }
+    
+//    UIGCalendarYearTmp *year = [[UIGCalendarYearTmp alloc]init];
+//    year setYear:<#(int)#>
+    
+    
 
+    
+}
 
+#pragma mark - Insert in note date
+- (void)didMoveToParentViewController:(UIViewController *)parent
+{
+    if (![parent isEqual:self.parentViewController]) {
+        NSLog(@"Back pressed");
+        
+        
+       
+        for (UIGCalendarMonthTmp *month in self.arrayWithSelectedMonth) {
+          
+            NSString *stringSelectedDate = [NSString stringWithFormat:@"all.%d.%d;",[month getCurrentMonth],[month getCurrentYear]];
+            
+            [_stringWithMonths appendString:stringSelectedDate];
+            
+            
+        }
+        //NSLog(@"%@",_stringWithMonths);
+        self.note.date = _stringWithMonths;
+        
+        
+        // NSString *theDate = [dateFormat stringFromDate:now];
+        /*
+         NSMutableArray* dayPositionDictionaries;
+         int currentMonth;
+         int currentYear;
+         int days_in_this_month;
+         int first_is_dayn;
+         */
+    }
+    
+    
+}
 
 #pragma mark - Add the note
 - (void) insertDayWeekInNote {
@@ -298,8 +360,6 @@
     int year=[mf getCurrentYear];
     
     UIViewController* ctrl=[ self.storyboard instantiateViewControllerWithIdentifier:@"oneMonthInEdit" ];
-
-    
     
     
     UIGCalendarMonthTmp* new_mf=(UIGCalendarMonthTmp*)ctrl.view;
@@ -311,19 +371,59 @@
     [new_mf addDaysLabels:self.dayPosition];
  
     [self.navigationController pushViewController: ctrl animated:YES];
-//    NSLog(@"UIGCalendarYearFast! %@",mf);
+    
+   // NSString *stringFormatBackButtonItem = [NSString stringWithFormat:@"%@.%d",mf.monthLabel.text.length>4?[mf.monthLabel.text substringToIndex:4]:mf.monthLabel.text,[mf getCurrentYear]];
+    
+    NSString *stringFormatBackButtonItem = [NSString stringWithFormat:@"%@. %d",mf.monthLabel.text,[mf getCurrentYear]];
+    
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:[NSString stringWithString:stringFormatBackButtonItem] style:UIBarButtonItemStylePlain target:self action:@selector(actionBackButtonClicked:)];
+   
+    ctrl.navigationItem.hidesBackButton = YES;
+    ctrl.navigationItem.leftBarButtonItem = backItem;
+    ctrl.navigationItem.leftBarButtonItem.tintColor = [UIColor redColor];
+
+}
+- (void) actionBackButtonClicked:(UIBarButtonItem *)sender {
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    NSLog(@"actionBackButtonClicked");
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
     if (self.dayPosition) {
         self.dayPositionInMf = self.dayPosition;
+        
+        
+        NSMutableString *stringSelectedDays = [[NSMutableString alloc]init];
+        
+        for (NSDictionary *dict in self.dayPositionInMf) {
+            if ([[dict objectForKey:@"selected"]isEqualToString:@"YES"]) {
+                
+                [stringSelectedDays appendString:[NSString stringWithFormat:@"%@,",[dict objectForKey:@"text"]]];
+                
+            }
+        }
+      
+        if (!stringSelectedDays.length) {
+            return;
+        }
+        NSString *newString = [stringSelectedDays substringToIndex:stringSelectedDays.length-1];
+        if (newString.length!=0) {
+            [_stringWithMonths appendString:[NSString stringWithFormat:@"%@.%d.%d;",newString,[self.previousSelectedMonthDoubleClicked getCurrentMonth],[self.previousSelectedMonthDoubleClicked getCurrentYear]]];
+        }
+         
+        
     }
     
+    
     NSLog(@"viewDidAppear");
-
+    
     [self.previousSelectedMonthDoubleClicked selectedDays:self.dayPositionInMf];
     [self updateSizes];
+    
 }
 
 -(void)viewDidLayoutSubviews{
@@ -433,9 +533,12 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+
     self.dayWeeks = [[NSString alloc]init];
     self.arrayWithSelectedMonth = [NSMutableArray array];
   
+    _stringWithMonths = [[NSMutableString alloc]init];
     
     daysFooterLabel=[[UILabel alloc]initWithFrame:CGRectZero];
     [daysFooterLabel setTextColor:[UIColor grayColor]];
