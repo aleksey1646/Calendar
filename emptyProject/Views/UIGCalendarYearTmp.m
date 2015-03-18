@@ -10,7 +10,10 @@
 #import "CustomTapGestureRecognizer.h"
 
 @implementation UIGCalendarYearTmp
-@synthesize yearLabel,GCalendarYearTmpDelegate, currentYearLabel;
+
+@synthesize yearLabel,GCalendarYearTmpDelegate, currentYearLabel,calendars;
+
+
 
 - (void)clickOnMonth:(CustomTapGestureRecognizer*)sender
 {
@@ -106,15 +109,23 @@
             
         }else{
             cf=[calendars objectAtIndex:i];
+            //cf.previosYear= [NSNumber numberWithInt:[cf getCurrentYear]];
+            NSMutableArray *arrayDict = [cf getDayPositionDictionaries];
+            for (NSDictionary *dict in arrayDict) {
+                
+                [dict setValue:@"NO" forKey:@"selected"];
+            }
+            
+            
         }
         [cf setMonth:(int)tmp_m withYear:(int)currentYear];
         
        
-        [cf setFrame:CGRectMake(ira_x+border/2, ira_y+(oneElementSize/2), oneElementWidth-(border/2), oneElementSize)];
+        [cf setFrame:CGRectMake(ira_x+border/2, ira_y+(oneElementSize/2), oneElementWidth-(border/2), oneElementSize+border)];
         ira_x+=oneElementWidth;
         if(ira_x>=widthOverWidth){
             ira_x=0;
-            ira_y+=oneElementSize;
+            self.frame.size.width > self.frame.size.height? ira_y +=oneElementSize+border/1.3 : (ira_y +=oneElementSize+border/2);
         }
         tmp_m++;
     }

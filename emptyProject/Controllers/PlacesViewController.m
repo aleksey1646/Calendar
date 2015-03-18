@@ -12,6 +12,9 @@
 #import <CoreLocation/CoreLocation.h>
 #import "AppDelegate.h"
 #import "GLang.h"
+#import "Constants.h"
+#import "GLocationProvider.h"
+
 
 @interface PlacesViewController ()
 
@@ -21,6 +24,9 @@
 @synthesize webView,segmentcontrol;
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
     [webView setDelegate:self];
     [self.view bringSubviewToFront:segmentcontrol];
     [segmentcontrol setBackgroundColor:[[UIColor alloc]initWithWhite:1 alpha:0.5]];
@@ -32,21 +38,69 @@
 }
 
 
+
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-
+    
     [webView loadRequest:
      [NSURLRequest requestWithURL:[NSURL URLWithString: [NSString stringWithFormat:@"http://grope.io/maps/?t=%lu",time(NULL)] ] cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:5.0]
      ];
     
 }
 
--(void)insertMarkerToMap:(CLLocationCoordinate2D) coord text:(NSString*) text click_id:(NSString* )click_id{
-    NSString* js=[NSString stringWithFormat:@"insertMarkerToMap(%f,%f,'%@','%@');",coord.latitude,coord.longitude, text,click_id  ];
+- (NSString *)createRandomName
+{
+    NSTimeInterval timeStamp = [ [ NSDate date ] timeIntervalSince1970 ];
+    NSString *randomName = [ NSString stringWithFormat:@"%f", timeStamp];
+    randomName = [ randomName stringByReplacingOccurrencesOfString:@"." withString:@"" ];
+    return randomName;
+}
+-(void)insertMarkerToMap:(CLLocationCoordinate2D) coord text:(NSString*) text click_id:(NSString* )click_id title:(NSString *)title {
+    NSString* js=[NSString stringWithFormat:@"insertMarkerToMap(%f,%f,'%@','%@','%@');",coord.latitude,coord.longitude, text,title,click_id ];
     [webView stringByEvaluatingJavaScriptFromString: js ];
 }
+/*
+-(void)insertMarkerToMap:(CLLocationCoordinate2D) coord text:(NSString*) text click_id:(NSString* )click_id{
+    
+    NSString *title = [NSString stringWithFormat:@"You here!"];
+    
+    NSString* js=[NSString stringWithFormat:@"insertMarkerToMap(%f,%f,'%@','%@','%@');",coord.latitude,coord.longitude, text,click_id,title];
+    [webView stringByEvaluatingJavaScriptFromString: js ];
+}
+*/
+//[self performSelectorOnMainThread:@selector(yourmethod:)withObject:obj waitUntilDone:YES]
 
+- (void) myThreadMainMethod:(id) thread {
+    //while (true){
+    
+   // dispatch_sync(dispatch_get_main_queue(), ^{
+        
+        AppDelegate* app=[[UIApplication sharedApplication] delegate];
+        GLocationProvider *provider = [app locationProvider];
+    
+        if (provider.locationManager.monitoredRegions.count>0) {
+            
+           // for (int i = 0; i<provider.locationManager.monitoredRegions.count; i++) { //{
+                
+               
+              int i = 1;
+                for(CLCircularRegion* reg in [provider.locationManager monitoredRegions]){
+                    
+                    [self insertMarkerToMap:reg.center text:[NSString stringWithFormat:@"%d",i] click_id:[self createRandomName] title:[NSString stringWithFormat:@"REGION#%d",i]];
+                    
+                 //  [self insertMarkerToMap:reg.center text:[NSString stringWithFormat:@"REGION#%d",i] click_id:[self createRandomName]];
+                    i++;
+                }
+                
+                
+           // }
+            
+        }
+  
+}
 - (BOOL)webView:(UIWebView *)webView_p shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    
+    
     NSLog(@"request = %@",request);
     AppDelegate* app=[[UIApplication sharedApplication] delegate];
     CLLocation * last_loc= [[app locationProvider]lastCoordinates];
@@ -55,18 +109,29 @@
         NSString* path=[[request URL]path];
         if([path isEqualToString:@"/init1"]){
 #ifdef DEBUG_VARIABLES
-            if(!last_loc){ last_loc=[[CLLocation alloc]initWithLatitude:55.7522200 longitude:37.6155600]; }//temporary!!! for debug!
+            
+            
+            if(!last_loc){ last_loc=[[CLLocation alloc]initWithLatitude:55.75448 longitude:37.61965]; }//temporary!!! for debug!
 #endif
             if(last_loc){
                 NSLog(@"ll=%@\n",last_loc);
                 [webView stringByEvaluatingJavaScriptFromString:
-                 [NSString stringWithFormat:@"createMapWithCoordinates('%f','%f');",last_loc.coordinate.longitude,last_loc.coordinate.latitude ]
+                 [NSString stringWithFormat:@"createMapWithCoordinates('%f','%f','%d');",last_loc.coordinate.longitude,last_loc.coordinate.latitude,mapRadius]
                  ];
+                
             }
         }else if([path isEqualToString:@"/create_map_compelete"]){
-            [self insertMarkerToMap:last_loc.coordinate text:@"Your here" click_id:@"coords#iam"];
+            
+            [self insertMarkerToMap:last_loc.coordinate text:@"Your here" click_id:@"coords#iam" title:@"Current location"];
+            
+
+            //[self insertMarkerToMap:last_loc.coordinate text:@"Your here" click_id:@"coords#iam"];
         }else if([path isEqualToString:@"/fully_loaded"]){
             //First Fully loaded.
+            
+            [self performSelectorOnMainThread:@selector(myThreadMainMethod:)withObject:nil waitUntilDone:YES];
+           
+            
         }else{
             [[[UIAlertView alloc]initWithTitle:@"Alert" message:[[request URL]path] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"OK", nil]show];
         }

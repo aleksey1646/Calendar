@@ -29,7 +29,7 @@
     if (self) {
         
         UITextView *textView = [[UITextView alloc] init];//?
-        textView.returnKeyType = UIReturnKeyDone;
+        textView.returnKeyType = UIReturnKeyDefault;
         self.textView = textView;
         self.textView.delegate = self;
        
@@ -119,14 +119,11 @@
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
-    
-    if ([text isEqualToString:@"\n"])
-    {
-        [textView resignFirstResponder];
-        
-    }
+
     return YES;
+    
 }
+
 - (void)textViewDidEndEditing:(UITextView *)textView {
 
     
@@ -134,6 +131,7 @@
     self.editController.note.textNote = textView.text;
     
 }
+
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
 

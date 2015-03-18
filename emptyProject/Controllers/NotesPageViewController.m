@@ -55,10 +55,6 @@ CGFloat NotesDataSourceHeightForRow;
     EditCreateViewController *controllerCreateNote = (EditCreateViewController *)uiv;
     controllerCreateNote.note = selectNoteCell;
     
-    
-    
-    //UINavigationController *rootNavCtrl=(UINavigationController*)pctl.view.window.rootViewController;
-    //[rootNavCtrl pushViewController:uiv animated:YES];
  
     UITabBarController *tabbar_controller=(UITabBarController*)pctl.parentViewController;
     [tabbar_controller showViewController:uiv sender:self];
@@ -108,13 +104,31 @@ CGFloat NotesDataSourceHeightForRow;
     
     [request setEntity:description];
     
+    NSMutableArray *predicateMutableArray = [NSMutableArray array];
+    
     //predicate
     if (self.textSearch) {
         NSString *str = self.textSearch;
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title contains[cd] %@ || textNote contains[cd] %@", str,str];
         
-        [request setPredicate:predicate];
+        NSPredicate *predicateSearch = [NSPredicate predicateWithFormat:@"title contains[cd] %@ || textNote contains[cd] %@", str,str];
+        
+        [predicateMutableArray addObject:predicateSearch];
     }
+    if (predicateString) {
+        
+         [predicateMutableArray addObject:predicateString];
+    }
+    if ([predicateMutableArray count]!=0) {
+        
+        NSArray *arrayWithPredicates = [NSArray arrayWithArray:predicateMutableArray];
+        NSPredicate * andPredicate = [NSCompoundPredicate andPredicateWithSubpredicates:arrayWithPredicates];//multiple predicate
+        
+        [request setPredicate:andPredicate];
+        
+    }
+    
+
+    
    
    
     NSError* error = nil;
@@ -126,7 +140,6 @@ CGFloat NotesDataSourceHeightForRow;
      NSMutableArray *statusActive = [NSMutableArray array];
     for (int i = 0; i<[arrayWithNote count]; i++) {
         Note *nextNote = [arrayWithNote objectAtIndex:i];
-    //for (Note *nextNote in self.arrayNotes) {
         
         if ([nextNote.statusPause boolValue]) { // или не statusComplete, но дата прошла
             [statusPause addObject:nextNote];
@@ -148,7 +161,7 @@ CGFloat NotesDataSourceHeightForRow;
     if ([statusComplete count]) {
         [self.arrayNotes addObject:@{@"header_title":@"Выполненные", @"cells":statusComplete}];
     }
-   // [self.arrayNotes addObject:@{@"header_title":@"Активные", @"cells":statusActive}];
+ 
     
     
     
@@ -204,10 +217,115 @@ CGFloat NotesDataSourceHeightForRow;
     
 }
 
+- (NSDate *)getNextDate:(NSDate *)toDate {
+    
+     NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
+    [offsetComponents setDay:1];
+    return [gregorian dateByAddingComponents:offsetComponents toDate:toDate options:0];
+}
+
 -(IBAction) segmentChanged:(UISegmentedControl*)sender{
     NSLog(@"segment changed to %@",
           [sender titleForSegmentAtIndex: [sender selectedSegmentIndex]]
           );
+    //for day and month
+    NSDate *currentDate = [NSDate date];
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    NSDateComponents* components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:currentDate];
+    
+    //for week
+    NSDate *nextDate = [self getNextDate:currentDate];
+    
+    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+    [dateFormat setDateFormat:@"d.M.yyyy;"];
+    
+    
+    NSString *stringDayWeek1 = [dateFormat stringFromDate:nextDate];
+    NSDate *dateString = [dateFormat dateFromString:stringDayWeek1];
+    NSString *stringDayWeek2 = [dateFormat stringFromDate:[self getNextDate:dateString]];
+    dateString = [dateFormat dateFromString:stringDayWeek2];
+    
+    NSString *stringDayWeek3 = [dateFormat stringFromDate:[self getNextDate:dateString]];
+    dateString = [dateFormat dateFromString:stringDayWeek3];
+    NSString *stringDayWeek4 = [dateFormat stringFromDate:[self getNextDate:dateString]];
+    dateString = [dateFormat dateFromString:stringDayWeek4];
+    NSString *stringDayWeek5 = [dateFormat stringFromDate:[self getNextDate:dateString]];
+    dateString = [dateFormat dateFromString:stringDayWeek5];
+    NSString *stringDayWeek6 = [dateFormat stringFromDate:[self getNextDate:dateString]];
+    dateString = [dateFormat dateFromString:stringDayWeek6];
+    NSString *stringDayWeek7 = [dateFormat stringFromDate:[self getNextDate:dateString]];
+    dateString = [dateFormat dateFromString:stringDayWeek7];
+    
+    
+   
+    
+    
+    /*
+    NSDateComponents *componentsWeek = [gregorian components:NSWeekdayCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:currentDate];
+    int dayofweek = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:currentDate] weekday];//current day of week
+    [components setDay:([components day] - ((dayofweek) - 2))];// for beginning of the week.
+    NSDate *beginningOfWeek = [gregorian dateFromComponents:componentsWeek];
+    NSDateFormatter *dateFormat_first = [[NSDateFormatter alloc] init];
+    [dateFormat_first setDateFormat:@"d.M.yyyy;"];
+    NSString *dateString2Prev = [dateFormat stringFromDate:beginningOfWeek];
+    NSDate *weekstartPrev = [dateFormat_first dateFromString:dateString2Prev];
+
+    NSCalendar *gregorianEnd = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *componentsEnd = [gregorianEnd components:NSWeekdayCalendarUnit | NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:currentDate];
+    int endDayOfWeek = [[[NSCalendar currentCalendar] components:NSWeekdayCalendarUnit fromDate:currentDate] weekday];//current day of week
+    [componentsEnd setDay:([componentsEnd day]+(7-endDayOfWeek)+1)];// for end day of the week
+    NSDate *endOfWeek = [gregorianEnd dateFromComponents:componentsEnd];
+    NSDateFormatter *dateFormat_End = [[NSDateFormatter alloc] init];
+    [dateFormat_End setDateFormat:@"d.M.yyyy;"];
+    NSString *dateEndPrev = [dateFormat stringFromDate:endOfWeek];
+    NSDate *weekEndPrev7 = [dateFormat_End dateFromString:dateEndPrev];
+    
+    
+    NSDateComponents *componentsYest = [gregorianEnd components: NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:currentDate];
+    [componentsEnd setDay:-1];
+    
+    NSDate *weekEndPrev6 = [[NSCalendar currentCalendar] dateByAddingComponents:componentsYest toDate:weekEndPrev7 options:0];
+    NSString *dateWeekEndPrev6 = [dateFormat stringFromDate:weekEndPrev6];
+    */
+
+
+    [components month];
+    [components day];
+    [components year];
+    if ([sender selectedSegmentIndex]==0) {
+        
+        NSString *match = [NSString stringWithFormat:@"*%ld.%ld.%ld;*",[components day],[components month],[components year]];
+        
+        predicateString = [NSPredicate predicateWithFormat:@"date like %@",match];
+        
+        
+    } else if([sender selectedSegmentIndex]==1) {
+        
+        NSString *match1 = [NSString stringWithFormat:@"*%@*",stringDayWeek1];
+        NSString *match2 = [NSString stringWithFormat:@"*%@*",stringDayWeek2];
+        NSString *match3 = [NSString stringWithFormat:@"*%@*",stringDayWeek3];
+        NSString *match4 = [NSString stringWithFormat:@"*%@*",stringDayWeek4];
+        NSString *match5 = [NSString stringWithFormat:@"*%@*",stringDayWeek5];
+        NSString *match6 = [NSString stringWithFormat:@"*%@*",stringDayWeek6];
+        NSString *match7 = [NSString stringWithFormat:@"*%@*",stringDayWeek7];
+        
+        predicateString = [NSPredicate predicateWithFormat:@"(date like %@) OR (date like %@) OR (date like %@) OR (date like %@) OR (date like %@) OR (date like %@) OR (date like %@)",match1,match2,match3,match4,match5,match6,match7];
+       
+    }
+    else if([sender selectedSegmentIndex]==2) {
+       
+        NSString *match = [NSString stringWithFormat:@"*.%ld.%ld;*",[components month],[components year]];
+        
+        predicateString = [NSPredicate predicateWithFormat:@"date like %@",match];
+
+    }
+    
+    else if ([sender selectedSegmentIndex]==3) {
+        
+        predicateString = nil;
+    }
+   [notesTableView setExtendedDataSource:[self getAllNotes]];
 }
 
 #pragma mark - UISearchBarDelegate
@@ -264,49 +382,14 @@ CGFloat NotesDataSourceHeightForRow;
     search_bar.delegate = self;
     [notesTableView setTableHeaderView:search_bar];
     
-    //[self getAllNotes];
-    //nea
-    /*
-    NSMutableArray* ara=[[NSMutableArray alloc]init];
-    
-    //temp
-    NSMutableArray* tableRows=nil;
-    tableRows=[[NSMutableArray alloc]init];
-    for(int i=0;i<5;i++){
-     [tableRows addObject:
-      [NSDictionary dictionaryWithObjectsAndKeys:[GLang getString:@"Notes.temp.place"],@"title",@"4",@"description_lines",@"UITableViewCellStyleSubtitle",@"style",[GLang getString:@"Notes.temp.descr"],@"description",@"arrow",@"type", @"NSLineBreakByWordWrapping",@"description_linebreak", nil]
-      ];
-    }
-    [ara addObject:@{ @"cells":tableRows}];
 
-    tableRows=[[NSMutableArray alloc]init];
-    for(int i=0;i<10;i++){
-        [tableRows addObject:
-         [NSDictionary dictionaryWithObjectsAndKeys:[GLang getString:@"Notes.temp.place"],@"title",@"4",@"description_lines",@"UITableViewCellStyleSubtitle",@"style",[GLang getString:@"Notes.temp.descr"],@"description",@"arrow",@"type", @"NSLineBreakByWordWrapping",@"description_linebreak", nil]
-         ];
-    }
-    [ara addObject:@{@"header_title":@"Выполненные", @"cells":tableRows}];
-
-    tableRows=[[NSMutableArray alloc]init];
-    for(int i=0;i<20;i++){
-        [tableRows addObject:
-         [NSDictionary dictionaryWithObjectsAndKeys:[GLang getString:@"Notes.temp.place"],@"title",@"4",@"description_lines",@"UITableViewCellStyleSubtitle",@"style",[GLang getString:@"Notes.temp.descr"],@"description",@"arrow",@"type", @"NSLineBreakByWordWrapping",@"description_linebreak", nil]
-         ];
-    }
-    [ara addObject:@{@"header_title":@"Экспиред", @"cells":tableRows}];
-     [notesTableView setExtendedDataSource: ara];
-
-    */
-    //end of temp
-    
-    
     [notesTableView setExtendedDataSource:[self getAllNotes]];
-    
-//    [segmentControl setTitle:[GLang getString:@"Notes.segments.here"]  forSegmentAtIndex:0];
+
     [segmentControl setTitle:[GLang getString:@"Notes.segments.today"]  forSegmentAtIndex:0];
     [segmentControl setTitle:[GLang getString:@"Notes.segments.week"]  forSegmentAtIndex:1];
     [segmentControl setTitle:[GLang getString:@"Notes.segments.month"]  forSegmentAtIndex:2];
     [segmentControl setTitle:[GLang getString:@"Notes.segments.all"]  forSegmentAtIndex:3];
+    [segmentControl setSelectedSegmentIndex:3];
     
     [self.navigationItem setTitle: [GLang getString:@"Notes.title"] ];
     [self.navigationItem.leftBarButtonItem setTitle: [GLang getString:@"Notes.edit"] ];

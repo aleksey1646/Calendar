@@ -18,7 +18,7 @@
 @end
 
 @implementation UIGCalendarMonthTmp
-@synthesize font,textColor,monthLabel,yearLabel;
+@synthesize font,textColor,monthLabel,previosYear;
 
 - (int) getCurrentMonth{
     return currentMonth;
@@ -282,7 +282,7 @@
     
     [monthLabel setText:
      [
-      NSString stringWithFormat:@"%@",                   //убрать год?
+      NSString stringWithFormat:@"%@",
      [NSString stringWithUTF8String:monthNames[month-1]]
      ]
      ];
@@ -294,8 +294,8 @@
     [components setYear: currentYear ];
     NSDate* d=[calendar dateFromComponents:components];
     components=[calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitMinute|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitWeekdayOrdinal|NSCalendarUnitWeekday fromDate: d];
-    NSRange days = [ calendar rangeOfUnit:NSDayCalendarUnit
-                                   inUnit:NSMonthCalendarUnit
+    NSRange days = [ calendar rangeOfUnit:NSCalendarUnitDay
+                                   inUnit:NSCalendarUnitMonth
                                   forDate:d];
     days_in_this_month=(int)days.length;
     
@@ -334,6 +334,7 @@
     [self setMonthLabel:[[UILabel alloc]initWithFrame:CGRectZero]];
     [self addSubview:monthLabel];
     [monthLabel setTextAlignment:NSTextAlignmentLeft];
+   
     [monthLabel setTextColor:[UIColor colorWithRed:1.0 green:0.2 blue:0.2 alpha:1]];
     [self setMonth:1 withYear:2015]; //last in init
     return self;
@@ -414,12 +415,13 @@
             int textInt=[wrstr intValue];
             CGFloat chd2;
             CGFloat cwd2;
-            if(textInt==9){
+            if(textInt<=9){
                 chd2=c9hd2;
                 cwd2=c9wd2;
             }else{//99
-                chd2=c99hd2;
-                cwd2=c99wd2;
+                
+               chd2=c99hd2;
+               cwd2=c99wd2;
             }
             
             if ([[labelDict objectForKey:@"selected"] boolValue]) {
@@ -427,19 +429,19 @@
                  NSDictionary* stringAttrsForSelect = @{ NSFontAttributeName : font, NSForegroundColorAttributeName : [UIColor whiteColor] };
                 NSAttributedString* attrStrForSelect = [[NSAttributedString alloc] initWithString: [labelDict objectForKey:@"text"] attributes:stringAttrsForSelect];
                 
-                CGRect borderRect = CGRectMake(fx, fy + 1.1, fw/1.1, fh/1.1);
+               // CGRect borderRect = CGRectMake(fx, fy + 1.1, fw/1.1, fh/1.1);
                 UIColor *color = [UIColor colorWithRed:76.0/255.0 green:217.0/255.0 blue:100.0/255.0 alpha:0.9];
                 CGContextSetFillColorWithColor(ctx, color.CGColor);
-                CGContextFillEllipseInRect (ctx, borderRect);
+                CGContextFillEllipseInRect (ctx, CGRectMake(fx, fy, fw, fw));
                 CGContextFillPath(ctx);
                 
+
                 [attrStrForSelect drawAtPoint:CGPointMake(fx+(fw/2)-cwd2,fy+(fh/2)-chd2)];
                 continue;
 
                 
             }
             
-            //NSLog(@"%@",)
             
             [attrStr drawAtPoint:CGPointMake(fx+(fw/2)-cwd2,fy+(fh/2)-chd2)];
         }

@@ -11,6 +11,7 @@
 #import "UIExtendedTableView.h"
 #import "AppDelegate.h"//???
 #import "Note.h"
+
 @interface EditCreateViewController : SubTabBarViewController<UITableViewDelegate,UIScrollViewDelegate,NSFetchedResultsControllerDelegate>{
     NSFetchedResultsController *fetchedResultsController;
    // NSManagedObjectContext *managedObjectContext;

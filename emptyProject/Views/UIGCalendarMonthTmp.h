@@ -34,8 +34,9 @@
 @property UIFont *font;
 @property UIColor* textColor;
 @property UILabel* monthLabel;
+@property (strong) NSNumber *previosYear;
 //yearLabel
-@property UILabel* yearLabel;
+//@property UILabel* yearLabel;
 
 
 @end

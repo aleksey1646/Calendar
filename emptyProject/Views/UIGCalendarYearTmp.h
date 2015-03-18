@@ -18,11 +18,12 @@
 @end
 
 @interface UIGCalendarYearTmp : UIView{
-    NSMutableArray* calendars;
+   // NSMutableArray* calendars;
     NSMutableArray* countYear;
     int currentYear;
 }
 
+@property NSMutableArray* calendars;
 - (void) setYear:(int)year;
 @property UILabel* yearLabel;
 @property UILabel* currentYearLabel;

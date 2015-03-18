@@ -21,6 +21,7 @@
 
 @interface NotesPageViewController : SubTabBarViewController <UISearchBarDelegate>
 {
+    NSPredicate *predicateString;
 }
 
 

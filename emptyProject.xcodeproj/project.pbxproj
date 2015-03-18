@@ -62,7 +62,9 @@
 		C8138E5D1AA0862E00E29839 /* AnalogClockDrawIntervalView.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E5C1AA0862E00E29839 /* AnalogClockDrawIntervalView.m */; };
 		C8138E601AA100AD00E29839 /* AnalogClockUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C8138E5F1AA100AD00E29839 /* AnalogClockUtils.m */; };
 		C8D9613E1A8B426000C81AEF /* CustomTapGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */; };
-		E100A8A61AA44DCF0008EBD9 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = E100A8A51AA44DCF0008EBD9 /* Note.m */; };
+		E100A8A91AA4A51E0008EBD9 /* CategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E100A8A81AA4A51E0008EBD9 /* CategoryTableViewController.m */; };
+		E100A8AC1AA4A7970008EBD9 /* URLNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E100A8AB1AA4A7970008EBD9 /* URLNetworkHelper.m */; };
+		E100A8AF1AA773CB0008EBD9 /* PlaceNoteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E100A8AE1AA773CB0008EBD9 /* PlaceNoteViewController.m */; };
 		E16D34671A98B708001928D8 /* ViewSelectedMonth.m in Sources */ = {isa = PBXBuildFile; fileRef = E16D34661A98B708001928D8 /* ViewSelectedMonth.m */; };
 		E1B4312E1A99FB620054AC47 /* TimeView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B4312D1A99FB620054AC47 /* TimeView.m */; };
 		E1B431371A9A4F980054AC47 /* AnalogDayClockView.m in Sources */ = {isa = PBXBuildFile; fileRef = E1B431361A9A4F980054AC47 /* AnalogDayClockView.m */; };
@@ -73,6 +75,7 @@
 		E1BD20B71A8F3CE100AD7DDE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1BD20B61A8F3CE100AD7DDE /* CoreData.framework */; };
 		E1BD20BA1A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E1BD20B81A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld */; };
 		E1BD20BE1A8F6CB900AD7DDE /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E1BD20BD1A8F6CB900AD7DDE /* DataManager.m */; };
+		E1FAA0EB1AAA128A003971F0 /* Note.m in Sources */ = {isa = PBXBuildFile; fileRef = E1FAA0EA1AAA128A003971F0 /* Note.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -176,8 +179,12 @@
 		C8138E5F1AA100AD00E29839 /* AnalogClockUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalogClockUtils.m; sourceTree = "<group>"; };
 		C8D9613C1A8B426000C81AEF /* CustomTapGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTapGestureRecognizer.h; sourceTree = "<group>"; };
 		C8D9613D1A8B426000C81AEF /* CustomTapGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTapGestureRecognizer.m; sourceTree = "<group>"; };
-		E100A8A41AA44DCF0008EBD9 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
-		E100A8A51AA44DCF0008EBD9 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
+		E100A8A71AA4A51E0008EBD9 /* CategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryTableViewController.h; sourceTree = "<group>"; };
+		E100A8A81AA4A51E0008EBD9 /* CategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryTableViewController.m; sourceTree = "<group>"; };
+		E100A8AA1AA4A7970008EBD9 /* URLNetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLNetworkHelper.h; sourceTree = "<group>"; };
+		E100A8AB1AA4A7970008EBD9 /* URLNetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLNetworkHelper.m; sourceTree = "<group>"; };
+		E100A8AD1AA773CB0008EBD9 /* PlaceNoteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceNoteViewController.h; sourceTree = "<group>"; };
+		E100A8AE1AA773CB0008EBD9 /* PlaceNoteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceNoteViewController.m; sourceTree = "<group>"; };
 		E16D34651A98B708001928D8 /* ViewSelectedMonth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewSelectedMonth.h; sourceTree = "<group>"; };
 		E16D34661A98B708001928D8 /* ViewSelectedMonth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewSelectedMonth.m; sourceTree = "<group>"; };
 		E1B4312C1A99FB620054AC47 /* TimeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeView.h; sourceTree = "<group>"; };
@@ -197,6 +204,9 @@
 		E1BD20B91A8F3D9E00AD7DDE /* emptyProject.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = emptyProject.xcdatamodel; sourceTree = "<group>"; };
 		E1BD20BC1A8F6CB900AD7DDE /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		E1BD20BD1A8F6CB900AD7DDE /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		E1FAA0E71AA8FF4F003971F0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E1FAA0E91AAA128A003971F0 /* Note.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Note.h; sourceTree = "<group>"; };
+		E1FAA0EA1AAA128A003971F0 /* Note.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Note.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +239,7 @@
 				C131A0161A596A2500AE323E /* NotesPageViewController.m */,
 				C131A0311A5ABD3B00AE323E /* SettingsViewController.h */,
 				C131A0321A5ABD3B00AE323E /* SettingsViewController.m */,
+				C131A0361A5AC6A400AE323E /* PlacesViewController.h */,
 				C131A0371A5AC6A400AE323E /* PlacesViewController.m */,
 				C131A0251A59BB6E00AE323E /* EditCreateViewController.h */,
 				C131A0261A59BB6E00AE323E /* EditCreateViewController.m */,
@@ -240,6 +251,10 @@
 				C199B28F1A6D680500B77253 /* SelectSoundViewController.m */,
 				C199B2911A6D6D6B00B77253 /* AccountViewController.h */,
 				C199B2921A6D6D6B00B77253 /* AccountViewController.m */,
+				E100A8A71AA4A51E0008EBD9 /* CategoryTableViewController.h */,
+				E100A8A81AA4A51E0008EBD9 /* CategoryTableViewController.m */,
+				E100A8AD1AA773CB0008EBD9 /* PlaceNoteViewController.h */,
+				E100A8AE1AA773CB0008EBD9 /* PlaceNoteViewController.m */,
 			);
 			name = pages;
 			sourceTree = "<group>";
@@ -260,6 +275,7 @@
 		C131A0301A5AA88500AE323E /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				E1FAA0E71AA8FF4F003971F0 /* MapKit.framework */,
 				E1BD20B61A8F3CE100AD7DDE /* CoreData.framework */,
 				C131A0341A5AC67200AE323E /* WebKit.framework */,
 				C1F720A31A583CDB00320D33 /* UIKit.framework */,
@@ -278,6 +294,8 @@
 				C131A03A1A5AF83C00AE323E /* GLocationProvider.m */,
 				C135BDB61A6BF83000A2559E /* GLang.h */,
 				C135BDB71A6BF83000A2559E /* GLang.m */,
+				E100A8AA1AA4A7970008EBD9 /* URLNetworkHelper.h */,
+				E100A8AB1AA4A7970008EBD9 /* URLNetworkHelper.m */,
 			);
 			name = Classess;
 			sourceTree = "<group>";
@@ -361,7 +379,6 @@
 				C131A0291A5A103500AE323E /* UIExtendedTableView.m */,
 				C1E7AB001A5C89F600AA7665 /* UIGCalendar.h */,
 				C1E7AB011A5C89F600AA7665 /* UIGCalendar.m */,
-				C131A0361A5AC6A400AE323E /* PlacesViewController.h */,
 				C1E7AB031A5EBF8600AA7665 /* UIGCalendarMonthTmp.h */,
 				C1E7AB041A5EBF8600AA7665 /* UIGCalendarMonthTmp.m */,
 				C1E7AB061A5EF62E00AA7665 /* UIGCalendarYearTmp.h */,
@@ -525,8 +542,8 @@
 			isa = PBXGroup;
 			children = (
 				E1BD20B81A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld */,
-				E100A8A41AA44DCF0008EBD9 /* Note.h */,
-				E100A8A51AA44DCF0008EBD9 /* Note.m */,
+				E1FAA0E91AAA128A003971F0 /* Note.h */,
+				E1FAA0EA1AAA128A003971F0 /* Note.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -649,17 +666,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				E1B431401A9A53340054AC47 /* AnalogClockView.m in Sources */,
+				E100A8A91AA4A51E0008EBD9 /* CategoryTableViewController.m in Sources */,
 				C8138E601AA100AD00E29839 /* AnalogClockUtils.m in Sources */,
 				C1E7AB081A5EF62E00AA7665 /* UIGCalendarYearTmp.m in Sources */,
 				C131A0171A596A2500AE323E /* NotesPageViewController.m in Sources */,
 				C131A0241A59B2AF00AE323E /* SubTabBarViewController.m in Sources */,
 				E1BD20BA1A8F3D9E00AD7DDE /* emptyProject.xcdatamodeld in Sources */,
+				E100A8AC1AA4A7970008EBD9 /* URLNetworkHelper.m in Sources */,
 				C131A02A1A5A103500AE323E /* UIExtendedTableView.m in Sources */,
 				C1E7AB021A5C89F600AA7665 /* UIGCalendar.m in Sources */,
 				C1E7AB051A5EBF8600AA7665 /* UIGCalendarMonthTmp.m in Sources */,
 				C131A0381A5AC6A400AE323E /* PlacesViewController.m in Sources */,
 				E1B4313A1A9A4FAD0054AC47 /* AnalogNightClockView.m in Sources */,
 				C8138E221A9B86A900E29839 /* Constants.m in Sources */,
+				E100A8AF1AA773CB0008EBD9 /* PlaceNoteViewController.m in Sources */,
 				C8138E1F1A9B85D100E29839 /* UIImage+Extensions.m in Sources */,
 				C131A0331A5ABD3B00AE323E /* SettingsViewController.m in Sources */,
 				C8138E5A1AA0844400E29839 /* ClockDrawIntervalBaseView.m in Sources */,
@@ -672,7 +692,6 @@
 				C8138E5D1AA0862E00E29839 /* AnalogClockDrawIntervalView.m in Sources */,
 				C1D871C01A5769A300B61429 /* AppDelegate.m in Sources */,
 				E1BD20BE1A8F6CB900AD7DDE /* DataManager.m in Sources */,
-				E100A8A61AA44DCF0008EBD9 /* Note.m in Sources */,
 				C135BDBB1A6C165400A2559E /* MainTabBarController.m in Sources */,
 				C131A02D1A5AA17C00AE323E /* MainNaviationController.m in Sources */,
 				C135BDB81A6BF83000A2559E /* GLang.m in Sources */,
@@ -689,6 +708,7 @@
 				C1D871BD1A5769A300B61429 /* main.m in Sources */,
 				E1B431371A9A4F980054AC47 /* AnalogDayClockView.m in Sources */,
 				C8138E321A9C73C900E29839 /* Utils.m in Sources */,
+				E1FAA0EB1AAA128A003971F0 /* Note.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -817,10 +837,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = emptyProject/CalendarPrefix.pch;
 				INFOPLIST_FILE = emptyProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -833,10 +854,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = emptyProject/CalendarPrefix.pch;
 				INFOPLIST_FILE = emptyProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

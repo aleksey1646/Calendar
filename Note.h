@@ -2,7 +2,7 @@
 //  Note.h
 //  emptyProject
 //
-//  Created by Katushka Mazalova on 02.03.15.
+//  Created by Katushka Mazalova on 06.03.15.
 //  Copyright (c) 2015 A.O. All rights reserved.
 //
 
@@ -23,7 +23,7 @@
 @property (nonatomic, retain) NSNumber * statusComplete;
 @property (nonatomic, retain) NSNumber * statusPause;
 @property (nonatomic, retain) NSString * textNote;
-@property (nonatomic, retain) NSDate * timeInterval;
+@property (nonatomic, retain) NSString * timeInterval;
 @property (nonatomic, retain) NSString * title;
 
 @end

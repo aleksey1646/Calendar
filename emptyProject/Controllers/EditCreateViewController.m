@@ -12,12 +12,16 @@
 #import "Note.h"
 #import "SelectDatesAndTimeController.h"
 #import "UIExtendedTableView.h"
+#import "CategoryTableViewController.h"
+#import "PlaceNoteViewController.h"
 
 @interface EditCreateViewController ()
 
 @property (weak) UITextView *textView;
 @property (weak) NoteTableViewCell *cell;
 @end
+
+
 
 @implementation EditCreateViewController
 
@@ -42,7 +46,28 @@
             [self.navigationController pushViewController:selectDatesAndTimeController animated:YES];
             
         }
+        if ([drow_ident isEqual:@"category"]) {
+            CategoryTableViewController *categoryController = [self.storyboard instantiateViewControllerWithIdentifier:@"CategoryTableViewControllerID"];
+            
+            categoryController.note = self.note;
+            
+            [self.navigationController pushViewController:categoryController animated:YES];
+            //CategoryTableViewControllerID
+        }
+        if ([drow_ident isEqual:@"place"]) {
+            
+             PlaceNoteViewController *placeController = [self.storyboard instantiateViewControllerWithIdentifier:@"PlaceWebViewViewControllerID"];
+            
+            placeController.note = self.note;
+            
+            [self.navigationController pushViewController:placeController animated:YES];
+            
+        }
+        
+       
+        
     }
+    
     
 }
 - (void) viewWillAppear:(BOOL)animated {
@@ -79,8 +104,37 @@
 //        if (self.note.textNote) {
 //            // указатель на текстовое поле и установка его в определенное значение
 //        }
+//        [self allNote];
+    }
+}
+#pragma mark - Get ALL in CoreData 
+
+- (void) allNote {
+    
+    NSFetchRequest* request = [[NSFetchRequest alloc]init];
+    
+    
+    NSEntityDescription* description = [NSEntityDescription entityForName:@"Note"
+                                                   inManagedObjectContext:self.managedObjectContext];
+    
+    
+    [request setEntity:description];
+    
+    NSError* error = nil;
+    
+    
+    NSMutableArray *array = [NSMutableArray array];
+    
+    array = [[self.managedObjectContext executeFetchRequest:request error:&error]mutableCopy];
+    NSLog(@"ALL NOTE IN COREDATA %@",array);
+    
+    if (error) {
+        
+        NSLog(@"ERROR! %@",[error localizedDescription]);
         
     }
+    
+    
 }
 
 -(void)doneButtonClicked:(id)sender{
@@ -123,8 +177,10 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error:" message:[error localizedDescription] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         NSLog(@"%@",[error localizedDescription]);
-    } else
+    } else {
+        [self.managedObjectContext save:&error];
     [self.navigationController popViewControllerAnimated:YES];
+    }
 
     NSLog(@"doneButtonClicked");
      
@@ -176,8 +232,9 @@
     
     [mainTab addObject:@{ @"header_title": [GLang getString:@"EditCreate.category.task" ],@"cells":
   [NSArray arrayWithObjects:
-   @{@"title": [GLang getString:@"EditCreate.place"], @"style":@"UITableViewCellStyleDefault",@"description":@"Auto",@"type":@"arrow"},
+   @{@"title": [GLang getString:@"EditCreate.place"], @"ident":@"place", @"style":@"UITableViewCellStyleDefault",@"description":@"Auto",@"type":@"arrow"},
    @{@"title": [GLang getString:@"EditCreate.date"], @"ident":@"date", @"style":@"UITableViewCellStyleDefault",@"description":@"Fixed",@"type":@"arrow"},
+    @{@"title": [GLang getString:@"EditCreate.category"], @"ident":@"category", @"style":@"UITableViewCellStyleDefault",@"description":@"Fixed",@"type":@"arrow"},
    
    nil]}];
     
