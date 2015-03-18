@@ -24,7 +24,7 @@
     [super layoutSubviews];
     
     if (!self.dayClock) {
-        AnalogNightClockView *dayClock = [[AnalogNightClockView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+        AnalogNightClockView *dayClock = [[AnalogNightClockView alloc] initWithFrame:CGRectMake(0, 0, 314, 314)];
         self.dayClock = dayClock;
         [dayClock setHours:6 minutes:0 seconds:45];
         

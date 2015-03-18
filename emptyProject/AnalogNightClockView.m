@@ -11,7 +11,7 @@
 
 @implementation AnalogNightClockView
 
-@synthesize hourArrow, minuteArrow, secondsArrow, centerPoint, drawIntervalView;
+@synthesize hourArrow, minuteArrow, secondsArrow, drawIntervalView, clockFace;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -33,29 +33,30 @@
     drawIntervalView = analogDrawInterval;
     [self addSubview:drawIntervalView];
     
+    
+    UIImage *clockfaceImage = [UIImage imageWithContentsOfResolutionIndependentFile:BundlePath(@"night_clockface.png")];
+    UIImageView *analogClockface = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 261, 266)];
+    analogClockface.layer.contents = (id)clockfaceImage.CGImage;
+    clockFace = analogClockface;
+    [self addSubview:analogClockface];
+    
     UIImage *hourImage = [UIImage imageWithContentsOfResolutionIndependentFile:BundlePath(@"night_hour_arrow.png")];
-    UIImageView *hArror = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 12, 109)];
+    UIImageView *hArror = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 8, 114)];
     hArror.layer.contents = (id)hourImage.CGImage;
     hourArrow = hArror;
     [self addSubview:hourArrow];
     
     UIImage *minuteImage = [UIImage imageWithContentsOfResolutionIndependentFile:BundlePath(@"night_minute_arrow.png")];
-    UIImageView *mArror = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 16, 168)];
+    UIImageView *mArror = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 11, 160)];
     mArror.layer.contents = (id)minuteImage.CGImage;
     minuteArrow = mArror;
     [self addSubview:minuteArrow];
     
     UIImage *secondsImage = [UIImage imageWithContentsOfResolutionIndependentFile:BundlePath(@"day_seconds_arrow.png")];
-    UIImageView *sArror = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 8, 149)];
+    UIImageView *sArror = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 8, 163)];
     sArror.layer.contents = (id)secondsImage.CGImage;
     secondsArrow = sArror;
     [self addSubview:secondsArrow];
-    
-    UIImage *centerPointImage = [UIImage imageWithContentsOfResolutionIndependentFile:BundlePath(@"day_center_point.png")];
-    UIImageView *cPoint = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 4, 5)];
-    cPoint.layer.contents = (id)centerPointImage.CGImage;
-    centerPoint = cPoint;
-    [self addSubview:cPoint];
 }
 
 - (void)layoutSubviews
@@ -64,10 +65,10 @@
     
     CGPoint center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     
+    clockFace.center = center;
     hourArrow.center = center;
     minuteArrow.center = center;
     secondsArrow.center = center;
-    centerPoint.center = CGPointMake(center.x, center.y + 1);
     
 }
 

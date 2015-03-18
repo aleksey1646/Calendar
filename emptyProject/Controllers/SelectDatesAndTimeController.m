@@ -209,8 +209,10 @@
     [lineUnderCellTime setFrame:rectForLineUnderTime];
     lineUnderCellTime.backgroundColor = [UIColor lightGrayColor];
 
-     CGRect cg_clock=CGRectMake( wleft ,lineUnderCellTime.frame.origin.y+lineBeforeCellTime.frame.size.height , width95p, cw.frame.size.height);
+//     CGRect cg_clock=CGRectMake( wleft ,lineUnderCellTime.frame.origin.y+lineBeforeCellTime.frame.size.height , width95p, cw.frame.size.height);
     
+    CGRect cg_clock=CGRectMake( wleft ,lineUnderCellTime.frame.origin.y+lineBeforeCellTime.frame.size.height , width95p, width95p);
+
     [_clockController.view setFrame: cg_clock ];
     
 

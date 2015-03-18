@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "ClockBaseView.h"
+#define etalonSize 307
+#define clockfaceSize CGSizeMake(261, 266)
+#define hourArrorSize CGSizeMake(8, 114)
+#define minuteArrorSize CGSizeMake(11, 160)
+#define secondsArrorSize CGSizeMake(8, 163)
 
 typedef enum : NSUInteger {
     AnalogClockDayType,
@@ -16,6 +21,7 @@ typedef enum : NSUInteger {
 
 @interface AnalogClockView : ClockBaseView
 
+@property (weak, readonly) UIImageView *clockFace;
 @property (weak, readonly) UIImageView *hourArrow;
 @property (weak, readonly) UIImageView *minuteArrow;
 @property (weak, readonly) UIImageView *secondsArrow;

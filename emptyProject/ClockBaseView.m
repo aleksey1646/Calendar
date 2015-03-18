@@ -12,7 +12,9 @@
 
 - (void)setHours:(int)hours minutes:(int)minutes seconds:(int)seconds
 {
-    
+    _time.hours = hours;
+    _time.minutes = minutes;
+    _time.seconds = seconds;
 }
 
 - (void)reset

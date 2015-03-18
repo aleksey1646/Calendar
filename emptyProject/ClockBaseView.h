@@ -16,5 +16,7 @@
 - (void)reset;
 
 @property (weak, readonly) ClockDrawIntervalBaseView *drawIntervalView;
+@property (assign, readonly) ClockTime time;
+
 
 @end
