@@ -86,12 +86,15 @@
     //Это учитывает диаметр. диаметр по экватору куда больше чем диаметр нашего региона. А эти пропорции вычислялись как отношение окружности с этим диаметром на 360 градусов
     
     //1 geg = 30m => 20 deg = 600m
+    //43.3 => 1300 m
     //0.000277777778
-    CLLocationDegrees latitude = lat+20*arcConvert*cos(0+45*[identifier integerValue]*M_PI/180);
-    CLLocationDegrees longitude = lon+20*arcConvert/cos(lat*M_PI/180)*sin(0+45*[identifier integerValue]*M_PI/180);
+//    CLLocationDegrees latitude = lat+20*arcConvert*cos(0+45*[identifier integerValue]*M_PI/180);
+//    CLLocationDegrees longitude = lon+20*arcConvert/cos(lat*M_PI/180)*sin(0+45*[identifier integerValue]*M_PI/180);
     
+    CLLocationDegrees latitude = lat+43.3*arcConvert*cos(0+45*[identifier integerValue]*M_PI/180);
+    CLLocationDegrees longitude = lon+43.3*arcConvert/cos(lat*M_PI/180)*sin(0+45*[identifier integerValue]*M_PI/180);
     
-    CLLocationDistance radius = 300;
+    CLLocationDistance radius = 600;
     
     CLRegion *targetRegion = [[CLCircularRegion alloc] initWithCenter:CLLocationCoordinate2DMake(latitude, longitude)
                                                                        radius:radius

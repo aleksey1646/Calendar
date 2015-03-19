@@ -12,7 +12,7 @@
 #define serverURL @"http://grope.io/"
 #define placesCommand @"api/places.php"
 #define circumferenceEarth 40075160
-#define mapRadius 14
+#define mapRadius 13
 #define inchMetres 0.0254
 #define arcConvert 0.000277777778
 

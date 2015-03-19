@@ -28,8 +28,8 @@
     
     AnalogClockDrawIntervalView *analogDrawInterval = [[AnalogClockDrawIntervalView alloc] init];
     analogDrawInterval.circleRadius = 110.0f;
-    analogDrawInterval.firstCircleColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.5];
-    analogDrawInterval.secondCircleColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.5];
+    analogDrawInterval.firstCircleColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.2];
+    analogDrawInterval.secondCircleColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
     drawIntervalView = analogDrawInterval;
     [self addSubview:drawIntervalView];
     

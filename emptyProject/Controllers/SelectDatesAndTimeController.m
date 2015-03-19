@@ -183,6 +183,7 @@
     
     CGRect rectForCellTime = CGRectMake(0, 0, cw.frame.size.width, 40.0);
     [cellWithSwitchTime setFrame:rectForCellTime];
+    cellWithSwitchTime.backgroundColor = [UIColor whiteColor];
    
 
     CGRect rectForTextLabel = CGRectMake(widthleft, 0, cellWithSwitchTime.frame.size.width/2, cellWithSwitchTime.frame.size.height);
@@ -191,7 +192,7 @@
     [textLabelTime setTextAlignment:NSTextAlignmentLeft];
     [textLabelTime setFont:[UIFont fontWithName:@"HelveticaNeueCyr-Light" size:(24.0)]];
   
-    
+    textLabelTime.textColor = [UIColor blackColor];
    
     CGRect rectForSwitch = CGRectMake(cw.frame.size.width-switchView.frame.size.width - widthleft,5, switchView.frame.size.width, switchView.frame.size.height);
     [switchView setFrame:rectForSwitch];
@@ -211,8 +212,8 @@
 
 //     CGRect cg_clock=CGRectMake( wleft ,lineUnderCellTime.frame.origin.y+lineBeforeCellTime.frame.size.height , width95p, cw.frame.size.height);
     
-    CGRect cg_clock=CGRectMake( wleft ,lineUnderCellTime.frame.origin.y+lineBeforeCellTime.frame.size.height , width95p, width95p);
-
+    CGRect cg_clock=CGRectMake( wleft ,lineUnderCellTime.frame.origin.y+lineBeforeCellTime.frame.size.height , width95p, cw.frame.size.height);
+    
     [_clockController.view setFrame: cg_clock ];
     
 
@@ -238,13 +239,14 @@
     UIColor *color = [notification.userInfo objectForKey:ClockControllerBackgroundColorUserInfoKey];
     self.view.backgroundColor = color;
     cw.backgroundColor = color;
-    cellWithSwitchTime.backgroundColor = color;
-    if ([color isEqual:[UIColor blackColor]]) {
-        textLabelTime.textColor = [UIColor whiteColor];
-    } else {
-        textLabelTime.textColor = [UIColor blackColor];
-    }
-        
+  //  cellWithSwitchTime.backgroundColor = [UIColor whiteColor];
+//    if ([color isEqual:[UIColor blackColor]]) {
+//        
+//        textLabelTime.textColor = [UIColor whiteColor];
+//    } else {
+//        textLabelTime.textColor = [UIColor blackColor];
+//    }
+    
       
     
     
