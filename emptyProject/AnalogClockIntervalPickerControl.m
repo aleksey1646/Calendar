@@ -11,8 +11,8 @@
 #import "Utils.h"
 #define chekingIntervalMinutes 5
 
-
 #define countTwentyHoursFullCircles 2
+#define rangeOfMeasurementError 2
 
 @interface AnalogClockIntervalPickerControl ()
 {
@@ -43,8 +43,8 @@
     
     //Calculate time with current time
     ClockTime startTime = [AnalogClockUtils convertAngleToTime:startDegrees];
-    NSTimeInterval additionalSecondsForCurrentTimeZone = [Utils currentTimeZone];
-    
+//    NSTimeInterval additionalSecondsForCurrentTimeZone = [Utils currentTimeZone];
+//    
 //    NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970] + additionalSecondsForCurrentTimeZone;
 //    int hours = ((int)(currentTime/60/60))%24;
 //    if (hours >= 12) {
@@ -69,16 +69,29 @@
     
     
     float currentDegrees = [self pointPairToBearingDegrees:center secondPoint:touchLocation];
+
+    
     float differenceBetweenDegrees = currentDegrees - previousDegrees;
+    
     if (fabs(differenceBetweenDegrees) >= 300) {
         differenceBetweenDegrees = fabs(differenceBetweenDegrees) - 360;
     }
     
-    
     tempCurrentDegrees += differenceBetweenDegrees;
+
+//    NSLog(@"\nstart degrees %f, \nend degrees: %f, \ncurrent degrees: %f, \nprevious degrees: %f, \ndifference: %f, \ntempCurrentDeegres degrees: %f", startDegrees, endDegrees, currentDegrees, previousDegrees, differenceBetweenDegrees, tempCurrentDegrees);
+
     previousDegrees = currentDegrees;
     
-    /* Calculate edges to degrees*/
+    
+ 
+    tempCurrentDegrees = [self correctCommonDegrees:tempCurrentDegrees
+                                       startDegrees:startDegrees
+                                     currentDegrees:currentDegrees
+                                   measurementError:rangeOfMeasurementError];
+    
+
+//     Calculate edges to degrees
     if (tempCurrentDegrees < 0) {
         endDegrees = 0;
     } else
@@ -95,9 +108,9 @@
     
     self.isAM = (sumTimes.hours < 12);
     
-//    NSLog(@"start degrees %f, current degrees: %f", startDegrees, endDegrees);
 
     [super touchesMoved:touches withEvent:event];
+    
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -114,6 +127,30 @@
     startDegrees = 0;
     endDegrees = 0;
     [super touchesEnded:touches withEvent:event];
+}
+
+/* Sometimes we have not correct common angle, we have some measurementError then we are calculating new angle*/
+- (float)correctCommonDegrees:(float)comDegrees
+                 startDegrees:(float)stDegrees
+               currentDegrees:(float)currDegrees
+             measurementError:(int)measurementError
+{
+    float degreesCommon = comDegrees + stDegrees;
+    float degreesCommonDiv360 = degreesCommon - floor(degreesCommon/360)*360;
+    float degreesCurrent = currDegrees;
+//    NSLog(@"commonDiv360 %f common %f current %f ", degreesCommonDiv360, degreesCommon, degreesCurrent);
+    float differences = fabs(fabs(degreesCurrent) - fabs(degreesCommonDiv360));
+    
+    if (differences > measurementError && differences < 300)
+    {
+        if(degreesCommon > 360)
+        {
+            return currDegrees - stDegrees + floor(degreesCommon/360)*360;
+        } else
+            return currDegrees - stDegrees;
+    }
+    
+    return comDegrees;
 }
 
 - (CGFloat)pointPairToBearingDegrees:(CGPoint)startingPoint secondPoint:(CGPoint)endingPoint

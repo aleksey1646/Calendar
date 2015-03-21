@@ -57,6 +57,8 @@
     sArror.layer.contents = (id)secondsImage.CGImage;
     secondsArrow = sArror;
     [self addSubview:secondsArrow];
+    
+    self.clockType = AnalogClockNightType;
 }
 
 - (void)layoutSubviews

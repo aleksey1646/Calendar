@@ -26,6 +26,8 @@ NSString *const ClockControllerBackgroundColorUserInfoKey = @"ClockControllerBac
 @property (assign) NSTimeInterval initialTimeInterval;
 // CPU ticks since the last reboot in seconds
 @property (assign) NSTimeInterval initialTimeIntervalWithoutRebootSystem;
+@property (strong) AnalogDayClockView *dayClockView;
+@property (strong) AnalogNightClockView *nightClockView;
 
 @end
 
@@ -61,7 +63,7 @@ NSString *const ClockControllerBackgroundColorUserInfoKey = @"ClockControllerBac
     
     [_clockContainer setIntervalPikerControl:intervalPickerControl];
     [intervalPickerControl addTarget:self action:@selector(intervalPickerControlClicked:)
-                    forControlEvents:UIControlEventTouchUpInside];
+                    forControlEvents:UIControlEventTouchDown];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:timerUpdateInterval
                                                   target:self
@@ -107,23 +109,30 @@ NSString *const ClockControllerBackgroundColorUserInfoKey = @"ClockControllerBac
 {
     AnalogClockView *analogClock = nil;
     
+    if (!_nightClockView) {
+        _nightClockView = [[AnalogNightClockView alloc] init];
+    }
+    if (!_dayClockView) {
+        _dayClockView = [[AnalogDayClockView alloc] init];
+    }
+    
+    
     int hours = ((int)(self.initialTimeInterval/60/60))%24;
     if (hours>=12)
     {
-        analogClock = [[AnalogNightClockView alloc] init];
-        analogClock.clockType = AnalogClockNightType;
+        analogClock = _nightClockView;
         _clockContainer.intervalPikerControl.isAM = NO;
         //_clockContainer.backgroundColor = [UIColor darkGrayColor];
         _clockContainer.backgroundColor = [UIColor blackColor];
         _clockContainer.labelTimeInterval.textColor = [UIColor whiteColor];
     } else
     {
-        analogClock = [[AnalogDayClockView alloc] init];
-        analogClock.clockType = AnalogClockDayType;
+        analogClock = _dayClockView;
         _clockContainer.intervalPikerControl.isAM = YES;
         _clockContainer.backgroundColor = [UIColor whiteColor];
         _clockContainer.labelTimeInterval.textColor = [UIColor blackColor];
     }
+    
     [_clockContainer setClockView:analogClock];
     
      [self timerUpdate];
@@ -189,16 +198,14 @@ NSString *const ClockControllerBackgroundColorUserInfoKey = @"ClockControllerBac
         if (toTime.hours >=12 &&
             analogClockView.clockType == AnalogClockDayType)
         {
-            analogClockView = [[AnalogNightClockView alloc] init];
-            analogClockView.clockType = AnalogClockNightType;
+            analogClockView = _nightClockView;
             [_clockContainer setClockView:analogClockView];
             _clockContainer.backgroundColor = [UIColor blackColor];
             _clockContainer.labelTimeInterval.textColor = [UIColor whiteColor];
         } else if (toTime.hours <12 &&
                    analogClockView.clockType == AnalogClockNightType)
         {
-            analogClockView = [[AnalogDayClockView alloc] init];
-            analogClockView.clockType = AnalogClockDayType;
+            analogClockView = _dayClockView;
             [_clockContainer setClockView:analogClockView];
             _clockContainer.backgroundColor = [UIColor whiteColor];
             _clockContainer.labelTimeInterval.textColor = [UIColor blackColor];

@@ -107,6 +107,8 @@
     secondsArrow = sArror;
     [self addSubview:secondsArrow];
     
+    self.clockType = AnalogClockDayType;
+
 }
 
 - (void)layoutSubviews
