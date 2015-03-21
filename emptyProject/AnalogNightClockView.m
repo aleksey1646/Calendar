@@ -27,7 +27,6 @@
     self.layer.contents = (id)[UIImage imageWithContentsOfResolutionIndependentFile:BundlePath(@"night_clock_bg.png")].CGImage;
     
     AnalogClockDrawIntervalView *analogDrawInterval = [[AnalogClockDrawIntervalView alloc] init];
-    analogDrawInterval.circleRadius = 110.0f;
     analogDrawInterval.firstCircleColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.2];
     analogDrawInterval.secondCircleColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
     drawIntervalView = analogDrawInterval;
@@ -62,6 +61,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    ((AnalogClockDrawIntervalView *)drawIntervalView).circleRadius = 115 * self.frame.size.height/etalonSize;
+
     
     CGPoint center = CGPointMake(self.frame.size.width/2, self.frame.size.height/2);
     
